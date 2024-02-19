@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{859DE1A9-17EA-429F-B426-B82D26C5E3F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommonAppClasses</RootNamespace>
+    <AssemblyName>CommonAppClasses</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Data.AdoDotNetInterop, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WSGBaseClassLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WSGBaseClassLibrary\bin\Debug\WSGBaseClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="WSGUtilitieslib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WSGUtilitieslib\WSGUtilitieslib\bin\Debug\WSGUtilitieslib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CommonBusinessClasses.cs" />
+    <Compile Include="customer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>customer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCoverSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCoverSelector.designer.cs">
+      <DependentUpon>FrmCoverSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetCustomer.designer.cs">
+      <DependentUpon>FrmGetCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetDate.designer.cs">
+      <DependentUpon>FrmGetDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetIcitem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetIcitem.designer.cs">
+      <DependentUpon>FrmGetIcitem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetInput.designer.cs">
+      <DependentUpon>FrmGetInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetLinkCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetLinkCode.designer.cs">
+      <DependentUpon>FrmGetLinkCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetLocation.designer.cs">
+      <DependentUpon>FrmGetLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetPrshead.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetPrshead.designer.cs">
+      <DependentUpon>FrmGetPrshead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetRuleDescrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetRuleDescrip.designer.cs">
+      <DependentUpon>FrmGetRuleDescrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetShipToAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetShipToAddress.designer.cs">
+      <DependentUpon>FrmGetShipToAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetSono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetSono.Designer.cs">
+      <DependentUpon>FrmGetSono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetSpacing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetSpacing.designer.cs">
+      <DependentUpon>FrmGetSpacing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetText.designer.cs">
+      <DependentUpon>FrmGetText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetTrackingCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetTrackingCode.designer.cs">
+      <DependentUpon>FrmGetTrackingCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetTwoDates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetTwoDates.designer.cs">
+      <DependentUpon>FrmGetTwoDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetUser.designer.cs">
+      <DependentUpon>FrmGetUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGetWorkgroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGetWorkgroup.designer.cs">
+      <DependentUpon>FrmGetWorkgroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMaintainComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMaintainComment.designer.cs">
+      <DependentUpon>frmMaintainComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRouteStepComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRouteStepComment.Designer.cs">
+      <DependentUpon>FrmRouteStepComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelector.Designer.cs">
+      <DependentUpon>FrmSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectPriceCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectPriceCode.Designer.cs">
+      <DependentUpon>FrmSelectPriceCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSoDupes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSoDupes.Designer.cs">
+      <DependentUpon>FrmSoDupes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSOSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSOSearch.designer.cs">
+      <DependentUpon>FrmSOSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSoTrackingActivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSoTrackingActivity.Designer.cs">
+      <DependentUpon>FrmSoTrackingActivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWSGDocumentViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWSGDocumentViewer.Designer.cs">
+      <DependentUpon>FrmWSGDocumentViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="incidentds.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>incidentds.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="inspection.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="inventoryds.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>inventoryds.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="item.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>item.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="meycopro60datadataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>meycopro60datadataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="meycosystemdatadataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>meycosystemdatadataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="order.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>order.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="orderrpt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>orderrpt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="price.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>price.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="quote.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>quote.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="quoterpt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>quoterpt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="reference.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>reference.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SoSearchInf.cs" />
+    <Compile Include="system.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>system.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="tracking.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tracking.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vfpapplication.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vfpapplication.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VFPClasses.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="customer.xsc">
+      <DependentUpon>customer.xsd</DependentUpon>
+    </None>
+    <None Include="customer.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>customer.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="customer.xss">
+      <DependentUpon>customer.xsd</DependentUpon>
+    </None>
+    <None Include="incidentds.xsc">
+      <DependentUpon>incidentds.xsd</DependentUpon>
+    </None>
+    <None Include="incidentds.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>incidentds.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="incidentds.xss">
+      <DependentUpon>incidentds.xsd</DependentUpon>
+    </None>
+    <None Include="inspection.xsc">
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </None>
+    <None Include="inspection.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>inspection.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="inspection.xss">
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </None>
+    <None Include="inventoryds.xsc">
+      <DependentUpon>inventoryds.xsd</DependentUpon>
+    </None>
+    <None Include="inventoryds.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>inventoryds.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="inventoryds.xss">
+      <DependentUpon>inventoryds.xsd</DependentUpon>
+    </None>
+    <None Include="item.xsc">
+      <DependentUpon>item.xsd</DependentUpon>
+    </None>
+    <None Include="item.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>item.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="item.xss">
+      <DependentUpon>item.xsd</DependentUpon>
+    </None>
+    <None Include="meycopro60datadataset.xsc">
+      <DependentUpon>meycopro60datadataset.xsd</DependentUpon>
+    </None>
+    <None Include="meycopro60datadataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>meycopro60datadataset.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="meycopro60datadataset.xss">
+      <DependentUpon>meycopro60datadataset.xsd</DependentUpon>
+    </None>
+    <None Include="meycosystemdatadataset.xsc">
+      <DependentUpon>meycosystemdatadataset.xsd</DependentUpon>
+    </None>
+    <None Include="meycosystemdatadataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>meycosystemdatadataset.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="meycosystemdatadataset.xss">
+      <DependentUpon>meycosystemdatadataset.xsd</DependentUpon>
+    </None>
+    <None Include="order.xsc">
+      <DependentUpon>order.xsd</DependentUpon>
+    </None>
+    <None Include="order.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>order.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="order.xss">
+      <DependentUpon>order.xsd</DependentUpon>
+    </None>
+    <None Include="orderrpt.xsc">
+      <DependentUpon>orderrpt.xsd</DependentUpon>
+    </None>
+    <None Include="orderrpt.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>orderrpt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="orderrpt.xss">
+      <DependentUpon>orderrpt.xsd</DependentUpon>
+    </None>
+    <None Include="price.xsc">
+      <DependentUpon>price.xsd</DependentUpon>
+    </None>
+    <None Include="price.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>price.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="price.xss">
+      <DependentUpon>price.xsd</DependentUpon>
+    </None>
+    <None Include="quote.xsc">
+      <DependentUpon>quote.xsd</DependentUpon>
+    </None>
+    <None Include="quote.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>quote.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quote.xss">
+      <DependentUpon>quote.xsd</DependentUpon>
+    </None>
+    <None Include="quoterpt.xsc">
+      <DependentUpon>quoterpt.xsd</DependentUpon>
+    </None>
+    <None Include="quoterpt.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>quoterpt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quoterpt.xss">
+      <DependentUpon>quoterpt.xsd</DependentUpon>
+    </None>
+    <None Include="reference.xsc">
+      <DependentUpon>reference.xsd</DependentUpon>
+    </None>
+    <None Include="reference.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>reference.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="reference.xss">
+      <DependentUpon>reference.xsd</DependentUpon>
+    </None>
+    <None Include="system.xsc">
+      <DependentUpon>system.xsd</DependentUpon>
+    </None>
+    <None Include="system.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>system.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="system.xss">
+      <DependentUpon>system.xsd</DependentUpon>
+    </None>
+    <None Include="tracking.xsc">
+      <DependentUpon>tracking.xsd</DependentUpon>
+    </None>
+    <None Include="tracking.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>tracking.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tracking.xss">
+      <DependentUpon>tracking.xsd</DependentUpon>
+    </None>
+    <None Include="vfpapplication.xsc">
+      <DependentUpon>vfpapplication.xsd</DependentUpon>
+    </None>
+    <None Include="vfpapplication.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>vfpapplication.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vfpapplication.xss">
+      <DependentUpon>vfpapplication.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmCoverSelector.resx">
+      <DependentUpon>FrmCoverSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetCustomer.resx">
+      <DependentUpon>FrmGetCustomer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetDate.resx">
+      <DependentUpon>FrmGetDate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetIcitem.resx">
+      <DependentUpon>FrmGetIcitem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetInput.resx">
+      <DependentUpon>FrmGetInput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetLinkCode.resx">
+      <DependentUpon>FrmGetLinkCode.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetLocation.resx">
+      <DependentUpon>FrmGetLocation.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetPrshead.resx">
+      <DependentUpon>FrmGetPrshead.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetRuleDescrip.resx">
+      <DependentUpon>FrmGetRuleDescrip.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetShipToAddress.resx">
+      <DependentUpon>FrmGetShipToAddress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetSono.resx">
+      <DependentUpon>FrmGetSono.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetSpacing.resx">
+      <DependentUpon>FrmGetSpacing.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetText.resx">
+      <DependentUpon>FrmGetText.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetTrackingCode.resx">
+      <DependentUpon>FrmGetTrackingCode.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetTwoDates.resx">
+      <DependentUpon>FrmGetTwoDates.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetUser.resx">
+      <DependentUpon>FrmGetUser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGetWorkgroup.resx">
+      <DependentUpon>FrmGetWorkgroup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMaintainComment.resx">
+      <DependentUpon>frmMaintainComment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRouteStepComment.resx">
+      <DependentUpon>FrmRouteStepComment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelector.resx">
+      <DependentUpon>FrmSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectPriceCode.resx">
+      <DependentUpon>FrmSelectPriceCode.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSoDupes.resx">
+      <DependentUpon>FrmSoDupes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSOSearch.resx">
+      <DependentUpon>FrmSOSearch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSoTrackingActivity.resx">
+      <DependentUpon>FrmSoTrackingActivity.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWSGDocumentViewer.resx">
+      <DependentUpon>FrmWSGDocumentViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

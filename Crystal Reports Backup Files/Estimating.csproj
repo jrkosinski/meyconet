@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0564B748-1E32-4AA5-8625-166B1911449D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Estimating</RootNamespace>
+    <AssemblyName>Estimating</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>POINTmain.ICO</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WSGBaseClassLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WSGBaseClassLibrary\bin\Debug\WSGBaseClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="WSGUtilitieslib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WSGUtilitieslib\WSGUtilitieslib\bin\Debug\WSGUtilitieslib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CopyQuoteMethods.cs" />
+    <Compile Include="Estimate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Estimate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EstVFPPro60Class.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCoverSODocumentViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCoverSODocumentViewer.designer.cs">
+      <DependentUpon>FrmCoverSODocumentViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEstimateComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEstimateComment.designer.cs">
+      <DependentUpon>FrmEstimateComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInspVersionSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInspVersionSelector.designer.cs">
+      <DependentUpon>FrmInspVersionSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPDFGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPDFGenerator.Designer.cs">
+      <DependentUpon>FrmPDFGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPDFViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPDFViewer.designer.cs">
+      <DependentUpon>FrmPDFViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPoolOwnerData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPoolOwnerData.designer.cs">
+      <DependentUpon>FrmPoolOwnerData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProductSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProductSelector.designer.cs">
+      <DependentUpon>FrmProductSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectVersion.designer.cs">
+      <DependentUpon>FrmSelectVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSoHead.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSoHead.designer.cs">
+      <DependentUpon>FrmSoHead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityLabel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdentityLabel.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InfoRequest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InfoRequest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="inspection.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="measurement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>measurement.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PackingList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackingList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Estimate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Estimate.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCoverSODocumentViewer.resx">
+      <DependentUpon>FrmCoverSODocumentViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEstimateComment.resx">
+      <DependentUpon>FrmEstimateComment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInspVersionSelector.resx">
+      <DependentUpon>FrmInspVersionSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPDFGenerator.resx">
+      <DependentUpon>FrmPDFGenerator.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPDFViewer.resx">
+      <DependentUpon>FrmPDFViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPoolOwnerData.resx">
+      <DependentUpon>FrmPoolOwnerData.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProductSelector.resx">
+      <DependentUpon>FrmProductSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectVersion.resx">
+      <DependentUpon>FrmSelectVersion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSoHead.resx">
+      <DependentUpon>FrmSoHead.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentityLabel.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>IdentityLabel.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoRequest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InfoRequest.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Invoice.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="measurement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>measurement.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackingList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackingList.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RepairEstimate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RepairEstimate.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="replacement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>replacement.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SewnOnLabel.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SewnOnLabel.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkOrder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>WorkOrder.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="inspection.xsc">
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </None>
+    <None Include="inspection.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>inspection.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="inspection.xss">
+      <DependentUpon>inspection.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RepairEstimate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairEstimate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="replacement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>replacement.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SewnOnLabel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SewnOnLabel.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="soinformation.cs" />
+    <Compile Include="VersionSelector.cs" />
+    <Compile Include="WorkOrder.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkOrder.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonAppClasses\CommonAppClasses.csproj">
+      <Project>{859DE1A9-17EA-429F-B426-B82D26C5E3F2}</Project>
+      <Name>CommonAppClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.csproj">
+      <Project>{7E3B0191-35AE-41EA-8EDC-6EA0E3D101A8}</Project>
+      <Name>Inventory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="POINTmain.ICO" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
