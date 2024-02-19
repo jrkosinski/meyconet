@@ -1,0 +1,75 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="taxdata" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="taxdata" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cotaxtbl">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxdist" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="state" type="xs:string" minOccurs="0" />
+              <xs:element name="county" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="local1" type="xs:string" minOccurs="0" />
+              <xs:element name="local2" type="xs:string" minOccurs="0" />
+              <xs:element name="local3" type="xs:string" minOccurs="0" />
+              <xs:element name="federal" type="xs:string" minOccurs="0" />
+              <xs:element name="itemtype" type="xs:string" minOccurs="0" />
+              <xs:element name="taxlabel" type="xs:string" minOccurs="0" />
+              <xs:element name="gstlabel" type="xs:string" minOccurs="0" />
+              <xs:element name="taxnote" type="xs:string" minOccurs="0" />
+              <xs:element name="compound" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:boolean" minOccurs="0" />
+              <xs:element name="delmark" type="xs:boolean" minOccurs="0" />
+              <xs:element name="userchg" type="xs:string" minOccurs="0" />
+              <xs:element name="lastchg" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cotxrate">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="rateid" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inactive" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="taxtype" type="xs:string" minOccurs="0" />
+              <xs:element name="taxrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="itcacct" type="xs:string" minOccurs="0" />
+              <xs:element name="delmark" type="xs:boolean" minOccurs="0" />
+              <xs:element name="userchg" type="xs:string" minOccurs="0" />
+              <xs:element name="lastchg" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_taxdistrictrate">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxdist" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="state" type="xs:string" minOccurs="0" />
+              <xs:element name="county" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="local1" type="xs:string" minOccurs="0" />
+              <xs:element name="local2" type="xs:string" minOccurs="0" />
+              <xs:element name="local3" type="xs:string" minOccurs="0" />
+              <xs:element name="federal" type="xs:string" minOccurs="0" />
+              <xs:element name="itemtype" type="xs:string" minOccurs="0" />
+              <xs:element name="taxlabel" type="xs:string" minOccurs="0" />
+              <xs:element name="gstlabel" type="xs:string" minOccurs="0" />
+              <xs:element name="taxnote" type="xs:string" minOccurs="0" />
+              <xs:element name="compound" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:boolean" minOccurs="0" />
+              <xs:element name="delmark" type="xs:boolean" minOccurs="0" />
+              <xs:element name="userchg" type="xs:string" minOccurs="0" />
+              <xs:element name="lastchg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="taxrate" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

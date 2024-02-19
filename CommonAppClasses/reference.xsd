@@ -1,0 +1,285 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="reference" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="reference" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="quoverlap">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inches" type="xs:decimal" minOccurs="0" />
+              <xs:element name="feet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="quspacing">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="strpmult" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="qucolor">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="qumaterial">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="prcmatrl" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="capacitycalendar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="proddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="capacity" type="xs:int" minOccurs="0" />
+              <xs:element name="extrastockcapacity" type="xs:int" minOccurs="0" />
+              <xs:element name="stockbuffer" type="xs:int" minOccurs="0" />
+              <xs:element name="custombuffer" type="xs:int" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="productionunitschedule">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="effectivedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="level1price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level1units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level2price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level2units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level3price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level3units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level4price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level4units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level5price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level5units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level6price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level6units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level7price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level7units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level8price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level8units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level9price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level9units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level10price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level10units" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="level1buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level2buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level3buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level4buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level5buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level6buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level7buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level8buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level9buffer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="level10buffer" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_immasterdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="shortdescrip" type="xs:string" minOccurs="0" />
+              <xs:element name="item" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="prodclas" type="xs:string" minOccurs="0" />
+              <xs:element name="misccode" type="xs:string" minOccurs="0" />
+              <xs:element name="ecocode" type="xs:string" minOccurs="0" />
+              <xs:element name="stockum" type="xs:string" minOccurs="0" />
+              <xs:element name="buyum" type="xs:string" minOccurs="0" />
+              <xs:element name="buyconv" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sellum" type="xs:string" minOccurs="0" />
+              <xs:element name="sellconv" type="xs:decimal" minOccurs="0" />
+              <xs:element name="decimals" type="xs:decimal" minOccurs="0" />
+              <xs:element name="onhand" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stdcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="avgcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lastcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pricegrp" type="xs:string" minOccurs="0" />
+              <xs:element name="glinvtgr" type="xs:string" minOccurs="0" />
+              <xs:element name="itemtype" type="xs:string" minOccurs="0" />
+              <xs:element name="buyable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="makeable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="useable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="sellable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="stocking" type="xs:boolean" minOccurs="0" />
+              <xs:element name="taxable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="dropship" type="xs:boolean" minOccurs="0" />
+              <xs:element name="lotstat" type="xs:string" minOccurs="0" />
+              <xs:element name="snstat" type="xs:string" minOccurs="0" />
+              <xs:element name="upccode" type="xs:string" minOccurs="0" />
+              <xs:element name="weight" type="xs:decimal" minOccurs="0" />
+              <xs:element name="image1" type="xs:string" minOccurs="0" />
+              <xs:element name="image2" type="xs:string" minOccurs="0" />
+              <xs:element name="descr1" type="xs:string" minOccurs="0" />
+              <xs:element name="descr2" type="xs:string" minOccurs="0" />
+              <xs:element name="lotbased" type="xs:boolean" minOccurs="0" />
+              <xs:element name="trait1id" type="xs:string" minOccurs="0" />
+              <xs:element name="trait2id" type="xs:string" minOccurs="0" />
+              <xs:element name="trait3id" type="xs:string" minOccurs="0" />
+              <xs:element name="overage" type="xs:string" minOccurs="0" />
+              <xs:element name="shortage" type="xs:string" minOccurs="0" />
+              <xs:element name="misc01" type="xs:string" minOccurs="0" />
+              <xs:element name="misc02" type="xs:string" minOccurs="0" />
+              <xs:element name="misc03" type="xs:string" minOccurs="0" />
+              <xs:element name="misc04" type="xs:string" minOccurs="0" />
+              <xs:element name="misc05" type="xs:string" minOccurs="0" />
+              <xs:element name="misc06" type="xs:string" minOccurs="0" />
+              <xs:element name="misc07" type="xs:string" minOccurs="0" />
+              <xs:element name="misc08" type="xs:string" minOccurs="0" />
+              <xs:element name="misc09" type="xs:string" minOccurs="0" />
+              <xs:element name="misc10" type="xs:string" minOccurs="0" />
+              <xs:element name="note01" type="xs:string" minOccurs="0" />
+              <xs:element name="nextid" type="xs:decimal" minOccurs="0" />
+              <xs:element name="userid" type="xs:string" minOccurs="0" />
+              <xs:element name="timestmp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="delmark" type="xs:boolean" minOccurs="0" />
+              <xs:element name="userchg" type="xs:string" minOccurs="0" />
+              <xs:element name="lastchg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="prcdesc" type="xs:string" minOccurs="0" />
+              <xs:element name="pwidthft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pwidthin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="plenft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="plenin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cwidthft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cwidthin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="clenft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="clenin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stkstd" type="xs:string" minOccurs="0" />
+              <xs:element name="color" type="xs:string" minOccurs="0" />
+              <xs:element name="material" type="xs:string" minOccurs="0" />
+              <xs:element name="straps" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sqft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="custplan" type="xs:string" minOccurs="0" />
+              <xs:element name="spechard" type="xs:string" minOccurs="0" />
+              <xs:element name="prccom" type="xs:string" minOccurs="0" />
+              <xs:element name="esqft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ewidthft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ewidthin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="elenft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="elenin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pextlenft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pextlenin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pextwidft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pextwidin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prwcov" type="xs:decimal" minOccurs="0" />
+              <xs:element name="appldisc" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_quoverlapdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inches" type="xs:decimal" minOccurs="0" />
+              <xs:element name="feet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_quspacingdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="strpmult" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_qucolordata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_qumaterialdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="prcmatrl" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_shipdateprodunits">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ordate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="socount" type="xs:int" minOccurs="0" />
+              <xs:element name="produnits" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

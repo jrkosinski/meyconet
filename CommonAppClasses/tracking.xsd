@@ -1,0 +1,383 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="tracking" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="tracking" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="step">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="soclose" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="maxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="ondescrip" type="xs:string" minOccurs="0" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="sendftp" type="xs:boolean" minOccurs="0" />
+              <xs:element name="alertmessage" type="xs:string" minOccurs="0" />
+              <xs:element name="alertinterval" type="xs:int" minOccurs="0" />
+              <xs:element name="sendso" type="xs:string" minOccurs="0" />
+              <xs:element name="filetosend" type="xs:string" minOccurs="0" />
+              <xs:element name="printidentitylabel" type="xs:string" minOccurs="0" />
+              <xs:element name="printsewnonlabel" type="xs:string" minOccurs="0" />
+              <xs:element name="printinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="printworkorder" type="xs:string" minOccurs="0" />
+              <xs:element name="printpacklist" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="internalmail" type="xs:string" minOccurs="0" />
+              <xs:element name="inspection" type="xs:string" minOccurs="0" />
+              <xs:element name="oktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="mustbeinvoiced" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="route">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="route" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="custstep" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="custroutestep">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="custno" type="xs:string" minOccurs="0" />
+              <xs:element name="routestepid" type="xs:int" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workgroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workgroupstep">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="workgroupid" type="xs:int" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stepsubscriber">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="stepuserid" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="jtrak">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="comment" type="xs:string" minOccurs="0" />
+              <xs:element name="sono" type="xs:string" minOccurs="0" />
+              <xs:element name="seq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="shipped" type="xs:boolean" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="upstrack" type="xs:string" minOccurs="0" />
+              <xs:element name="sentmail" type="xs:boolean" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="trackdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cancelled" type="xs:boolean" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CODE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="appuser">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="username" type="xs:string" minOccurs="0" />
+              <xs:element name="passwd" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="userrole" type="xs:string" minOccurs="0" />
+              <xs:element name="userstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="userid" type="xs:string" minOccurs="0" />
+              <xs:element name="emailaddress" type="xs:string" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_routedata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="route" type="xs:int" minOccurs="0" />
+              <xs:element name="mustbeinvoiced" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="custstep" type="xs:string" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_expandedroutedata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="routecode" type="xs:string" minOccurs="0" />
+              <xs:element name="routename" type="xs:string" minOccurs="0" />
+              <xs:element name="fullroutestepname" type="xs:string" minOccurs="0" />
+              <xs:element name="routestepcode" type="xs:string" minOccurs="0" />
+              <xs:element name="routestepname" type="xs:string" minOccurs="0" />
+              <xs:element name="route" type="xs:int" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="custstep" type="xs:string" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_workgroupstepdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="workgroupid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_stepsubscriberdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="userid" type="xs:string" minOccurs="0" />
+              <xs:element name="username" type="xs:string" minOccurs="0" />
+              <xs:element name="emailaddress" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_solasttrackingdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sono" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="sentmail" type="xs:boolean" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="oktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="mustbeinvoiced" type="xs:string" minOccurs="0" />
+              <xs:element name="ondescrip" type="xs:string" minOccurs="0" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="sendso" type="xs:string" minOccurs="0" />
+              <xs:element name="sendftp" type="xs:boolean" minOccurs="0" />
+              <xs:element name="filetosend" type="xs:string" minOccurs="0" />
+              <xs:element name="alertinterval" type="xs:int" minOccurs="0" />
+              <xs:element name="alertmessage" type="xs:string" minOccurs="0" />
+              <xs:element name="internalmail" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="upstrack" type="xs:string" minOccurs="0" />
+              <xs:element name="trackdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="seq" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_customeralertdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sono" type="xs:string" minOccurs="0" />
+              <xs:element name="custno" type="xs:string" minOccurs="0" />
+              <xs:element name="invdte" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="invno" type="xs:string" minOccurs="0" />
+              <xs:element name="sodate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ordate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="shipvia" type="xs:string" minOccurs="0" />
+              <xs:element name="cshipno" type="xs:string" minOccurs="0" />
+              <xs:element name="fob" type="xs:string" minOccurs="0" />
+              <xs:element name="pterms" type="xs:string" minOccurs="0" />
+              <xs:element name="pdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pdays" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pnet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="salesdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ordamt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="shpamt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currship" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ponum" type="xs:string" minOccurs="0" />
+              <xs:element name="ornum" type="xs:string" minOccurs="0" />
+              <xs:element name="glarec" type="xs:string" minOccurs="0" />
+              <xs:element name="commid" type="xs:string" minOccurs="0" />
+              <xs:element name="salesmn" type="xs:string" minOccurs="0" />
+              <xs:element name="terr" type="xs:string" minOccurs="0" />
+              <xs:element name="maint" type="xs:string" minOccurs="0" />
+              <xs:element name="prtid" type="xs:string" minOccurs="0" />
+              <xs:element name="copyid" type="xs:string" minOccurs="0" />
+              <xs:element name="tosw" type="xs:string" minOccurs="0" />
+              <xs:element name="current" type="xs:string" minOccurs="0" />
+              <xs:element name="sostat" type="xs:string" minOccurs="0" />
+              <xs:element name="sotype" type="xs:string" minOccurs="0" />
+              <xs:element name="taxdist" type="xs:string" minOccurs="0" />
+              <xs:element name="taxsamt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxtbl" type="xs:string" minOccurs="0" />
+              <xs:element name="taxst" type="xs:string" minOccurs="0" />
+              <xs:element name="exempt" type="xs:boolean" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="lckdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lname" type="xs:string" minOccurs="0" />
+              <xs:element name="fname" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="state" type="xs:string" minOccurs="0" />
+              <xs:element name="zip" type="xs:string" minOccurs="0" />
+              <xs:element name="soterms" type="xs:string" minOccurs="0" />
+              <xs:element name="sdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="note1" type="xs:string" minOccurs="0" />
+              <xs:element name="note2" type="xs:string" minOccurs="0" />
+              <xs:element name="approved" type="xs:boolean" minOccurs="0" />
+              <xs:element name="printcount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="meycono" type="xs:string" minOccurs="0" />
+              <xs:element name="defloc" type="xs:string" minOccurs="0" />
+              <xs:element name="sentmail" type="xs:boolean" minOccurs="0" />
+              <xs:element name="orderby" type="xs:string" minOccurs="0" />
+              <xs:element name="enterqu" type="xs:string" minOccurs="0" />
+              <xs:element name="custid" type="xs:int" minOccurs="0" />
+              <xs:element name="oldplan" type="xs:string" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="subtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="depositreq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stockdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="standdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="commldisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="repldisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="repdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="shipdisc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upcharge" type="xs:decimal" minOccurs="0" />
+              <xs:element name="quconvert" type="xs:boolean" minOccurs="0" />
+              <xs:element name="produnits" type="xs:decimal" minOccurs="0" />
+              <xs:element name="company" type="xs:string" minOccurs="0" />
+              <xs:element name="soaddremail" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="emailquote" type="xs:string" minOccurs="0" />
+              <xs:element name="emailorder" type="xs:string" minOccurs="0" />
+              <xs:element name="emailinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="faxquote" type="xs:string" minOccurs="0" />
+              <xs:element name="faxorder" type="xs:string" minOccurs="0" />
+              <xs:element name="faxinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="source" type="xs:string" minOccurs="0" />
+              <xs:element name="faxno" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_latestsotrackingstepdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sono" type="xs:string" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="seq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="upstrack" type="xs:string" minOccurs="0" />
+              <xs:element name="inspection" type="xs:string" minOccurs="0" />
+              <xs:element name="alertinterval" type="xs:int" minOccurs="0" />
+              <xs:element name="alertmessage" type="xs:string" minOccurs="0" />
+              <xs:element name="ondescrip" type="xs:string" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="comment" type="xs:string" minOccurs="0" />
+              <xs:element name="trackdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RowNum" type="xs:long" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="invno" type="xs:string" minOccurs="0" />
+              <xs:element name="custno" type="xs:string" minOccurs="0" />
+              <xs:element name="sostat" type="xs:string" minOccurs="0" />
+              <xs:element name="sotype" type="xs:string" minOccurs="0" />
+              <xs:element name="lckstat" type="xs:string" minOccurs="0" />
+              <xs:element name="lckuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ponum" type="xs:string" minOccurs="0" />
+              <xs:element name="sodate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="meycono" type="xs:string" minOccurs="0" />
+              <xs:element name="ordate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lname" type="xs:string" minOccurs="0" />
+              <xs:element name="company" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="view_trackingstepdata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="trackdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcol" type="xs:int" minOccurs="0" />
+              <xs:element name="adddate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adduser" type="xs:string" minOccurs="0" />
+              <xs:element name="sono" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="comment" type="xs:string" minOccurs="0" />
+              <xs:element name="cancelled" type="xs:boolean" minOccurs="0" />
+              <xs:element name="stepid" type="xs:int" minOccurs="0" />
+              <xs:element name="seq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upstrack" type="xs:string" minOccurs="0" />
+              <xs:element name="sentmail" type="xs:boolean" minOccurs="0" />
+              <xs:element name="shipped" type="xs:boolean" minOccurs="0" />
+              <xs:element name="prevdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ondescrip" type="xs:string" minOccurs="0" />
+              <xs:element name="descrip" type="xs:string" minOccurs="0" />
+              <xs:element name="filetosend" type="xs:string" minOccurs="0" />
+              <xs:element name="sendftp" type="xs:boolean" minOccurs="0" />
+              <xs:element name="inspection" type="xs:string" minOccurs="0" />
+              <xs:element name="alertinterval" type="xs:int" minOccurs="0" />
+              <xs:element name="alertmessage" type="xs:string" minOccurs="0" />
+              <xs:element name="company" type="xs:string" minOccurs="0" />
+              <xs:element name="sodate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ponum" type="xs:string" minOccurs="0" />
+              <xs:element name="ordate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
