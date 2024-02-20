@@ -342,8 +342,8 @@ namespace Estimating
             {
                 this.SelectButton.Enabled = enabled;
                 this.DeleteButton.Enabled = enabled;
-                this.MaterialDropdown.Enabled = enabled;
-                this.ColorDropdown.Enabled = enabled;
+                this.MaterialDropdown.Enabled = enabled && this.Version.IsEditable;
+                this.ColorDropdown.Enabled = enabled && this.Version.IsEditable;
                 this.InternalCommentsButton.Enabled = enabled;
                 this.CustomerCommentsButton.Enabled = enabled;
                 this.EnableSave(this.IsDirty);
@@ -452,6 +452,7 @@ namespace Estimating
             public string Description { get; set; }
             public string Color { get; set; }
             public string Material { get; set; }
+            public bool Editable { get; set; }
 
             public CoverDto(quoterpt.view_soreportlinedataRow row)
             {
@@ -459,6 +460,7 @@ namespace Estimating
                 this.Color = row.color;
                 this.IdCol = row.idcol;
                 this.Material = row.material;
+                this.Editable = row.product.Trim().ToUpper() != "STOCK COVER";
             }
         }
 
@@ -468,6 +470,17 @@ namespace Estimating
             public List<CoverDto> Covers { get; private set; }
             public string InternalComments { get; private set; }
             public string CustomerComments { get; private set; }
+            public bool IsEditable {
+                get
+                {
+                    for(int n=0; n<this.Covers.Count; n++)
+                    {
+                        if (this.Covers[n].Editable)
+                            return true;
+                    }
+                    return false; 
+                } 
+            }
 
             public VersionDto()
             {
