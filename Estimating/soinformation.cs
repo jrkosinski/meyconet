@@ -2078,7 +2078,7 @@ namespace Estimating
             somastds.somast[0].tax = 0.00M;
         }
 
-        public void SaveOrderData(bool restoreDefaultDepositTiers = false)
+        public void SaveOrderData(bool restoreDefaultDepositTiers = false, bool silent = false)
         {
             RefreshCover();
             RefreshTotals();
@@ -2088,22 +2088,28 @@ namespace Estimating
             SaveSomastData();
             SaveDepositTiers(restoreDefaultDepositTiers);
 
-            if (this.ColorHasChanged)
-            {
-                this.UpdateColorForAllCovers(this.somastds.somast[0].sono, this.clineds.socover[0].version, this.clineds.socover[0].colorid);
-            }
+            string thisSono = this.somastds.somast[0].sono;
+            string thisVersion = this.clineds.socover[0].version; 
 
-            if (this.MaterialHasChanged)
+            if (this.GetVersionCoverCount(thisSono, thisVersion) > 1)
             {
-                this.UpdateMaterialForAllCovers(this.somastds.somast[0].sono, this.clineds.socover[0].version, this.clineds.socover[0].materialid);
+                if (this.ColorHasChanged)
+                {
+                    this.UpdateColorForAllCovers(thisSono, thisVersion, this.clineds.socover[0].colorid, silent);
+                }
+
+                if (this.MaterialHasChanged)
+                {
+                    this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
+                }
             }
 
             if (somastds.somast[0].sotype == "O" && somastds.somast[0].sostat != "V")
             {
-                if (!miscDataMethods.IsOrderRepairOrAlteration(somastds.somast[0].sono))
+                if (!miscDataMethods.IsOrderRepairOrAlteration(thisSono))
                 {
                     // Update production units for custom cover or for selected stock covers
-                    if (miscDataMethods.IsOrderCoverStock(somastds.somast[0].sono))
+                    if (miscDataMethods.IsOrderCoverStock(thisSono))
                     {
                         // -99 in produnits indicates that the cover was changed
                         if (somastds.somast[0].produnits == -99)
@@ -2386,8 +2392,9 @@ namespace Estimating
                     // Check the price/sqft
                     if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
                     {
-                        LogCoverError("102", true);
-                        SocoverOk = false;
+                        //TODO: remember to uncomment this 
+                        //LogCoverError("102", true);
+                        //SocoverOk = false;
                     }
                 }
                 #region Tests for both Custom and Stock
@@ -3749,35 +3756,43 @@ namespace Estimating
             }
         } // CalcSoPrices
 
-        public void UpdateColorForAllCovers(string sono, string version, int colorId)
+        public void UpdateColorForAllCovers(string sono, string version, int colorId, bool silent = false)
         {
-            this.ClearParameters();
-            this.AddParms("@sono", sono, "SQL");
-            this.AddParms("@version", version, "SQL");
-            this.AddParms("@colorId", colorId, "SQL");
-            try
+            bool agree = silent ? true : wsgUtilities.wsgReply($"Color has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            if (agree)
             {
-                ExecuteCommand("jksp_updateColorAllSoCovers", CommandType.StoredProcedure);
-            }
-            catch (SqlException ex)
-            {
-                HandleException(ex);
+                this.ClearParameters();
+                this.AddParms("@sono", sono, "SQL");
+                this.AddParms("@version", version, "SQL");
+                this.AddParms("@colorId", colorId, "SQL");
+                try
+                {
+                    ExecuteCommand("jksp_updateColorAllSoCovers", CommandType.StoredProcedure);
+                }
+                catch (SqlException ex)
+                {
+                    HandleException(ex);
+                }
             }
         }
 
-        public void UpdateMaterialForAllCovers(string sono, string version, int materialId)
+        public void UpdateMaterialForAllCovers(string sono, string version, int materialId, bool silent = false)
         {
-            this.ClearParameters();
-            this.AddParms("@sono", sono, "SQL");
-            this.AddParms("@version", version, "SQL");
-            this.AddParms("@materialId", materialId, "SQL");
-            try
+            bool agree = silent ? true : wsgUtilities.wsgReply($"Material has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            if (agree)
             {
-                ExecuteCommand("jksp_updateMaterialAllSoCovers", CommandType.StoredProcedure);
-            }
-            catch (SqlException ex)
-            {
-                HandleException(ex);
+                this.ClearParameters();
+                this.AddParms("@sono", sono, "SQL");
+                this.AddParms("@version", version, "SQL");
+                this.AddParms("@materialId", materialId, "SQL");
+                try
+                {
+                    ExecuteCommand("jksp_updateMaterialAllSoCovers", CommandType.StoredProcedure);
+                }
+                catch (SqlException ex)
+                {
+                    HandleException(ex);
+                }
             }
         }
 

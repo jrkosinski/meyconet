@@ -303,6 +303,7 @@
       <DependentUpon>replacement.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ScrollingPanel.cs" />
     <Compile Include="SewnOnLabel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -311,6 +312,7 @@
     </Compile>
     <Compile Include="soinformation.cs" />
     <Compile Include="VersionSelector.cs" />
+    <Compile Include="ScrollingVersionsPanel.cs" />
     <Compile Include="WorkOrder.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

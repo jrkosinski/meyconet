@@ -35,6 +35,8 @@ namespace Estimating
         private TrackingInf trackingInf = new TrackingInf("SQL", "SQLConnString");
         private BindingSource bindingFeatureSelector = new BindingSource();
 
+        public Soinf Soinf { get { return this.soinf; } }
+
         public FrmSOHead()
         {
             soinf.parentform = this;
@@ -929,7 +931,7 @@ namespace Estimating
                 }
                 // Save Order
                 soinf.somastds.somast[0].defloc = comboBoxLocation.SelectedItem.ToString();
-                soinf.SaveOrderData(this.checkBoxDefaultCustTiers.Checked);
+                soinf.SaveOrderData(this.checkBoxDefaultCustTiers.Checked, silent);
 
                 // Save the sono for PDF Creation
                 string saveSono = soinf.somastds.somast[0].sono;
@@ -943,7 +945,8 @@ namespace Estimating
                 // Check for mulitple covers. If there multiple covers, force selection
                 if (!silent && soinf.GetVersionCoverCount(saveSono, thisversion) > 1)
                 {
-                    if (wsgUtilities.wsgReply("There are other covers. Edit them?"))
+                    //TODO: decide if this shoould be left in or removed 
+                    //if (wsgUtilities.wsgReply("There are other covers. Edit them?"))
                     {
                         thiscover = miscDataMethods.GetSOVersionCover(saveSono, thisversion);
                     }
@@ -2258,7 +2261,7 @@ namespace Estimating
             }
         }
 
-        private void DeleteVersion(string version)
+        public void DeleteVersion(string version)
         {
             if (soinf.somastds.view_versiondata.Rows.Count != 0)
             {
@@ -3091,335 +3094,5 @@ namespace Estimating
             this.LoadVersionsList(true);
         }
 
-        private class ScrollingPanel
-        {
-            protected int _maxY = 0;
-            protected System.Windows.Forms.Panel _panel;
-            protected List<Panel> _subPanels = new List<Panel>();
-            protected System.Windows.Forms.Form _parentForm;
-
-            public int Count
-            {
-                get { return this._subPanels.Count; }
-            }
-
-            public bool Enabled
-            {
-                get { return this._panel.Enabled; }
-                set
-                {
-                    this._panel.Enabled = value;
-                    for(int n=0; n<this._subPanels.Count; n++)
-                    {
-                        this._subPanels[n].Enabled = value;
-                        foreach(Control ctl in this._subPanels[n].Controls)
-                        {
-                            ctl.Enabled = value;
-                        }
-                    }
-                }
-            }
-
-            public ScrollingPanel(Form parentForm, Panel panel)
-            {
-                this._panel = panel;
-                this._parentForm = parentForm;
-                this._panel.Enabled = true;
-            }
-
-
-            public virtual void Clear()
-            {
-                this._panel.Controls.Clear();
-                _maxY = 0;
-            }
-
-            public void AddSubPanel(System.Windows.Forms.Panel subPanel)
-            {
-                this._parentForm.Invoke((MethodInvoker)delegate
-                {
-                    subPanel.Location = new Point(0, this._maxY);
-                    this._maxY += subPanel.Height;
-                    this._panel.Controls.Add(subPanel);
-                    this._subPanels.Add(subPanel);
-                });
-            }
-        }
-
-        private class CoverDto
-        {
-            public int IdCol { get; private set; }
-            public string Description { get; set; }
-            public string Color { get; set; }
-            public string Material { get; set; }
-
-            public CoverDto(quoterpt.view_soreportlinedataRow row)
-            {
-                this.Description = row.descrip;
-                this.Color = row.color;
-                this.IdCol = row.idcol;
-                this.Material = row.material;
-            }
-        }
-
-        private class VersionDto
-        {
-            public string Version { get; set; }
-            public List<CoverDto> Covers { get; private set; }
-
-            public VersionDto()
-            {
-                this.Covers = new List<CoverDto>();
-            }
-
-            public VersionDto(string version, List<quoterpt.view_soreportlinedataRow> covers) : this()
-            {
-                this.Version = version;
-                foreach(var row in covers)
-                {
-                    this.Covers.Add(new CoverDto(row));
-                }
-            }
-        }
-
-        private class ScrollingVersionsPanel : ScrollingPanel
-        {
-            Dictionary<string, int> _versionsLookup = new Dictionary<string, int>();
-            List<VersionPanel> _versionPanels = new List<VersionPanel>(); 
-
-            public ScrollingVersionsPanel(Form parentForm, Panel panel) : base(parentForm, panel)
-            {  }
-
-            public void AddVersion(string version, List<quoterpt.view_soreportlinedataRow> covers)
-            {
-                VersionPanel subPanel = new VersionPanel((FrmSOHead)this._parentForm, new VersionDto(version, covers));
-
-                this.AddSubPanel(subPanel.Panel);
-                this._versionPanels.Add(subPanel);
-                this._versionsLookup.Add(version, this._versionPanels.Count - 1);
-            }
-
-            public void UpdateVersionCover(string version, string cover)
-            {
-                int index = this._versionsLookup.ContainsKey(version) ? this._versionsLookup[version] : -1;
-                if (index >= 0)
-                {
-                    this._versionPanels[index].UpdateUI(
-                        ((FrmSOHead)this._parentForm).soinf.clineds.socover[0].idcol,
-                        ((FrmSOHead)this._parentForm).soinf.clineds.socover[0].descrip,
-                        ((FrmSOHead)this._parentForm).soinf.clineds.socover[0].colorid,
-                        ((FrmSOHead)this._parentForm).soinf.clineds.socover[0].materialid
-                    );
-                }
-            }
-
-            public override void Clear()
-            {
-                base.Clear();
-                this._versionsLookup.Clear();
-                this._versionPanels.Clear();
-            }
-
-            public void Enable(bool enabled = true)
-            {
-                for (int n = 0; n < this._versionPanels.Count; n++)
-                {
-                    this._versionPanels[n].Enable(enabled);
-                }
-            }
-        }
-
-        private class DropdownItem
-        {
-            public int Value { get; private set; }
-            public string Display { get; private set; }
-
-            public DropdownItem(int value, string display)
-            {
-                this.Value = value;
-                this.Display = display;
-            }
-
-            public override string ToString()
-            {
-                return this.Display;
-            }
-        }
-
-
-        private class VersionPanel
-        {
-            public VersionDto Version { get; private set;}
-            public Panel Panel { get; private set; }
-            public Label NameLabel { get; private set; }
-            public Label DescLabel { get; private set; }
-            public Button SelectButton { get; private set; }
-            public Button DeleteButton { get; private set; }
-            public Button SaveButton { get; private set; }
-            public Button CancelButton { get; private set; }
-            public ComboBox ColorDropdown { get; private set; }
-            public ComboBox MaterialDropdown { get; private set; }
-
-            public VersionPanel(FrmSOHead parentForm, VersionDto version)
-            {
-                this.Panel = new Panel();
-                this.Version = version;
-
-                //label for version name 
-                this.NameLabel = new Label();
-                this.NameLabel.Text = $"Version {version.Version}";
-                this.NameLabel.Location = new System.Drawing.Point(10, 10);
-
-                //version description label 
-                this.DescLabel = new Label();
-                this.DescLabel.Text = $"{version.Covers[0].Description.Trim()} {version.Covers[0].Material.Trim()} {version.Covers[0].Color.Trim()}";
-                this.DescLabel.Size = new System.Drawing.Size(350, 23);
-                this.DescLabel.Location = new System.Drawing.Point(10, 35);
-
-                //select button 
-                this.SelectButton = new Button();
-                this.SelectButton.Text = "Select";
-                this.SelectButton.Location = new System.Drawing.Point(10, 60);
-                this.SelectButton.Enabled = true;
-
-                //delete button 
-                this.DeleteButton = new Button();
-                this.DeleteButton.Text = "Delete";
-                this.DeleteButton.Location = new System.Drawing.Point(90, 60);
-                this.DeleteButton.Enabled = true;
-
-                //save button 
-                this.SaveButton = new Button();
-                this.SaveButton.Text = "Save";
-                this.SaveButton.Location = new System.Drawing.Point(170, 60);
-                this.SaveButton.Enabled = true;
-
-                //cancel button 
-                this.CancelButton = new Button();
-                this.CancelButton.Text = "Cancel";
-                this.CancelButton.Location = new System.Drawing.Point(170, 90);
-                this.CancelButton.Enabled = true;
-
-                //colors listbox 
-                this.ColorDropdown = new ComboBox();
-                this.ColorDropdown.FormattingEnabled = true;
-                this.ColorDropdown.Location = new System.Drawing.Point(10, 90);
-                this.ColorDropdown.Name = "colorDropdown";
-                this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
-                this.ColorDropdown.TabIndex = 382;
-
-                foreach (var row in parentForm.soinf.soreferenceds.view_qucolordata)
-                {
-                    this.ColorDropdown.Items.Add(new DropdownItem(row.idcol, row.descrip.Trim()));
-                }
-                this.SelectColor(version.Covers[0].Color);
-
-                //materials listbox 
-                this.MaterialDropdown = new ComboBox();
-                this.MaterialDropdown.FormattingEnabled = true;
-                this.MaterialDropdown.Location = new System.Drawing.Point(90, 90);
-                this.MaterialDropdown.Name = "materialDropdown";
-                this.MaterialDropdown.Size = new System.Drawing.Size(76, 21);
-                this.MaterialDropdown.TabIndex = 382;
-
-                foreach (var row in parentForm.soinf.soreferenceds.view_qumaterialdata)
-                {
-                    this.MaterialDropdown.Items.Add(new DropdownItem(row.idcol, row.descrip.Trim()));
-                }
-                this.SelectMaterial(version.Covers[0].Material);
-
-                //select action 
-                this.SelectButton.Click += ((object sender, EventArgs e) =>
-                {
-                    parentForm.ProcessSo(version.Version, "");
-                });
-
-                //delete action 
-                this.DeleteButton.Click += ((object sender, EventArgs e) =>
-                {
-                    parentForm.DeleteVersion(version.Version);
-                });
-
-                this.Panel.Controls.Add(this.NameLabel);
-                this.Panel.Controls.Add(this.DescLabel);
-                this.Panel.Controls.Add(this.SelectButton);
-                this.Panel.Controls.Add(this.DeleteButton);
-                this.Panel.Controls.Add(this.ColorDropdown);
-                this.Panel.Controls.Add(this.MaterialDropdown);
-                this.Panel.Controls.Add(this.SaveButton);
-                this.Panel.Controls.Add(this.CancelButton);
-
-                this.Panel.Enabled = true;
-                this.Panel.Size = new Size(350, 120);
-            }
-
-            public void UpdateUI(int idcol, string descrip, int color, int material)
-            {
-                if (idcol == this.Version.Covers[0].IdCol)
-                    this.DescLabel.Text = descrip;
-
-                this.SelectColor(color);
-                this.SelectMaterial(material);
-            }
-
-            public void Enable(bool enabled = true)
-            {
-                this.SelectButton.Enabled = enabled;
-                this.DeleteButton.Enabled = enabled;
-                this.MaterialDropdown.Enabled = enabled;
-                this.ColorDropdown.Enabled = enabled;
-            }
-
-            public void EnableSave(bool enabled = true)
-            {
-                this.SaveButton.Enabled = enabled;
-                this.CancelButton.Enabled = enabled;
-            }
-
-            public void SelectColor(string color)
-            {
-                this.SelectDropdownItem(this.ColorDropdown, color);
-            }
-
-            public void SelectColor(int color)
-            {
-                this.SelectDropdownItem(this.ColorDropdown, color);
-            }
-
-            public void SelectMaterial(string material)
-            {
-                this.SelectDropdownItem(this.MaterialDropdown, material);
-            }
-
-            public void SelectMaterial(int material)
-            {
-                this.SelectDropdownItem(this.MaterialDropdown, material);
-            }
-
-            private void SelectDropdownItem(ComboBox dropdown, string display)
-            {
-                display = display.Trim();
-                for (int n = 0; n < dropdown.Items.Count; n++)
-                {
-                    if (((DropdownItem)dropdown.Items[n]).Display == display)
-                    {
-                        dropdown.SelectedIndex = n;
-                        break;
-                    }
-                }
-            }
-
-            private void SelectDropdownItem(ComboBox dropdown, int value)
-            {
-                for (int n = 0; n < dropdown.Items.Count; n++)
-                {
-                    if (((DropdownItem)dropdown.Items[n]).Value == value)
-                    {
-                        dropdown.SelectedIndex = n;
-                        break;
-                    }
-                }
-            }
-        }
     } // class
 }// namespace
