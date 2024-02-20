@@ -15,11 +15,17 @@ namespace Estimating
 {
     public class ScrollingVersionsPanel : ScrollingPanel
     {
+        private const int SUB_PANEL_WIDTH = 350;
+        private const int SUB_PANEL_HEIGHT = 150;
+
         Dictionary<string, int> _versionsLookup = new Dictionary<string, int>();
         List<VersionPanel> _versionPanels = new List<VersionPanel>();
+        private int _originalPanelWidth = 0;
 
         public ScrollingVersionsPanel(Form parentForm, Panel panel) : base(parentForm, panel)
-        { }
+        {
+            this._originalPanelWidth = panel.Width;
+        }
 
         public void AddVersion(string version, List<quoterpt.view_soreportlinedataRow> covers)
         {
@@ -59,6 +65,26 @@ namespace Estimating
             }
         }
 
+        public void Hide()
+        {
+            if (this._panel.Visible)
+            {
+                this._panel.Size = new Size(0, this._panel.Height);
+                this._panel.Visible = false;
+                this._parentForm.Size = new Size(this._parentForm.Width - SUB_PANEL_WIDTH, this._parentForm.Height);
+            }
+        }
+
+        public void Show()
+        {
+            if (!this._panel.Visible)
+            {
+                this._panel.Size = new Size(this._originalPanelWidth, this._panel.Height);
+                this._panel.Visible = true;
+                this._parentForm.Size = new Size(this._parentForm.Width + SUB_PANEL_WIDTH, this._parentForm.Height);
+            }
+        }
+
         private class VersionPanel
         {
             public VersionDto Version { get; private set; }
@@ -71,12 +97,18 @@ namespace Estimating
             public Button CancelButton { get; private set; }
             public ComboBox ColorDropdown { get; private set; }
             public ComboBox MaterialDropdown { get; private set; }
-            public bool IsDirty { 
-                get  {
+            public Button InternalCommentsButton { get; private set; }
+            public Button CustomerCommentsButton { get; private set; }
+            public TextBox InternalCommentsTextbox { get; private set; }
+            public TextBox CustomerCommentsTextbox { get; private set; }
+            public bool IsDirty {
+                get {
                     if (this.SelectedColor != null && this.SelectedMaterial != null)
                     {
                         return this.SelectedColor.Display != this.Version.Covers[0].Color.Trim() ||
-                            this.SelectedMaterial.Display != this.Version.Covers[0].Material.Trim();
+                            this.SelectedMaterial.Display != this.Version.Covers[0].Material.Trim() || 
+                            this.CustomerCommentsTextbox.Text != this.Version.CustomerComments || 
+                            this.InternalCommentsTextbox.Text != this.Version.InternalComments;
                     }
                     return false;
                 }
@@ -150,6 +182,8 @@ namespace Estimating
                     parentForm.ProcessSo(version.Version, "");
                     parentForm.Soinf.clineds.socover[0].colorid = this.SelectedColor.Value;
                     parentForm.Soinf.clineds.socover[0].materialid = this.SelectedMaterial.Value;
+                    parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
+                    parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
                     parentForm.SaveSo(); 
                 });
 
@@ -163,6 +197,9 @@ namespace Estimating
                 {
                     this.SelectColor(version.Covers[0].Color);
                     this.SelectMaterial(version.Covers[0].Material);
+                    this.InternalCommentsTextbox.Text = version.InternalComments;
+                    this.CustomerCommentsTextbox.Text = version.CustomerComments;
+
                 });
 
                 this.ColorDropdown = new ComboBox();
@@ -174,10 +211,6 @@ namespace Estimating
                 this.ColorDropdown.Name = "colorDropdown";
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
-                this.ColorDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
-                {
-                    this.EnableSave(this.IsDirty);
-                });
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qucolordata)
                 {
@@ -191,10 +224,6 @@ namespace Estimating
                 this.MaterialDropdown.Name = "materialDropdown";
                 this.MaterialDropdown.Size = new System.Drawing.Size(76, 21);
                 this.MaterialDropdown.TabIndex = 382;
-                this.MaterialDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
-                {
-                    this.EnableSave(this.IsDirty);
-                });
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qumaterialdata)
                 {
@@ -214,6 +243,74 @@ namespace Estimating
                     parentForm.DeleteVersion(version.Version);
                 });
 
+                //internal comments textbox 
+                this.InternalCommentsTextbox = new TextBox();
+                this.InternalCommentsTextbox.Visible = false;
+                this.InternalCommentsTextbox.Size = new Size(0, 0);
+                this.InternalCommentsTextbox.Location = new Point(10, 150);
+                this.InternalCommentsTextbox.Multiline = true;
+                this.InternalCommentsTextbox.Text = this.Version.InternalComments;
+                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
+                {
+                    this.ToggleInternalComments(false);
+                });
+
+                //customer comments textbox 
+                this.CustomerCommentsTextbox = new TextBox();
+                this.CustomerCommentsTextbox.Visible = false;
+                this.CustomerCommentsTextbox.Size = new Size(0, 0);
+                this.CustomerCommentsTextbox.Location = new Point(10, 150);
+                this.CustomerCommentsTextbox.Multiline = true;
+                this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
+                this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
+                {
+                    this.ToggleCustomerComments(false);
+                });
+
+                //internal comments button 
+                this.InternalCommentsButton = new Button();
+                this.InternalCommentsButton.Text = "int comments";
+                this.InternalCommentsButton.Size = new Size(90, this.InternalCommentsButton.Height);
+                this.InternalCommentsButton.Enabled = true;
+                this.InternalCommentsButton.Location = new Point(10, 120);
+
+                //customer comments button 
+                this.CustomerCommentsButton = new Button();
+                this.CustomerCommentsButton.Text = "cust comments";
+                this.CustomerCommentsButton.Size = new Size(90, this.CustomerCommentsButton.Height);
+                this.CustomerCommentsButton.Enabled = true;
+                this.CustomerCommentsButton.Location = new Point(110, 120);
+
+                this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
+                {
+                    this.ToggleInternalComments();
+                });
+
+                this.CustomerCommentsButton.Click += ((object sender, EventArgs e) =>
+                {
+                    this.ToggleCustomerComments();
+                });
+
+
+                this.ColorDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
+                {
+                    this.EnableSave(this.IsDirty);
+                });
+                this.MaterialDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
+                {
+                    this.EnableSave(this.IsDirty);
+                });
+                this.InternalCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
+                {
+                    this.EnableSave(this.IsDirty);
+                });
+                this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
+                {
+                    this.EnableSave(this.IsDirty);
+                });
+
+
+
                 this.Panel.Controls.Add(this.NameLabel);
                 this.Panel.Controls.Add(this.DescLabel);
                 this.Panel.Controls.Add(this.SelectButton);
@@ -222,10 +319,14 @@ namespace Estimating
                 this.Panel.Controls.Add(this.MaterialDropdown);
                 this.Panel.Controls.Add(this.SaveButton);
                 this.Panel.Controls.Add(this.CancelButton);
+                this.Panel.Controls.Add(this.InternalCommentsButton);
+                this.Panel.Controls.Add(this.InternalCommentsTextbox);
+                this.Panel.Controls.Add(this.CustomerCommentsButton);
+                this.Panel.Controls.Add(this.CustomerCommentsTextbox);
 
                 this.Panel.Enabled = true;
                 this.EnableSave(false);
-                this.Panel.Size = new Size(350, 120);
+                this.Panel.Size = new Size(SUB_PANEL_WIDTH, SUB_PANEL_HEIGHT);
             }
 
             public void UpdateUI(int idcol, string descrip, int color, int material)
@@ -243,6 +344,8 @@ namespace Estimating
                 this.DeleteButton.Enabled = enabled;
                 this.MaterialDropdown.Enabled = enabled;
                 this.ColorDropdown.Enabled = enabled;
+                this.InternalCommentsButton.Enabled = enabled;
+                this.CustomerCommentsButton.Enabled = enabled;
                 this.EnableSave(this.IsDirty);
             }
 
@@ -296,6 +399,51 @@ namespace Estimating
                     }
                 }
             }
+
+            private void ToggleCustomerComments(bool? visible = null)
+            {
+                if (visible == null)
+                    visible = !this.CustomerCommentsTextbox.Visible;
+
+                this.ToggleTextbox(this.CustomerCommentsTextbox, visible.Value);
+
+                //if customer comments are showing, internal comments should be hidden 
+                if (visible.Value)
+                {
+                    this.ToggleInternalComments(false);
+                }
+            }
+
+            private void ToggleInternalComments(bool? visible = null)
+            {
+                if (visible == null)
+                    visible = !this.InternalCommentsTextbox.Visible;
+
+                this.ToggleTextbox(this.InternalCommentsTextbox, visible.Value);
+
+                //if internal comments are showing, customer comments should be hidden 
+                if (visible.Value)
+                {
+                    this.ToggleCustomerComments(false);
+                }
+            }
+
+            private void ToggleTextbox(TextBox textBox, bool visible)
+            {
+                if (visible && !textBox.Visible)
+                {
+                    textBox.Visible = true;
+                    textBox.Size = new Size(290, 80);
+                    this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT + 80);
+                    textBox.Focus();
+                }
+                else if (textBox.Visible)
+                {
+                    textBox.Visible = false;
+                    textBox.Size = new Size(0, 0);
+                    this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT);
+                }
+            }
         }
 
         private class CoverDto
@@ -318,6 +466,8 @@ namespace Estimating
         {
             public string Version { get; set; }
             public List<CoverDto> Covers { get; private set; }
+            public string InternalComments { get; private set; }
+            public string CustomerComments { get; private set; }
 
             public VersionDto()
             {
@@ -327,6 +477,9 @@ namespace Estimating
             public VersionDto(string version, List<quoterpt.view_soreportlinedataRow> covers) : this()
             {
                 this.Version = version;
+                this.InternalComments = covers[0].intcomments;
+                this.CustomerComments = covers[0].custcomments;
+
                 foreach (var row in covers)
                 {
                     this.Covers.Add(new CoverDto(row));

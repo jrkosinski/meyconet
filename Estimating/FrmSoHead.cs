@@ -892,8 +892,11 @@ namespace Estimating
 
         private void FrmSOHead_FormClosing1(object sender, FormClosingEventArgs e)
         {
-            soinf.ards.Clear();
-            soinf.ards = null;
+            if (soinf != null && soinf.ards != null)
+            {
+                soinf.ards.Clear();
+                soinf.ards = null;
+            }
         }
 
         private void dateTimePickerSodate_ValueChanged(object sender, EventArgs e)
@@ -2794,6 +2797,7 @@ namespace Estimating
             this.Size = new Size(this.Size.Width + 350, this.Size.Height);
 
             this.versionsList = new ScrollingVersionsPanel(this, this.panelVersions);
+            this.versionsList.Hide();
         }
 
         private void labelTrackingData_Click(object sender, EventArgs e)
@@ -3087,6 +3091,11 @@ namespace Estimating
             {
                 this.versionsList.AddVersion(version, versionCovers[version]);
             }
+
+            if (this.versionsList.Count < 1)
+                this.versionsList.Hide();
+            else
+                this.versionsList.Show();
         }
 
         private void ReloadVersionsList()
