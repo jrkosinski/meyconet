@@ -76,7 +76,21 @@ namespace Estimating
 
         public int CurrentCustid { get; set; }
         public string CurrentCustno { get; set; }
-        public string CurrentVersion { get; set; }
+        private string _currentVersion = String.Empty;
+        public string CurrentVersion
+        {
+            get { return _currentVersion; }
+            set
+            {
+                if (value != _currentVersion)
+                {
+                    _currentVersion = value;
+
+                    if (_selectedVersionChanged != null)
+                        _selectedVersionChanged.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
         public string CurrentCover { get; set; }
         public string CurrentState { get; set; }
         public string PassedSono { get; set; }
@@ -97,6 +111,13 @@ namespace Estimating
             {
                 return (CurrentState.Substring(0, 4) == "Edit" || CurrentState == "Enter Order");
             }
+        }
+
+        private EventHandler _selectedVersionChanged;
+        public event EventHandler SelectedVersionChanged
+        {
+            add { _selectedVersionChanged += value; }
+            remove { _selectedVersionChanged -= value; }
         }
 
         private void buttonSoHeadClose_Click(object sender, EventArgs e)
@@ -920,7 +941,7 @@ namespace Estimating
 
         #region Save SO
 
-        public void SaveSo(bool silent = false)
+        public void SaveSo(bool silent = false, bool loadVersionsList = true)
         {
             if (soinf.ValidateSO(CurrentFeature, true) == true)
             {
@@ -957,7 +978,7 @@ namespace Estimating
 
                 // Clear all other datasets
                 soinf.ClearCoverVersionLine();
-                ProcessSo(thisversion, thiscover);
+                ProcessSo(thisversion, thiscover, loadVersionsList:loadVersionsList);
 
                 RefreshControls();
             }
@@ -1115,7 +1136,7 @@ namespace Estimating
 
         #region Process SO
 
-        public void ProcessSo(string version, string cover, bool reloadLineItems = false)
+        public void ProcessSo(string version, string cover, bool reloadLineItems = false, bool loadVersionsList = true)
         {
             /* This routine establishes all data tables for the estimate and postions the
                estimate at the current version and cover
@@ -1316,7 +1337,8 @@ namespace Estimating
             labelTaxdescrip.Text = appInformation.GetDistrictDescription(soinf.somastds.somast[0].taxdist);
             LoadingLine = false;
 
-            this.LoadVersionsList(true);
+            if (loadVersionsList)
+                this.LoadVersionsList(true);
         }
 
         #endregion Process SO
@@ -1646,7 +1668,15 @@ namespace Estimating
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            this.RefreshLineItems();
+            this.buttonRefresh.Visible = false;
+            try
+            {
+                this.RefreshLineItems();
+            }
+            finally
+            {
+                this.buttonRefresh.Visible = true;
+            }
         }
 
         private void RefreshLineItems()
@@ -1656,8 +1686,8 @@ namespace Estimating
 
             for (int n=0; n< soinf.somastds.view_versiondata.Rows.Count; n++)
             {
-                ProcessSo(soinf.somastds.view_versiondata.Rows[n]["version"].ToString(), "", reloadLineItems: true);
-                SaveSo(silent:true);
+                ProcessSo(soinf.somastds.view_versiondata.Rows[n]["version"].ToString(), "", reloadLineItems: true, loadVersionsList: false);
+                SaveSo(silent:true, loadVersionsList: false);
             }
 
             ProcessSo(originalVersion, originalCover); 
@@ -2381,7 +2411,6 @@ namespace Estimating
                 {
                     soinf.DeleteSocover(soinf.somastds.soversion[0].version, SelectedCover);
                     ProcessSo(soinf.somastds.soversion[0].version, "");
-                    //this.ReloadVersionsList();
                 }
             }
         }
