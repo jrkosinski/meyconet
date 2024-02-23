@@ -1,4 +1,6 @@
-﻿namespace Warranty
+﻿using System.Windows.Forms;
+
+namespace Warranty
 {
     public partial class FrmWarrantyMaintenance : WSGUtilitieslib.Telemetry.Form
     {

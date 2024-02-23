@@ -1,4 +1,6 @@
-﻿namespace IncidentProcessing
+﻿using System.Windows.Forms;
+
+namespace IncidentProcessing
 {
     public partial class FrmIncident : WSGUtilitieslib.Telemetry.Form
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessProcessing", "BusinessProcessing\BusinessProcessing.csproj", "{49B630B9-1945-467B-B786-020C10D76D83}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -45,8 +45,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSGUtilitieslib", "WSGUtilitieslib\WSGUtilitieslib\WSGUtilitieslib.csproj", "{8817FC2B-DA5C-45E8-A8CA-1B26C2BF1454}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSGBaseClassLibrary", "WSGBaseClassLibrary\WSGBaseClassLibrary.csproj", "{98846BF7-E2C5-4E2F-9669-65477686C125}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -380,22 +378,6 @@ Global
 		{98846BF7-E2C5-4E2F-9669-65477686C125}.Release|x64.Build.0 = Release|Any CPU
 		{98846BF7-E2C5-4E2F-9669-65477686C125}.Release|x86.ActiveCfg = Release|Any CPU
 		{98846BF7-E2C5-4E2F-9669-65477686C125}.Release|x86.Build.0 = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|x64.Build.0 = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Debug|x86.Build.0 = Debug|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|ARM64.Build.0 = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|x64.ActiveCfg = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|x64.Build.0 = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|x86.ActiveCfg = Release|Any CPU
-		{5894C19C-0FDB-4EA9-8266-AF486FC86BA5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

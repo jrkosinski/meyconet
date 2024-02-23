@@ -1,4 +1,6 @@
-﻿namespace Inspection
+﻿using System.Windows.Forms;
+
+namespace Inspection
 {
     public partial class FrmRepairInspection : WSGUtilitieslib.Telemetry.Form
     {

@@ -1,4 +1,6 @@
-﻿namespace Inventory
+﻿using System.Windows.Forms;
+
+namespace Inventory
 {
     public partial class FrmInventoryTransaction : WSGUtilitieslib.Telemetry.Form
     {
