@@ -25,6 +25,10 @@ namespace Estimating
         public ScrollingVersionsPanel(Form parentForm, Panel panel) : base(parentForm, panel)
         {
             this._originalPanelWidth = panel.Width;
+
+            FrmSOHead parent = (FrmSOHead)parentForm;
+            parent.SelectedVersionChanged -= this.OnSelectedVersionChanged;
+            parent.SelectedVersionChanged += this.OnSelectedVersionChanged;
         }
 
         public void AddVersion(string version, List<quoterpt.view_soreportlinedataRow> covers)
@@ -85,6 +89,18 @@ namespace Estimating
             }
         }
 
+        private void OnSelectedVersionChanged(object sender, EventArgs e)
+        {
+            FrmSOHead parent = (FrmSOHead)this._parentForm;
+            if (parent.CurrentVersion != String.Empty)
+            {
+                foreach(VersionPanel versionPanel in this._versionPanels)
+                {
+                    versionPanel.IsSelected = (versionPanel.Version.Version == parent.CurrentVersion);
+                }
+            }
+        }
+
         private class VersionPanel
         {
             public VersionDto Version { get; private set; }
@@ -101,6 +117,16 @@ namespace Estimating
             public Button CustomerCommentsButton { get; private set; }
             public TextBox InternalCommentsTextbox { get; private set; }
             public TextBox CustomerCommentsTextbox { get; private set; }
+            public bool IsSelected
+            {
+                get { return Panel.BackColor == Color.White; }
+                set
+                {
+                    Color backColor = value? Color.White : Color.LightGray;
+                    if (Panel.BackColor != backColor)
+                        Panel.BackColor = backColor;
+                }
+            }
             public bool IsDirty {
                 get {
                     if (this.SelectedColor != null && this.SelectedMaterial != null)
@@ -310,7 +336,6 @@ namespace Estimating
                 });
 
 
-
                 this.Panel.Controls.Add(this.NameLabel);
                 this.Panel.Controls.Add(this.DescLabel);
                 this.Panel.Controls.Add(this.SelectButton);
@@ -323,6 +348,8 @@ namespace Estimating
                 this.Panel.Controls.Add(this.InternalCommentsTextbox);
                 this.Panel.Controls.Add(this.CustomerCommentsButton);
                 this.Panel.Controls.Add(this.CustomerCommentsTextbox);
+
+                this.IsSelected = this.Version.Version == parentForm.CurrentVersion;
 
                 this.Panel.Enabled = true;
                 this.EnableSave(false);
@@ -459,7 +486,7 @@ namespace Estimating
                 this.Description = row.descrip;
                 this.Color = row.color;
                 this.IdCol = row.idcol;
-                this.Material = row.material;
+                try { this.Material = row.material; } catch (Exception) { }
                 this.Editable = row.product.Trim().ToUpper() != "STOCK COVER";
             }
         }
