@@ -7895,11 +7895,12 @@
             this.panelVersions.Name = "panelVersions";
             this.panelVersions.Size = new System.Drawing.Size(360, 700);
             this.panelVersions.TabIndex = 423;
-            this.panelVersions.BackColor = System.Drawing.Color.LightGray;
+            
             this.panelVersions.AutoScroll = true;
             this.panelVersions.HorizontalScroll.Visible = false;
             this.panelVersions.HorizontalScroll.Enabled = false;
             this.panelVersions.Visible = true;
+            this.panelVersions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             // 
             // labelTrackingData
             // 

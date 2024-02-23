@@ -122,7 +122,7 @@ namespace Estimating
                 get { return Panel.BackColor == Color.White; }
                 set
                 {
-                    Color backColor = value? Color.White : Color.LightGray;
+                    Color backColor = value? Color.White : Color.AliceBlue;
                     if (Panel.BackColor != backColor)
                         Panel.BackColor = backColor;
                 }
@@ -178,30 +178,35 @@ namespace Estimating
                 this.NameLabel.Text = $"Version {version.Version} ({covercount})";
                 this.NameLabel.Location = new System.Drawing.Point(10, 10);
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
+                this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //version description label 
                 this.DescLabel = new Label();
                 this.DescLabel.Text = $"{version.Covers[0].Description.Trim()} {version.Covers[0].Material.Trim()} {version.Covers[0].Color.Trim()}";
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
                 this.DescLabel.Location = new System.Drawing.Point(10, 35);
+                this.DescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //select button 
                 this.SelectButton = new Button();
                 this.SelectButton.Text = "Select";
                 this.SelectButton.Location = new System.Drawing.Point(10, 60);
                 this.SelectButton.Enabled = true;
+                this.SelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //delete button 
                 this.DeleteButton = new Button();
                 this.DeleteButton.Text = "Delete";
                 this.DeleteButton.Location = new System.Drawing.Point(90, 60);
                 this.DeleteButton.Enabled = true;
+                this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //save button 
                 this.SaveButton = new Button();
                 this.SaveButton.Text = "Save";
-                this.SaveButton.Location = new System.Drawing.Point(170, 60);
+                this.SaveButton.Location = new System.Drawing.Point(200, 60);
                 this.SaveButton.Enabled = false;
+                this.SaveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.SaveButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -216,8 +221,9 @@ namespace Estimating
                 //cancel button 
                 this.CancelButton = new Button();
                 this.CancelButton.Text = "Cancel";
-                this.CancelButton.Location = new System.Drawing.Point(170, 90);
+                this.CancelButton.Location = new System.Drawing.Point(200, 90);
                 this.CancelButton.Enabled = false;
+                this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.CancelButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -237,6 +243,7 @@ namespace Estimating
                 this.ColorDropdown.Name = "colorDropdown";
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
+                this.ColorDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qucolordata)
                 {
@@ -248,8 +255,9 @@ namespace Estimating
                 this.MaterialDropdown.FormattingEnabled = true;
                 this.MaterialDropdown.Location = new System.Drawing.Point(90, 90);
                 this.MaterialDropdown.Name = "materialDropdown";
-                this.MaterialDropdown.Size = new System.Drawing.Size(76, 21);
+                this.MaterialDropdown.Size = new System.Drawing.Size(96, 21);
                 this.MaterialDropdown.TabIndex = 382;
+                this.MaterialDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qumaterialdata)
                 {
@@ -296,16 +304,18 @@ namespace Estimating
                 //internal comments button 
                 this.InternalCommentsButton = new Button();
                 this.InternalCommentsButton.Text = "int comments";
-                this.InternalCommentsButton.Size = new Size(90, this.InternalCommentsButton.Height);
+                this.InternalCommentsButton.Size = new Size(100, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Enabled = true;
                 this.InternalCommentsButton.Location = new Point(10, 120);
+                this.InternalCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //customer comments button 
                 this.CustomerCommentsButton = new Button();
                 this.CustomerCommentsButton.Text = "cust comments";
-                this.CustomerCommentsButton.Size = new Size(90, this.CustomerCommentsButton.Height);
+                this.CustomerCommentsButton.Size = new Size(100, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Enabled = true;
                 this.CustomerCommentsButton.Location = new Point(110, 120);
+                this.CustomerCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -354,6 +364,8 @@ namespace Estimating
                 this.Panel.Enabled = true;
                 this.EnableSave(false);
                 this.Panel.Size = new Size(SUB_PANEL_WIDTH, SUB_PANEL_HEIGHT);
+                this.Panel.BorderStyle = BorderStyle.FixedSingle;
+
             }
 
             public void UpdateUI(int idcol, string descrip, int color, int material)
