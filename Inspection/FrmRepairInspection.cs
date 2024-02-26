@@ -16,22 +16,22 @@ namespace Inspection
         protected override void SetTabOrder()
         {
             this.SetTabOrder(new Control[]{
-                this.textBoxSoNo,
-                this.buttonGetSO,
-                this.textBoxCustno,
                 this.textBoxCompany,
-                this.textBoxMeycono,
                 this.textBoxMeycono,
                 this.textBoxPhone,
                 this.textBoxFaxNo,
                 this.textBoxEmail,
+
+                this.groupBox4,
                 this.textBoxRecdate,
+                this.dateTimePickerRecdate,
                 this.textBoxReceivedBy,
                 this.textBoxInbCarrier,
-                this.textBoxFrtTerms,
-                this.dateTimePickerRecdate,
                 this.comboBoxInbCarrier,
+                this.textBoxFrtTerms,
                 this.comboBoxFrtTerms,
+
+                this.groupBox1,
                 this.textBoxLocation,
                 this.comboBoxLocation,
                 this.textBoxOldPlan,
@@ -83,6 +83,8 @@ namespace Inspection
                 this.textBoxRecommendation,
                 this.comboBoxRecommendation,
                 this.textBoxObservations,
+
+                this.groupBox2,
                 this.textBoxSprings,
                 this.textBoxSpringCovers,
                 this.textBoxInstructions,
@@ -90,6 +92,8 @@ namespace Inspection
                 this.textBoxPumps,
                 this.textBoxPhotos,
                 this.textBoxNotes,
+
+                this.groupBox3,
                 this.buttonSaveLines,
                 this.buttonCancelLines,
                 this.buttonSave,

@@ -646,6 +646,10 @@ namespace Inspection
                         parentform.buttonViewReport.Enabled = false;
                         parentform.buttonViewMainPdf.Enabled = true;
                         parentform.buttonAttachPDF.Enabled = false;
+                        parentform.buttonRoute.TabStop = false;
+                        parentform.buttonClear.TabStop = false;
+
+                        parentform.textBoxCompany.Focus();
                         break;
                     }
             }

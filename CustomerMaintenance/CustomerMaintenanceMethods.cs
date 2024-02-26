@@ -555,7 +555,7 @@ namespace CustomerMaintenance
                         parentForm.buttonSave.Enabled = true;
                         parentForm.textBoxCustno.Enabled = false;
                         parentForm.buttonCancelEdit.Enabled = true;
-
+                        parentForm.tabPageGeneral.Focus();
                         break;
                     }
                 case "Insert":
@@ -576,6 +576,7 @@ namespace CustomerMaintenance
                         parentForm.buttonInsert.Enabled = false;
                         parentForm.buttonEdit.Enabled = false;
                         parentForm.buttonSave.Enabled = true;
+                        parentForm.tabPageGeneral.Focus();
                         break;
                     }
             }

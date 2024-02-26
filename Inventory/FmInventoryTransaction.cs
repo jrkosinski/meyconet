@@ -8,7 +8,7 @@ namespace Inventory
         {
             InitializeComponent();
 
-            this.SetTabOrder();
+            SetTabOrder();
         }
 
         protected override void SetTabOrder()
