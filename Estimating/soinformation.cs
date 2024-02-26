@@ -1810,18 +1810,23 @@ namespace Estimating
             resultsds.AcceptChanges();
         }
 
-        public int GetVersionCoverCount(string sono, string version)
+        public int GetVersionCoverCount(string sono, string version, bool customOnly = false)
         {
             int covercount = 0;
-            int rrow = 0;
+            int rowcount = 0;
             LoadCoverViewData(sono, version);
-            while (rrow <= somastds.view_coverdata.Rows.Count - 1)
+            while (rowcount <= somastds.view_coverdata.Rows.Count - 1)
             {
-                if (somastds.view_coverdata[rrow].covertype == "C ")
+                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C "); 
+                if (customOnly)
+                {
+                    itCounts = itCounts && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
+                }
+                if (itCounts)
                 {
                     covercount++;
                 }
-                rrow++;
+                rowcount++;
             }
             return covercount;
         }
@@ -2091,7 +2096,7 @@ namespace Estimating
             string thisSono = this.somastds.somast[0].sono;
             string thisVersion = this.clineds.socover[0].version; 
 
-            if (this.GetVersionCoverCount(thisSono, thisVersion) > 1)
+            if (this.GetVersionCoverCount(thisSono, thisVersion, customOnly:true) > 1)
             {
                 if (this.ColorHasChanged)
                 {

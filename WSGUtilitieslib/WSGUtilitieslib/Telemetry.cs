@@ -3,30 +3,8 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
-
-/*
- * 1. Global Telemetry Class
- * # random session id 
- * # event class 
- * - to json 
- * 
- * 2. All buttons 
- * # events 
- * 
- * 3. All forms 
- * # events 
- * 
- * 4. All queries 
- * # all FillData
- * # all ExecuteCommand 
- * - others? 
- * 
- * 5. Cache retrievals 
- * 
- * 6. Upload data 
- * 
- * 7. Errors 
- */
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace WSGUtilitieslib.Telemetry
 {
@@ -325,6 +303,8 @@ namespace WSGUtilitieslib.Telemetry
 
     public class Form : System.Windows.Forms.Form
     {
+        private System.Windows.Forms.Panel loadingPanel = new System.Windows.Forms.Panel();
+
         public string TelemetryId
         {
             get { return this.Name; }
@@ -368,5 +348,31 @@ namespace WSGUtilitieslib.Telemetry
         }
 
         protected virtual void SetTabOrder() { }
+
+        protected virtual Panel LoadingPanel { get { return this.loadingPanel; } }
+
+        protected virtual void ShowLoadingScreen(bool visible = true)
+        {
+            if (visible)
+            {
+                LoadingPanel.Size = this.ClientSize;
+                LoadingPanel.Location = new Point(0, 0);
+                Bitmap controlImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+                this.DrawToBitmap(controlImage, new Rectangle(Point.Empty, this.ClientSize));
+                SolidBrush semiTransBrush = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
+                Graphics g = Graphics.FromImage(controlImage);
+                g.FillRectangle(semiTransBrush, new Rectangle(Point.Empty, controlImage.Size));
+
+                LoadingPanel.BackgroundImage = controlImage;
+                this.Controls.Add(loadingPanel);
+                this.Controls.SetChildIndex(loadingPanel, 0);
+                LoadingPanel.BringToFront();
+            }
+
+            else
+            {
+                this.Controls.Remove(this.LoadingPanel);
+            }
+        }
     }
 }

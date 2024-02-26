@@ -1668,14 +1668,14 @@ namespace Estimating
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            this.buttonRefresh.Visible = false;
+            this.ShowLoadingScreen(true);
             try
             {
                 this.RefreshLineItems();
             }
             finally
             {
-                this.buttonRefresh.Visible = true;
+                this.ShowLoadingScreen(false);
             }
         }
 
