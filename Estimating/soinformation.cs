@@ -2350,24 +2350,24 @@ namespace Estimating
             return false;
         }
 
-        public bool ValidateSO(string CurentFeature, bool saving)
+        public bool ValidateSO(string CurentFeature, bool saving, bool silent = false)
         {
             bool SoOk = true;
-            SoOk = ValidateSOCover(CurentFeature, saving);
+            SoOk = ValidateSOCover(CurentFeature, saving, silent:silent);
             if (SoOk == true)
             {
-                SoOk = ValidateSOHead(saving);
+                SoOk = ValidateSOHead(saving, silent: silent);
             }
             return SoOk;
         }
 
-        public bool ValidateSOHead(bool saving)
+        public bool ValidateSOHead(bool saving, bool silent = false)
         {
             bool SomastOk = true;
             return SomastOk;
         }
 
-        public bool ValidateSOCover(string CurrentFeature, bool saving)
+        public bool ValidateSOCover(string CurrentFeature, bool saving, bool silent = false)
         {
             // Rule 100 and 101 - Validate the cover item
 
@@ -2375,7 +2375,7 @@ namespace Estimating
             bool SocoverOk = true;
             if (clineds.socover[0].item == "")
             {
-                LogCoverError("100", true);
+                if (!silent) LogCoverError("100", true);
                 SocoverOk = false;
             }
             if (SocoverOk == true)
@@ -2384,7 +2384,7 @@ namespace Estimating
                 getSingleImmasterData(clineds.socover[0].item);
                 if (itemds.immaster.Rows.Count == 0)
                 {
-                    LogCoverError("101", true);
+                    if (!silent) LogCoverError("101", true);
                     SocoverOk = false;
                 }
             }
@@ -2397,9 +2397,8 @@ namespace Estimating
                     // Check the price/sqft
                     if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
                     {
-                        //TODO: remember to uncomment this 
-                        //LogCoverError("102", true);
-                        //SocoverOk = false;
+                        if (!silent) LogCoverError("102", true);
+                        SocoverOk = false;
                     }
                 }
                 #region Tests for both Custom and Stock
@@ -2427,7 +2426,7 @@ namespace Estimating
                         {
                             if (saving == true)
                             {
-                                LogCoverError("210", false);
+                                if (!silent) LogCoverError("210", false);
                             }
                             else
                             {
@@ -2444,7 +2443,7 @@ namespace Estimating
                     if ((covercolor.TrimEnd().ToUpper() == "GRAY" ||
                       covercolor.TrimEnd().ToUpper() == "MOCHA") && coverspacing.Substring(0, 1) == "5")
                     {
-                        LogCoverError("206", false);
+                        if (!silent) LogCoverError("206", false);
                     }
                 }
 
@@ -2461,7 +2460,7 @@ namespace Estimating
                         {
                             if (decimal.Round(drow.Field<Decimal>("qtyord") / clineds.socover[0].straps, 2) >= pinlimit)
                             {
-                                LogCoverError("207", false);
+                                if (!silent) LogCoverError("207", false);
                             }
                         }
                     }
@@ -2480,7 +2479,7 @@ namespace Estimating
                         {
                             if (decimal.Round(drow.Field<Decimal>("qtyord") / clineds.socover[0].straps, 2) >= pipeslimit)
                             {
-                                LogCoverError("211", false);
+                                if (!silent) LogCoverError("211", false);
                             }
                         }
                     }
@@ -2498,7 +2497,7 @@ namespace Estimating
                         {
                             if (decimal.Round(drow.Field<Decimal>("qtyord") / clineds.socover[0].straps, 2) >= sslimit)
                             {
-                                LogCoverError("208", false);
+                                if (!silent) LogCoverError("208", false);
                             }
                         }
                     }
@@ -2516,7 +2515,7 @@ namespace Estimating
                         {
                             if (decimal.Round(drow.Field<Decimal>("qtyord") / clineds.socover[0].straps, 2) >= lslimit)
                             {
-                                LogCoverError("209", false);
+                                if (!silent) LogCoverError("209", false);
                             }
                         }
                     }
@@ -2539,14 +2538,14 @@ namespace Estimating
                         {
                             if (Overlapinches < 18)
                             {
-                                LogCoverError("200", false);
+                                if (!silent) LogCoverError("200", false);
                             }
                         }
                         else
                         {
                             if (sqftwithext > 1150 && Overlapinches < 15)
                             {
-                                LogCoverError("201", false);
+                                if (!silent) LogCoverError("201", false);
                             }
                         }
                     }
@@ -2564,7 +2563,7 @@ namespace Estimating
                             {
                                 if (t.qtyord > 12 && spacingdescrip != "3'X3'")
                                 {
-                                    LogCoverError("203", false);
+                                    if (!silent) LogCoverError("203", false);
                                 }
                             }
                         }
@@ -2587,7 +2586,7 @@ namespace Estimating
                             {
                                 if (saving == true)
                                 {
-                                    LogCoverError("205", false);
+                                    if (!silent) LogCoverError("205", false);
                                 }
                                 else
                                 {
@@ -2608,7 +2607,7 @@ namespace Estimating
                         if (clineds.socover[0].colorid != GetColorIdcol(itemds.immaster[0].color) &&
                          clineds.socover[0].price <= itemds.immaster[0].regprice)
                         {
-                            LogCoverError("300", false);
+                            if (!silent) LogCoverError("300", false);
                         }
                     } // coverok == true
                 } // Stock Cover

@@ -303,7 +303,9 @@ namespace WSGUtilitieslib.Telemetry
 
     public class Form : System.Windows.Forms.Form
     {
-        private System.Windows.Forms.Panel loadingPanel = new System.Windows.Forms.Panel();
+        private System.Windows.Forms.Panel loadingPanel = new Panel();
+        private System.Windows.Forms.PictureBox loadingSpinner = new PictureBox();
+        private System.Timers.Timer timer = new System.Timers.Timer(); 
 
         public string TelemetryId
         {
@@ -315,6 +317,7 @@ namespace WSGUtilitieslib.Telemetry
             this.Load += this.PrivateLoadEvent;
             this.Shown += this.PrivateShownEvent;
             this.FormClosing += this.PrivateClosingEvent;
+            this.timer.Elapsed += this.Timer_Tick;
         }
 
         private void PrivateLoadEvent(object sender, System.EventArgs e)
@@ -355,6 +358,10 @@ namespace WSGUtilitieslib.Telemetry
         {
             if (visible)
             {
+                this.timer.Interval = 100;
+                this.timer.Enabled = true; 
+                this.timer.Start();
+
                 LoadingPanel.Size = this.ClientSize;
                 LoadingPanel.Location = new Point(0, 0);
                 Bitmap controlImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
@@ -363,16 +370,27 @@ namespace WSGUtilitieslib.Telemetry
                 Graphics g = Graphics.FromImage(controlImage);
                 g.FillRectangle(semiTransBrush, new Rectangle(Point.Empty, controlImage.Size));
 
+                this.loadingSpinner.Image = Image.FromFile("spinner.gif");
+                this.loadingSpinner.Size = new Size(300, 300);
+                //LoadingPanel.Controls.Add(this.loadingSpinner); 
+
                 LoadingPanel.BackgroundImage = controlImage;
                 this.Controls.Add(loadingPanel);
-                this.Controls.SetChildIndex(loadingPanel, 0);
+                this.Controls.SetChildIndex(loadingPanel, -1);
                 LoadingPanel.BringToFront();
             }
 
             else
             {
+                this.timer.Stop();
+                this.timer.Enabled = false;
                 this.Controls.Remove(this.LoadingPanel);
             }
+        }
+
+        protected virtual void Timer_Tick(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //this.Invoke(new Action( () => this.loadingSpinner.Draw())); 
         }
     }
 }

@@ -943,7 +943,7 @@ namespace Estimating
 
         public void SaveSo(bool silent = false, bool loadVersionsList = true)
         {
-            if (soinf.ValidateSO(CurrentFeature, true) == true)
+            if (soinf.ValidateSO(CurrentFeature, true, silent: silent) == true)
             {
                 CurrentFeature = "";
                 buttonSave.Enabled = false;
