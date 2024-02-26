@@ -196,6 +196,7 @@ namespace Inventory
             {
                 c.Enabled = false;
             }
+            
             frmInventoryTransacations.buttonClose.Enabled = true;
             frmInventoryTransacations.labelItmdesc.Visible = false;
             switch (CurrentState)
@@ -216,6 +217,8 @@ namespace Inventory
                         frmInventoryTransacations.textBoxNotes.Enabled = true;
                         frmInventoryTransacations.textBoxCost.Enabled = true;
                         frmInventoryTransacations.buttonSave.Enabled = true;
+                        frmInventoryTransacations.comboBoxLocation.Focus();
+                        frmInventoryTransacations.buttonClear.TabStop = false;
                         break;
                     }
             }

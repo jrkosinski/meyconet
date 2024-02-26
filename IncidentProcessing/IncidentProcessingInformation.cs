@@ -357,7 +357,8 @@ namespace IncidentProcessing
                             parentform.buttonDelete.Enabled = true;
                             parentform.labelUsers.Enabled = true;
                         }
-
+                        parentform.dateTimePickerIncidentdate.Focus();
+                        parentform.buttonReturn.TabStop = false;
                         break;
                     }
             }

@@ -8,7 +8,7 @@ namespace CustomerMaintenance
         public FrmMaintainCustomer()
         {
             InitializeComponent();
-            this.SetTabOrder();
+            SetTabOrder();
         }
 
         protected override void SetTabOrder()
@@ -58,16 +58,43 @@ namespace CustomerMaintenance
 
                 this.tabPageNotes,
                 this.textBoxCstmemo,
+                this.textBoxShipNotes,
                 this.textBoxAcctMemo,
+                this.textBoxDPref,
 
                 this.tabPageProfile,
                 this.buttonQuoteEmail,
-                this.buttonOrderEmail,
-                this.buttonInvoiceEmail,
-                this.buttonDefaultEmail,
                 this.textBoxFaxQuote,
+                this.buttonOrderEmail,
                 this.textBoxFaxOrder,
+                this.buttonInvoiceEmail,
                 this.textBoxFaxInvoice,
+                this.buttonDefaultEmail,
+                this.textBoxDepover0,
+                this.textBoxDepover1,
+                this.textBoxDepover2,
+                this.textBoxDepover3,
+                this.textBoxDisc,
+                this.textBoxStockDisc,
+                this.textBoxStandDisc,
+                this.textBoxCommlDisc,
+                this.textBoxRepDisc,
+                this.textBoxReplDisc,
+                this.textBoxShipDisc,
+                this.textBoxUpCharge,
+                this.textBoxShipVia,
+                this.textBoxFOB,
+                this.textBoxnocable,
+                this.textBoxNoPump,
+                this.textBoxPipesPlanters,
+                this.textBoxStakesPlanters,
+                this.textBoxPinsPlanters,
+                this.textBoxQuoMeycoLite,
+                this.textBoxQuoSolidDrain,
+                this.textBoxQuoSolidPump,
+                this.textBoxQuoRuggedMesh,
+                this.textBoxOringsVsSnaps,
+                this.textBoxPerimPadPref,
 
                 this.tabPageAlerts,
                 this.tabPageRoutes,

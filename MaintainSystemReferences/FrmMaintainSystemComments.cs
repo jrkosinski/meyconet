@@ -33,6 +33,21 @@ namespace MaintainSystemReference
             bindingSystemCommentsData.DataSource = syscomm.systemds.view_systemcomments;
             dataGridViewSystemComments.DataSource = bindingSystemCommentsData;
             CurrentState = "Select";
+
+            SetTabOrder();
+        }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonInsert,
+                this.buttonEdit,
+                this.textBoxCode,
+                this.textBoxDescrip,
+                this.buttonSave,
+                this.buttonClose
+            });
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
