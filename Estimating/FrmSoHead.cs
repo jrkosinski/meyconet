@@ -2900,20 +2900,20 @@ namespace Estimating
                 this.TabPageDiscounts, 
 
                 //discounts tab
-                this.textBoxDisc,
-                this.textBoxStanddisc,
-                this.textBoxRepdisc,
-                this.textBoxShipdisc,
-                this.textBoxStockdisc,
-                this.textBoxCommldisc,
-                this.textBoxRepldisc,
-                this.textBoxUpcharge, 
+                //this.textBoxDisc,
+                //this.textBoxStanddisc,
+                //this.textBoxRepdisc,
+                //this.textBoxShipdisc,
+                //this.textBoxStockdisc,
+                //this.textBoxCommldisc,
+                //this.textBoxRepldisc,
+                //this.textBoxUpcharge, 
 
                 //deposits tab
-                this.textBoxDepover0,
-                this.textBoxDepover1,
-                this.textBoxDepover2,
-                this.textBoxDepover3,
+                //this.textBoxDepover0,
+                //this.textBoxDepover1,
+                //this.textBoxDepover2,
+                //this.textBoxDepover3,
 
                 //main form buttons 
                 this.buttonRoute,

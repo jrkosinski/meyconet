@@ -940,7 +940,7 @@
             this.textBoxRepldisc.Location = new System.Drawing.Point(231, 37);
             this.textBoxRepldisc.Name = "textBoxRepldisc";
             this.textBoxRepldisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxRepldisc.TabIndex = 45;
+            this.textBoxRepldisc.TabStop = false;
             // 
             // textBoxRepdisc
             // 
@@ -948,7 +948,7 @@
             this.textBoxRepdisc.Location = new System.Drawing.Point(231, 11);
             this.textBoxRepdisc.Name = "textBoxRepdisc";
             this.textBoxRepdisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxRepdisc.TabIndex = 43;
+            this.textBoxRepdisc.TabStop = false;
             // 
             // label72
             // 
@@ -993,7 +993,7 @@
             this.textBoxStockdisc.Location = new System.Drawing.Point(44, 37);
             this.textBoxStockdisc.Name = "textBoxStockdisc";
             this.textBoxStockdisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxStockdisc.TabIndex = 41;
+            this.textBoxStockdisc.TabStop = false;
             // 
             // textBoxDisc
             // 
@@ -1001,7 +1001,7 @@
             this.textBoxDisc.Location = new System.Drawing.Point(44, 11);
             this.textBoxDisc.Name = "textBoxDisc";
             this.textBoxDisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxDisc.TabIndex = 40;
+            this.textBoxDisc.TabStop = false;
             // 
             // textBoxCommldisc
             // 
@@ -1009,7 +1009,7 @@
             this.textBoxCommldisc.Location = new System.Drawing.Point(129, 37);
             this.textBoxCommldisc.Name = "textBoxCommldisc";
             this.textBoxCommldisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxCommldisc.TabIndex = 31;
+            this.textBoxCommldisc.TabStop = false;
             // 
             // textBoxUpcharge
             // 
@@ -1017,7 +1017,7 @@
             this.textBoxUpcharge.Location = new System.Drawing.Point(360, 37);
             this.textBoxUpcharge.Name = "textBoxUpcharge";
             this.textBoxUpcharge.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUpcharge.TabIndex = 37;
+            this.textBoxUpcharge.TabStop = false;
             // 
             // textBoxStanddisc
             // 
@@ -1025,7 +1025,7 @@
             this.textBoxStanddisc.Location = new System.Drawing.Point(129, 11);
             this.textBoxStanddisc.Name = "textBoxStanddisc";
             this.textBoxStanddisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxStanddisc.TabIndex = 29;
+            this.textBoxStanddisc.TabStop = false;
             // 
             // textBoxShipdisc
             // 
@@ -1034,7 +1034,7 @@
             this.textBoxShipdisc.Location = new System.Drawing.Point(359, 11);
             this.textBoxShipdisc.Name = "textBoxShipdisc";
             this.textBoxShipdisc.Size = new System.Drawing.Size(36, 20);
-            this.textBoxShipdisc.TabIndex = 39;
+            this.textBoxShipdisc.TabStop = false;
             // 
             // Label22
             // 
@@ -1111,6 +1111,7 @@
             this.textBoxDepover3.Name = "textBoxDepover3";
             this.textBoxDepover3.Size = new System.Drawing.Size(36, 20);
             this.textBoxDepover3.TabIndex = 42;
+            this.textBoxDepover3.TabStop = false;
             // 
             // label74
             // 
@@ -1128,6 +1129,7 @@
             this.textBoxDepover2.Name = "textBoxDepover2";
             this.textBoxDepover2.Size = new System.Drawing.Size(36, 20);
             this.textBoxDepover2.TabIndex = 40;
+            this.textBoxDepover2.TabStop = false;
             // 
             // textBoxDepover0
             // 
@@ -1136,6 +1138,7 @@
             this.textBoxDepover0.Name = "textBoxDepover0";
             this.textBoxDepover0.Size = new System.Drawing.Size(36, 20);
             this.textBoxDepover0.TabIndex = 25;
+            this.textBoxDepover0.TabStop = false;
             // 
             // checkBoxDefaultCustTiers
             // 
@@ -1144,7 +1147,7 @@
             this.checkBoxDefaultCustTiers.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxDefaultCustTiers.Name = "checkBoxDefaultCustTiers";
             this.checkBoxDefaultCustTiers.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxDefaultCustTiers.TabIndex = 400;
+            this.checkBoxDefaultCustTiers.TabStop = false;
             this.checkBoxDefaultCustTiers.UseVisualStyleBackColor = true;
             this.checkBoxDefaultCustTiers.Visible = false;
             this.checkBoxDefaultCustTiers.Click += new System.EventHandler(this.checkBoxDefaultCustTiers_Click);
@@ -1193,6 +1196,7 @@
             this.textBoxDepover1.Name = "textBoxDepover1";
             this.textBoxDepover1.Size = new System.Drawing.Size(36, 20);
             this.textBoxDepover1.TabIndex = 27;
+            this.textBoxDepover1.TabStop = false;
             // 
             // buttonClose
             // 
