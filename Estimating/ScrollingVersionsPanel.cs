@@ -107,23 +107,28 @@ namespace Estimating
             public Panel Panel { get; private set; }
             public Label NameLabel { get; private set; }
             public Label DescLabel { get; private set; }
-            public Button SelectButton { get; private set; }
+            //public Button SelectButton { get; private set; }
             public Button DeleteButton { get; private set; }
             public Button SaveButton { get; private set; }
             public Button CancelButton { get; private set; }
             public ComboBox ColorDropdown { get; private set; }
             public ComboBox MaterialDropdown { get; private set; }
-            public Button InternalCommentsButton { get; private set; }
-            public Button CustomerCommentsButton { get; private set; }
+            public LinkLabel InternalCommentsButton { get; private set; }
+            public LinkLabel CustomerCommentsButton { get; private set; }
             public TextBox InternalCommentsTextbox { get; private set; }
             public TextBox CustomerCommentsTextbox { get; private set; }
+            public Label ListPriceLabel { get; private set; }
+            public Label NetPriceLabel { get; private set; }
+            public Button NewCoverButton { get; private set; }
+            public Button NewVersionButton { get; private set; }
+
             public bool IsSelected
             {
                 get { return Panel.BackColor == Color.White; }
                 set
                 {
-                    if (value)
-                        this.SelectButton.Enabled = false; 
+                    //if (value)
+                    //    this.SelectButton.Enabled = false; 
 
                     Color backColor = value? Color.White : Color.LightGray;
                     if (Panel.BackColor != backColor)
@@ -192,22 +197,22 @@ namespace Estimating
                 this.DescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //select button 
-                this.SelectButton = new Button();
-                this.SelectButton.Text = "Select";
-                this.SelectButton.Location = new System.Drawing.Point(10, 60);
-                this.SelectButton.Enabled = true;
+                //this.SelectButton = new Button();
+                //this.SelectButton.Text = "Select";
+                //this.SelectButton.Location = new System.Drawing.Point(10, 60);
+                //this.SelectButton.Enabled = true;
 
                 //delete button 
                 this.DeleteButton = new Button();
                 this.DeleteButton.Text = "Delete";
-                this.DeleteButton.Location = new System.Drawing.Point(90, 60);
+                this.DeleteButton.Location = new System.Drawing.Point(10, 60);
                 this.DeleteButton.Enabled = true;
                 this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //save button 
                 this.SaveButton = new Button();
                 this.SaveButton.Text = "Save";
-                this.SaveButton.Location = new System.Drawing.Point(200, 60);
+                this.SaveButton.Location = new System.Drawing.Point(90, 60);
                 this.SaveButton.Enabled = false;
                 this.SaveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -224,7 +229,7 @@ namespace Estimating
                 //cancel button 
                 this.CancelButton = new Button();
                 this.CancelButton.Text = "Cancel";
-                this.CancelButton.Location = new System.Drawing.Point(200, 90);
+                this.CancelButton.Location = new System.Drawing.Point(170, 60);
                 this.CancelButton.Enabled = false;
                 this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -270,11 +275,7 @@ namespace Estimating
                 }
                 this.SelectMaterial(version.Covers[0].Material);
 
-                //select action 
-                this.SelectButton.Click += ((object sender, EventArgs e) =>
-                {
-                    parentForm.ProcessSo(version.Version, "");
-                });
+                
 
                 //delete action 
                 this.DeleteButton.Click += ((object sender, EventArgs e) =>
@@ -289,10 +290,7 @@ namespace Estimating
                 this.InternalCommentsTextbox.Location = new Point(10, 150);
                 this.InternalCommentsTextbox.Multiline = true;
                 this.InternalCommentsTextbox.Text = this.Version.InternalComments;
-                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
-                {
-                    this.ToggleInternalComments(false);
-                });
+                
 
                 //customer comments textbox 
                 this.CustomerCommentsTextbox = new TextBox();
@@ -301,13 +299,10 @@ namespace Estimating
                 this.CustomerCommentsTextbox.Location = new Point(10, 150);
                 this.CustomerCommentsTextbox.Multiline = true;
                 this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
-                this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
-                {
-                    this.ToggleCustomerComments(false);
-                });
+                
 
                 //internal comments button 
-                this.InternalCommentsButton = new Button();
+                this.InternalCommentsButton = new LinkLabel();
                 this.InternalCommentsButton.Text = "int comments";
                 this.InternalCommentsButton.Size = new Size(90, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Enabled = true;
@@ -317,7 +312,7 @@ namespace Estimating
 
 
                 //customer comments button 
-                this.CustomerCommentsButton = new Button();
+                this.CustomerCommentsButton = new LinkLabel();
                 this.CustomerCommentsButton.Text = "cust comments";
                 this.CustomerCommentsButton.Size = new Size(90, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Enabled = true;
@@ -325,15 +320,58 @@ namespace Estimating
                 this.CustomerCommentsButton.Size = new Size(100, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
+                //list price label
+                this.ListPriceLabel = new Label();
+                this.ListPriceLabel.Text = $"List price: $0.00";
+                this.ListPriceLabel.Size = new System.Drawing.Size(250, 23);
+                this.ListPriceLabel.Location = new System.Drawing.Point(210, 90);
+                this.ListPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //net price label
+                this.NetPriceLabel = new Label();
+                this.NetPriceLabel.Text = $"Net price: $0.00";
+                this.NetPriceLabel.Size = new System.Drawing.Size(250, 23);
+                this.NetPriceLabel.Location = new System.Drawing.Point(210, 120);
+                this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //delete button 
+                this.NewCoverButton = new Button();
+                this.NewCoverButton.Text = "Cover";
+                this.NewCoverButton.Location = new System.Drawing.Point(260, 10);
+                this.NewCoverButton.Enabled = true;
+                this.NewCoverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //delete button 
+                this.NewVersionButton = new Button();
+                this.NewVersionButton.Text = "Version";
+                this.NewVersionButton.Location = new System.Drawing.Point(260, 35);
+                this.NewVersionButton.Enabled = true;
+                this.NewVersionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                this.NewCoverButton.Click += ((object sender, EventArgs e) =>
+                {
+
+                });
+
+                this.NewVersionButton.Click += ((object sender, EventArgs e) =>
+                {
+
+                });
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
                     this.ToggleInternalComments();
+
+                    //if internal comments are showing, customer comments should be hidden 
+                    this.ToggleCustomerComments(false);
                 });
 
                 this.CustomerCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
                     this.ToggleCustomerComments();
+
+                    //if customer comments are showing, internal comments should be hidden 
+                    this.ToggleInternalComments(false);
                 });
 
 
@@ -354,10 +392,15 @@ namespace Estimating
                     this.EnableSave(this.IsDirty);
                 });
 
+                this.Panel.Click += ((object sender, EventArgs e) =>
+                {
+                    this.Panel.BackColor = Color.White;
+                    parentForm.ProcessSo(version.Version, "");
+                });
 
                 this.Panel.Controls.Add(this.NameLabel);
                 this.Panel.Controls.Add(this.DescLabel);
-                this.Panel.Controls.Add(this.SelectButton);
+                
                 this.Panel.Controls.Add(this.DeleteButton);
                 this.Panel.Controls.Add(this.ColorDropdown);
                 this.Panel.Controls.Add(this.MaterialDropdown);
@@ -367,6 +410,10 @@ namespace Estimating
                 this.Panel.Controls.Add(this.InternalCommentsTextbox);
                 this.Panel.Controls.Add(this.CustomerCommentsButton);
                 this.Panel.Controls.Add(this.CustomerCommentsTextbox);
+                this.Panel.Controls.Add(this.ListPriceLabel);
+                this.Panel.Controls.Add(this.NetPriceLabel);
+                this.Panel.Controls.Add(this.NewCoverButton);
+                this.Panel.Controls.Add(this.NewVersionButton);
 
                 this.IsSelected = this.Version.Version == parentForm.CurrentVersion;
 
@@ -387,7 +434,7 @@ namespace Estimating
 
             public void Enable(bool enabled = true)
             {
-                this.SelectButton.Enabled = enabled && !this.IsSelected;
+                
                 this.DeleteButton.Enabled = enabled;
                 this.MaterialDropdown.Enabled = enabled && this.Version.IsEditable;
                 this.ColorDropdown.Enabled = enabled && this.Version.IsEditable;
@@ -451,28 +498,22 @@ namespace Estimating
             {
                 if (visible == null)
                     visible = !this.CustomerCommentsTextbox.Visible;
+                else
+                    visible = false;
 
                 this.ToggleTextbox(this.CustomerCommentsTextbox, visible.Value);
 
-                //if customer comments are showing, internal comments should be hidden 
-                if (visible.Value)
-                {
-                    this.ToggleInternalComments(false);
-                }
             }
 
             private void ToggleInternalComments(bool? visible = null)
             {
                 if (visible == null)
                     visible = !this.InternalCommentsTextbox.Visible;
+                else
+                    visible = false;
 
                 this.ToggleTextbox(this.InternalCommentsTextbox, visible.Value);
 
-                //if internal comments are showing, customer comments should be hidden 
-                if (visible.Value)
-                {
-                    this.ToggleCustomerComments(false);
-                }
             }
 
             private void ToggleTextbox(TextBox textBox, bool visible)
