@@ -6626,7 +6626,7 @@
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(69, 31);
             this.buttonRefresh.TabIndex = 421;
-            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.Text = "Reinitialize";
             this.buttonRefresh.UseVisualStyleBackColor = false;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
@@ -7982,7 +7982,7 @@
             this.labelLckUser.Name = "labelLckUser";
             this.labelLckUser.Size = new System.Drawing.Size(55, 13);
             this.labelLckUser.TabIndex = 429;
-            this.labelLckUser.Text = "label174";
+            this.labelLckUser.Text = "";
             // 
             // buttonTickets
             // 

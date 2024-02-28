@@ -1668,14 +1668,17 @@ namespace Estimating
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            this.ShowLoadingScreen(true);
-            try
+            if (wsgUtilities.wsgReply("This action will reinitialize the prices of all line items from the master table prices for those items. It may also take up to a minute for orders with many versions. Are you sure you want to proceed?"))
             {
-                this.RefreshLineItems();
-            }
-            finally
-            {
-                this.ShowLoadingScreen(false);
+                this.ShowLoadingScreen(true);
+                try
+                {
+                    this.RefreshLineItems();
+                }
+                finally
+                {
+                    this.ShowLoadingScreen(false);
+                }
             }
         }
 
