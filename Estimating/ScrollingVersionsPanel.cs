@@ -185,6 +185,7 @@ namespace Estimating
 
                 //version description label 
                 this.DescLabel = new Label();
+                //TODO: check for nulls 
                 this.DescLabel.Text = $"{version.Covers[0].Description.Trim()} {version.Covers[0].Material.Trim()} {version.Covers[0].Color.Trim()}";
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
                 this.DescLabel.Location = new System.Drawing.Point(10, 35);

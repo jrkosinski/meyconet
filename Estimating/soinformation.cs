@@ -205,19 +205,22 @@ namespace Estimating
 
         public void getallsoreportdata(string sono)
         {
-            quorptds.view_soreportlinedata.Rows.Clear();
-            this.ClearParameters();
-            this.AddParms("@sono", sono, "SQL");
-            this.FillData(quorptds, "view_soreportlinedata", "wsgsp_getallsoreportlinedata", CommandType.StoredProcedure);
-            // somast
-            quorptds.somast.Rows.Clear();
-            quorptds.somast.ImportRow(somastds.somast.Rows[0]);
-            // soaddr
-            quorptds.soaddr.Rows.Clear();
-            quorptds.soaddr.ImportRow(somastds.soaddr.Rows[0]);
-            // arcust
-            quorptds.arcust.Rows.Clear();
-            quorptds.arcust.ImportRow(ards.arcust.Rows[0]);
+            if (!String.IsNullOrEmpty(sono))
+            {
+                quorptds.view_soreportlinedata.Rows.Clear();
+                this.ClearParameters();
+                this.AddParms("@sono", sono, "SQL");
+                this.FillData(quorptds, "view_soreportlinedata", "wsgsp_getallsoreportlinedata", CommandType.StoredProcedure);
+                // somast
+                quorptds.somast.Rows.Clear();
+                quorptds.somast.ImportRow(somastds.somast.Rows[0]);
+                // soaddr
+                quorptds.soaddr.Rows.Clear();
+                quorptds.soaddr.ImportRow(somastds.soaddr.Rows[0]);
+                // arcust
+                quorptds.arcust.Rows.Clear();
+                quorptds.arcust.ImportRow(ards.arcust.Rows[0]);
+            }
         }
 
         public Dictionary<string, List<quoterpt.view_soreportlinedataRow>> GetCoversByVersion(string sono)
@@ -2395,6 +2398,8 @@ namespace Estimating
                 if (SocoverOk == true)
                 {
                     // Check the price/sqft
+                    if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
+                        clineds.socover[0].prcsqft = 1;
                     if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
                     {
                         if (!silent) LogCoverError("102", true);
