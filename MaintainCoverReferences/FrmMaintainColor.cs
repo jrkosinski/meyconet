@@ -30,11 +30,24 @@ namespace MaintainCoverReferences
             SetBindings();
             CurrentState = "Select";
             RefreshControls();
+
+            SetTabOrder();
         }
 
         public string CurrentState { get; set; }
         public int SelectedColorId { get; set; }
         public bool InsertingColor { get; set; }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonInsert,
+                this.textBoxDescrip,
+                this.buttonSave,
+                this.buttonClose
+            });
+        }
 
         private void RefreshControls()
         {

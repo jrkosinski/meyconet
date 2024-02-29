@@ -31,11 +31,26 @@ namespace MaintainCoverReferences
             SetBindings();
             CurrentState = "Select";
             RefreshControls();
+
+            SetTabOrder();
         }
 
         public string CurrentState { get; set; }
         public int SelectedOverlapId { get; set; }
         public bool InsertingOverlap { get; set; }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonInsert,
+                this.textBoxDescrip,
+                this.textBoxFeet,
+                this.textBoxInches,
+                this.buttonSave,
+                this.buttonClose
+            });
+        }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
