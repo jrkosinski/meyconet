@@ -7897,7 +7897,7 @@
             // 
             this.panelVersions.Location = new System.Drawing.Point(890, 10);
             this.panelVersions.Name = "panelVersions";
-            this.panelVersions.Size = new System.Drawing.Size(360, 700);
+            this.panelVersions.Size = new System.Drawing.Size(450, 700);
             this.panelVersions.TabIndex = 423;
             this.panelVersions.BackColor = System.Drawing.Color.LightGray;
             this.panelVersions.AutoScroll = true;

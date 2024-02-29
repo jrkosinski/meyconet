@@ -458,6 +458,13 @@ namespace Estimating
 
         #region Refresh Controls
 
+        public void EnterEditCoverMode()
+        {
+            this.CurrentState = "Edit Line";
+            this.TabControlOrderEntry.SelectedIndex = 0;
+            this.RefreshControls(); 
+        }
+
         public void RefreshControls()
         {
             buttonGetSO.Enabled = false;
@@ -677,6 +684,12 @@ namespace Estimating
             textBoxProduct.Enabled = false;
             TabControlCustomerNotes.Enabled = true;
             this.Update();
+        }
+
+        public void SelectVersionPanel(string version)
+        {
+            this.versionsList.SelectVersionPanel(version);
+            this.ProcessSo(version, "");
         }
 
         #endregion Refresh Controls
@@ -1660,6 +1673,8 @@ namespace Estimating
         {
             ClearQuote();
             ClearLineitems();
+            this.versionsList.Clear();
+            this.versionsList.Hide();
             soinf.ClearResultsTable();
             bindingResults.DataSource = soinf.resultsds.soline;
             CurrentState = "Select";
@@ -2374,7 +2389,7 @@ namespace Estimating
             CreateNewCover();
         }
 
-        private void CreateNewCover()
+        public void CreateNewCover()
         {
             string newcover = "";
             soinf.LoadCoverViewData(soinf.somastds.somast[0].sono, CurrentVersion);
@@ -2826,7 +2841,7 @@ namespace Estimating
 
         private void FrmSOHead_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(this.Size.Width + 350, this.Size.Height);
+            this.Size = new Size(this.Size.Width + 450, this.Size.Height);
 
             this.versionsList = new ScrollingVersionsPanel(this, this.panelVersions);
             this.versionsList.Hide();
@@ -3133,6 +3148,10 @@ namespace Estimating
         private void ReloadVersionsList()
         {
             this.LoadVersionsList(true);
+            if (this.versionsList.Count < 1)
+                this.versionsList.Hide();
+            else
+                this.versionsList.Show();
         }
 
     } // class

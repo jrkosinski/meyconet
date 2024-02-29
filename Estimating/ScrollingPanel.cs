@@ -53,6 +53,7 @@ namespace Estimating
         public virtual void Clear()
         {
             this._panel.Controls.Clear();
+            this._subPanels.Clear();
             _maxY = 0;
         }
 
