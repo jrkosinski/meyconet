@@ -116,7 +116,7 @@ namespace CommonAppClasses
             textBoxLname.Text = "";
             textBoxCustno.Text = "";
             textBoxFirstSoDate.Text = "";
-            dateTimePickerFirstSoDate.Value -= TimeSpan.Parse("365.00:00:00"); ;
+            dateTimePickerFirstSoDate.Value -= TimeSpan.Parse("365.00:00:00");
             dateTimePickerLastSoDate.Value = DateTime.Now;
 
             this.textBoxCustno.Text = dataCache.IsInvalid ? String.Empty : dataCache.SearchParams["custno"];
@@ -128,13 +128,13 @@ namespace CommonAppClasses
             if (!String.IsNullOrEmpty(dataCache.IsInvalid ? String.Empty : dataCache.SearchParams["date1"]))
             {
                 this.textBoxFirstSoDate.Text = dataCache.IsInvalid ? String.Empty : dataCache.SearchParams["date1"];
-                this.dateTimePickerFirstSoDate.Value = DateTime.Parse(this.textBoxFirstSoDate.Text);
+                this.dateTimePickerFirstSoDate.Value = DateTime.ParseExact(this.textBoxFirstSoDate.Text, "M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
 
             if (!String.IsNullOrEmpty(dataCache.IsInvalid ? String.Empty : dataCache.SearchParams["date2"]))
             {
                 this.textBoxLastSoDate.Text = dataCache.IsInvalid ? String.Empty : dataCache.SearchParams["date2"];
-                this.dateTimePickerLastSoDate.Value = DateTime.Parse(this.textBoxLastSoDate.Text);
+                this.dateTimePickerLastSoDate.Value = DateTime.ParseExact(this.textBoxLastSoDate.Text,"M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
         }
 
