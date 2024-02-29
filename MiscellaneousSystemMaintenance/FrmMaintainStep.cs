@@ -42,6 +42,46 @@ namespace MiscellaneousSystemMaintenance
             textBoxMustBeInvoiced.DataBindings.Add("Text", trackingInf.trackingds.step, "mustbeinvoiced");
             textBoxPrintSewnOnLabel.DataBindings.Add("Text", trackingInf.trackingds.step, "printsewnonlabel");
             textBoxPrintIdentityLabel.DataBindings.Add("Text", trackingInf.trackingds.step, "printidentitylabel");
+
+            SetTabOrder();
+        }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonSelectPhase,
+                this.buttonEdit,
+                this.panel1,
+                this.textBoxIdcol,
+                this.textBoxCode,
+                this.textBoxDescrip,
+                this.textBoxOndescrip,
+                this.textBoxSoclose,
+                this.textBoxInspection,
+                this.textBoxMaxcode,
+                this.panel2,
+                this.listBoxFileToSend,
+                this.textBoxSendFTP,
+                this.textBoxPrintInvoice,
+                this.textBoxInternalMail,
+                this.textBoxPrintWorkOrder,
+                this.textBoxPrintIdentityLabel,
+                this.textBoxPrintPackList,
+                this.textBoxPrintSewnOnLabel,
+                this.textBoxMessage,
+                this.listBoxLocation,
+                this.textBoxOKToInvoice,
+                this.textBoxMustBeInvoiced,
+                this.textBoxAlertInterval,
+                this.textBoxAlertMessage,
+
+                this.buttonSave,
+                this.buttonDelete,
+                this.buttonCancel,
+                this.buttonSubscribers,
+                this.buttonInsert
+            });
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

@@ -29,11 +29,29 @@ namespace MiscellaneousSystemMaintenance
             textBoxUsername.DataBindings.Add("Text", miscdata.systemds.appuser, "username");
             textBoxUserid.DataBindings.Add("Text", miscdata.systemds.appuser, "userid");
             textBoxPassword.DataBindings.Add("Text", miscdata.systemds.appuser, "passwd");
+
+            SetTabOrder();
         }
 
         public int SelectedUserId { get; set; }
         public string CurrentState { get; set; }
         public string AppUserstatus { get; set; }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonSelectUser,
+                this.buttonEdit,
+                this.textBoxUserid,
+                this.textBoxUsername,
+                this.textBoxPassword,
+                this.textBoxPassword,
+                this.textBoxEmailAddress,
+                this.listBoxUserrole,
+                this.buttonSave
+            });
+        }
 
         private void buttonSelectUser_Click(object sender, EventArgs e)
         {
