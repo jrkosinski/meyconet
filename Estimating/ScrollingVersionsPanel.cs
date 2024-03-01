@@ -17,7 +17,7 @@ namespace Estimating
     public class ScrollingVersionsPanel : ScrollingPanel
     {
         private const int SUB_PANEL_WIDTH = 450;
-        private const int SUB_PANEL_HEIGHT = 150;
+        private const int SUB_PANEL_HEIGHT = 160;
 
         Dictionary<string, int> _versionsLookup = new Dictionary<string, int>();
         List<VersionPanel> _versionPanels = new List<VersionPanel>();
@@ -136,6 +136,7 @@ namespace Estimating
             public Label NetPriceLabel { get; private set; }
             public Button NewCoverButton { get; private set; }
             public Button NewVersionButton { get; private set; }
+            public Label ColorLabel { get; private set; }
 
             public bool IsSelected
             {
@@ -229,7 +230,7 @@ namespace Estimating
                 this.NameLabel = new Label();
                 string covercount = version.Covers.Count == 1 ? $"1 cover" : $"{version.Covers.Count} covers";
                 this.NameLabel.Text = $"Version {version.Version} ({covercount})";
-                this.NameLabel.Location = new System.Drawing.Point(10, 10);
+                this.NameLabel.Location = new System.Drawing.Point(10, 20);
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
                 this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -238,20 +239,20 @@ namespace Estimating
                 //TODO: check for nulls 
                 this.DescLabel.Text = $"{version.Covers[0].Description.Trim()} {version.Covers[0].Material.Trim()} {version.Covers[0].Color.Trim()}";
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
-                this.DescLabel.Location = new System.Drawing.Point(10, 35);
+                this.DescLabel.Location = new System.Drawing.Point(10, 45);
                 this.DescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //delete button 
                 this.DeleteButton = new Button();
                 this.DeleteButton.Text = "Delete";
-                this.DeleteButton.Location = new System.Drawing.Point(10, 60);
+                this.DeleteButton.Location = new System.Drawing.Point(10, 70);
                 this.DeleteButton.Enabled = true;
                 this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //save button 
                 this.SaveButton = new Button();
                 this.SaveButton.Text = "Save";
-                this.SaveButton.Location = new System.Drawing.Point(90, 60);
+                this.SaveButton.Location = new System.Drawing.Point(90, 70);
                 this.SaveButton.Enabled = false;
                 this.SaveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -268,7 +269,7 @@ namespace Estimating
                 //cancel button 
                 this.CancelButton = new Button();
                 this.CancelButton.Text = "Cancel";
-                this.CancelButton.Location = new System.Drawing.Point(170, 60);
+                this.CancelButton.Location = new System.Drawing.Point(170, 70);
                 this.CancelButton.Enabled = false;
                 this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -283,7 +284,7 @@ namespace Estimating
                 //new cover button 
                 this.NewCoverButton = new Button();
                 this.NewCoverButton.Text = "New Cover";
-                this.NewCoverButton.Location = new System.Drawing.Point(250, 60);
+                this.NewCoverButton.Location = new System.Drawing.Point(250, 70);
                 this.NewCoverButton.Size = new Size(80, this.NewCoverButton.Height);
                 this.NewCoverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -296,7 +297,7 @@ namespace Estimating
                 //new version button 
                 this.NewVersionButton = new Button();
                 this.NewVersionButton.Text = "New Version";
-                this.NewVersionButton.Location = new System.Drawing.Point(335, 60);
+                this.NewVersionButton.Location = new System.Drawing.Point(335, 70);
                 this.NewVersionButton.Size = new Size(90, this.NewVersionButton.Height);
                 this.NewVersionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -311,7 +312,7 @@ namespace Estimating
                 
                 //colors listbox 
                 this.ColorDropdown.FormattingEnabled = true;
-                this.ColorDropdown.Location = new System.Drawing.Point(10, 90);
+                this.ColorDropdown.Location = new System.Drawing.Point(10, 100);
                 this.ColorDropdown.Name = "colorDropdown";
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
@@ -326,7 +327,7 @@ namespace Estimating
 
                 //materials listbox 
                 this.MaterialDropdown.FormattingEnabled = true;
-                this.MaterialDropdown.Location = new System.Drawing.Point(90, 90);
+                this.MaterialDropdown.Location = new System.Drawing.Point(90, 100);
                 this.MaterialDropdown.Name = "materialDropdown";
                 this.MaterialDropdown.Size = new System.Drawing.Size(96, 21);
                 this.MaterialDropdown.TabIndex = 382;
@@ -341,7 +342,7 @@ namespace Estimating
 
                 //spacing listbox
                 this.SpacingDropdown = new ComboBox();
-                this.SpacingDropdown.Location = new System.Drawing.Point(190, 90);
+                this.SpacingDropdown.Location = new System.Drawing.Point(190, 100);
                 this.SpacingDropdown.Name = "spacingDropdown";
                 this.SpacingDropdown.Size = new System.Drawing.Size(96, 21);
                 this.SpacingDropdown.TabIndex = 382;
@@ -356,7 +357,7 @@ namespace Estimating
 
                 //overlap listbox
                 this.OverlapDropdown = new ComboBox();
-                this.OverlapDropdown.Location = new System.Drawing.Point(290, 90);
+                this.OverlapDropdown.Location = new System.Drawing.Point(290, 100);
                 this.OverlapDropdown.Name = "overlapDropdown";
                 this.OverlapDropdown.Size = new System.Drawing.Size(96, 21);
                 this.OverlapDropdown.TabIndex = 382;
@@ -379,7 +380,7 @@ namespace Estimating
                 this.InternalCommentsTextbox = new TextBox();
                 this.InternalCommentsTextbox.Visible = false;
                 this.InternalCommentsTextbox.Size = new Size(0, 0);
-                this.InternalCommentsTextbox.Location = new Point(10, 150);
+                this.InternalCommentsTextbox.Location = new Point(10, 160);
                 this.InternalCommentsTextbox.Multiline = true;
                 this.InternalCommentsTextbox.Text = this.Version.InternalComments;
                 
@@ -388,7 +389,7 @@ namespace Estimating
                 this.CustomerCommentsTextbox = new TextBox();
                 this.CustomerCommentsTextbox.Visible = false;
                 this.CustomerCommentsTextbox.Size = new Size(0, 0);
-                this.CustomerCommentsTextbox.Location = new Point(10, 150);
+                this.CustomerCommentsTextbox.Location = new Point(10, 160);
                 this.CustomerCommentsTextbox.Multiline = true;
                 this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
                 
@@ -398,7 +399,7 @@ namespace Estimating
                 this.InternalCommentsButton.Text = "int comments";
                 this.InternalCommentsButton.Size = new Size(90, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Enabled = true;
-                this.InternalCommentsButton.Location = new Point(10, 120);
+                this.InternalCommentsButton.Location = new Point(10, 130);
                 this.InternalCommentsButton.Size = new Size(100, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -408,7 +409,7 @@ namespace Estimating
                 this.CustomerCommentsButton.Text = "cust comments";
                 this.CustomerCommentsButton.Size = new Size(90, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Enabled = true;
-                this.CustomerCommentsButton.Location = new Point(110, 120);
+                this.CustomerCommentsButton.Location = new Point(110, 130);
                 this.CustomerCommentsButton.Size = new Size(100, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -416,15 +417,21 @@ namespace Estimating
                 this.ListPriceLabel = new Label();
                 this.ListPriceLabel.Text = $"List price: $0.00";
                 this.ListPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.ListPriceLabel.Location = new System.Drawing.Point(320, 120);
+                this.ListPriceLabel.Location = new System.Drawing.Point(320, 130);
                 this.ListPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //net price label
                 this.NetPriceLabel = new Label();
                 this.NetPriceLabel.Text = $"Net price: ${version.Covers[0].Price.ToString("#.00")}";
                 this.NetPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.NetPriceLabel.Location = new System.Drawing.Point(210, 120);
+                this.NetPriceLabel.Location = new System.Drawing.Point(210, 130);
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                this.ColorLabel = new Label();
+                this.ColorLabel.BackColor = Color.FromName(version.Covers[0].Color.Trim());
+                this.ColorLabel.Location = new System.Drawing.Point(10, 10);
+                this.ColorLabel.Size = new System.Drawing.Size(50, 23);
+                this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -494,6 +501,7 @@ namespace Estimating
                 this.Panel.Controls.Add(this.NetPriceLabel);
                 this.Panel.Controls.Add(this.NewCoverButton);
                 this.Panel.Controls.Add(this.NewVersionButton);
+                this.Panel.Controls.Add(this.ColorLabel);
 
                 this.IsSelected = this.Version.Version == parentForm.CurrentVersion;
 
@@ -501,6 +509,16 @@ namespace Estimating
                 this.EnableSave(false);
                 this.Panel.Size = new Size(SUB_PANEL_WIDTH, SUB_PANEL_HEIGHT);
                 this.Panel.BorderStyle = BorderStyle.FixedSingle;
+
+                foreach (Control control in Panel.Controls)
+                {
+                    control.MouseClick +=((sender, e) => {
+                        if (!this.IsSelected)
+                        {
+                            parentForm.SelectVersionPanel(this.Version.Version);
+                        }
+                    });
+                }
             }
 
             public void UpdateUI(int idcol, string descrip, int color, int material)
