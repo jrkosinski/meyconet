@@ -140,10 +140,10 @@ namespace Estimating
 
             public bool IsSelected
             {
-                get { return Panel.BackColor == Color.White; }
+                get { return Panel.BackColor == System.Drawing.Color.White; }
                 set
                 {
-                    Color backColor = value? Color.White : Color.LightGray;
+                    Color backColor = value? System.Drawing.Color.White : System.Drawing.Color.LightGray;
                     if (Panel.BackColor != backColor)
                         Panel.BackColor = backColor;
 
@@ -155,10 +155,10 @@ namespace Estimating
                 get {
                     if (this.SelectedColor != null && this.SelectedMaterial != null)
                     {
-                        return (this.SelectedColor != null && this.SelectedColor.Display != this.Version.Covers[0].Color.Trim()) ||
-                            (this.SelectedMaterial != null && this.SelectedMaterial.Display != this.Version.Covers[0].Material.Trim()) ||
-                            (this.SelectedSpacing != null && this.SelectedSpacing.Display != this.Version.Covers[0].Spacing.Trim()) ||
-                            (this.SelectedOverlap != null && this.SelectedOverlap.Display != this.Version.Covers[0].Overlap.Trim()) ||
+                        return (this.SelectedColor != null && this.SelectedColor.Display != this.Color) ||
+                            (this.SelectedMaterial != null && this.SelectedMaterial.Display != this.Material) ||
+                            (this.SelectedSpacing != null && this.SelectedSpacing.Display != this.Spacing) ||
+                            (this.SelectedOverlap != null && this.SelectedOverlap.Display != this.Overlap) ||
                             this.CustomerCommentsTextbox.Text != this.Version.CustomerComments || 
                             this.InternalCommentsTextbox.Text != this.Version.InternalComments;
                     }
@@ -220,6 +220,41 @@ namespace Estimating
                     }
                 }
             }
+            private string Description
+            {
+                get
+                {
+                    return this.Version.Covers[0].Description != null ? this.Version.Covers[0].Description.Trim() : String.Empty;
+                }
+            }
+            private string Material
+            {
+                get
+                {
+                    return this.Version.Covers[0].Material != null ? this.Version.Covers[0].Material.Trim() : String.Empty;
+                }
+            }
+            private string Color
+            {
+                get
+                {
+                    return this.Version.Covers[0].Color != null ? this.Version.Covers[0].Color.Trim() : String.Empty;
+                }
+            }
+            private string Spacing
+            {
+                get
+                {
+                    return this.Version.Covers[0].Spacing != null ? this.Version.Covers[0].Spacing.Trim() : String.Empty;
+                }
+            }
+            private string Overlap
+            {
+                get
+                {
+                    return this.Version.Covers[0].Overlap != null ? this.Version.Covers[0].Overlap.Trim() : String.Empty;
+                }
+            }
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
@@ -237,7 +272,7 @@ namespace Estimating
                 //version description label 
                 this.DescLabel = new Label();
                 //TODO: check for nulls 
-                this.DescLabel.Text = $"{version.Covers[0].Description.Trim()} {version.Covers[0].Material.Trim()} {version.Covers[0].Color.Trim()}";
+                this.DescLabel.Text = GetDescriptionText(version);
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
                 this.DescLabel.Location = new System.Drawing.Point(10, 45);
                 this.DescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -428,7 +463,7 @@ namespace Estimating
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.ColorLabel = new Label();
-                this.ColorLabel.BackColor = version.Covers[0].Color.Trim() == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : Color.FromName(version.Covers[0].Color.Trim());
+                this.ColorLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
                 this.ColorLabel.Location = new System.Drawing.Point(1, 1);
                 this.ColorLabel.Size = new System.Drawing.Size(50, 15);
                 this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -657,6 +692,17 @@ namespace Estimating
                     textBox.Size = new Size(0, 0);
                     this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT);
                 }
+            }
+
+            private string GetDescriptionText(VersionDto version)
+            {
+                string output = String.Empty;
+                if  (version != null && version.Covers != null && version.Covers.Count > 0 && version.Covers[0] != null)
+                {
+                    output = $"{this.Description}{this.Material}{this.Color}{this.Spacing}";
+                }
+
+                return output;
             }
         }
 
