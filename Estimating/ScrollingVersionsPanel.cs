@@ -428,9 +428,9 @@ namespace Estimating
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.ColorLabel = new Label();
-                this.ColorLabel.BackColor = Color.FromName(version.Covers[0].Color.Trim());
-                this.ColorLabel.Location = new System.Drawing.Point(10, 10);
-                this.ColorLabel.Size = new System.Drawing.Size(50, 23);
+                this.ColorLabel.BackColor = version.Covers[0].Color.Trim() == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : Color.FromName(version.Covers[0].Color.Trim());
+                this.ColorLabel.Location = new System.Drawing.Point(1, 1);
+                this.ColorLabel.Size = new System.Drawing.Size(50, 15);
                 this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
