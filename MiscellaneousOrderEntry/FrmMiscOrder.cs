@@ -516,23 +516,30 @@ namespace MiscellaneousOrderEntry
 
         #endregion Initialize Order
 
+        public void ShowSOSearch()
+        {
+            FrmSOSearch frmSoSearch = new FrmSOSearch(this.textBoxSoNo.Text, "N");
+            frmSoSearch.ShowDialog();
+            if (frmSoSearch.SelectedSono.TrimEnd() != "")
+            {
+                CurrentSomastid = miscordinf.GetSomastBySono(frmSoSearch.SelectedSono);
+                
+                CurrentCustno = miscordinf.somastds.somast[0].custno;
+                CurrentCustid = miscordinf.somastds.somast[0].custid;
+                // Load customer data for this SO
+                miscordinf.getSingleCustomerData(CurrentCustid);
+                CurrentState = "View";
+                ProcessSo();
+                
+                RefreshControls();
+            }
+        }
+
         private void TextBoxCustno_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
-                CurrentCustid = miscordinf.getCustomerDatabyCustno(textBoxCustno.Text);
-                if (CurrentCustid != 0)
-                {
-                    InitializeOrder();
-                    CurrentState = "Enter Order";
-                    ProcessSo();
-                }
-                else
-                {
-                    wsgUtilities.wsgNotice("Customer Not Found. Click Find to Search");
-                    CurrentState = "SelectCustno";
-                    RefreshControls();
-                }
+                ShowSOSearch();
             }
         }
 
@@ -1463,27 +1470,7 @@ namespace MiscellaneousOrderEntry
 
         private void buttonGetSO_Click(object sender, EventArgs e)
         {
-            FrmSOSearch frmSoSearch = new FrmSOSearch(this.textBoxSoNo.Text);
-            frmSoSearch.ShowDialog();
-            if (frmSoSearch.SelectedSono.TrimEnd() != "")
-            {
-                CurrentSomastid = miscordinf.GetSomastBySono(frmSoSearch.SelectedSono);
-                if (miscordinf.somastds.somast[0].enterqu != "Y")
-                {
-                    CurrentCustno = miscordinf.somastds.somast[0].custno;
-                    CurrentCustid = miscordinf.somastds.somast[0].custid;
-                    // Load customer data for this SO
-                    miscordinf.getSingleCustomerData(CurrentCustid);
-                    CurrentState = "View";
-                    ProcessSo();
-                }
-                else
-                {
-                    wsgUtilities.wsgNotice("This is a cover order.");
-                    textBoxSoNo.Text = "";
-                }
-                RefreshControls();
-            }
+            ShowSOSearch();
         }
 
         private void buttonVoid_Click(object sender, EventArgs e)
