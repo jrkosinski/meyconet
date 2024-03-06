@@ -22,36 +22,15 @@ namespace CommonAppClasses
         }
 
         public void GetSoSearchData(string sono, string ponum, string custno, string includetype, string lname, string meycono,
-          DateTime begindate, DateTime enddate)
+          DateTime begindate, DateTime enddate, string enterqu = null)
         {
             somastds.view_somastdata.Rows.Clear();
-            this.ClearParameters();
-            this.AddParms("@sono", sono, "SQL");
-            this.AddParms("@ponum", ponum, "SQL");
-            this.AddParms("@custno", custno, "SQL");
-            this.AddParms("@includetype", includetype, "SQL");
-            this.AddParms("@lname", lname, "SQL");
-            this.AddParms("@meycono", meycono, "SQL");
-            this.AddParms("@begindate", begindate.Date, "SQL");
-            this.AddParms("@enddate", enddate.Date, "SQL");
-            this.FillData(somastds, "view_somastdata", "wsgsp_searchsomast", CommandType.StoredProcedure);
-        }
-
-        public void GetSoSearchData(string sono, string ponum, string custno, string includetype, string lname, string meycono,
-          DateTime begindate, DateTime enddate, string enterqu)
-        {
-            somastds.view_somastdata.Rows.Clear();
-            this.ClearParameters();
-            this.AddParms("@sono", sono, "SQL");
-            this.AddParms("@ponum", ponum, "SQL");
-            this.AddParms("@custno", custno, "SQL");
-            this.AddParms("@includetype", includetype, "SQL");
-            this.AddParms("@lname", lname, "SQL");
-            this.AddParms("@meycono", meycono, "SQL");
-            this.AddParms("@begindate", begindate.Date, "SQL");
-            this.AddParms("@enddate", enddate.Date, "SQL");
-            this.AddParms("@enterqu", enterqu, "SQL");
-            this.FillData(somastds, "view_somastdata", "wsgsp_searchsomastqu", CommandType.StoredProcedure);
+            string spName = "wsgsp_searchsomast";
+            if (enterqu != null)
+            {
+                this.AddParms("@enterqu", enterqu, "SQL");
+            }
+            this.FillData(somastds, "view_somastdata", spName, CommandType.StoredProcedure);
         }
 
         public string CaptureSono(DataGridView myDataGridView)
