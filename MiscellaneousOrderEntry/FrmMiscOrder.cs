@@ -772,7 +772,7 @@ namespace MiscellaneousOrderEntry
         {
             if (e.KeyCode == Keys.Return)
             {
-                ShowSOSearch();
+                ProcessExistingOrder(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
             }
         }
 
@@ -1550,14 +1550,16 @@ namespace MiscellaneousOrderEntry
                     miscordinf.getSingleCustomerData(CurrentCustid);
                     CurrentState = "View";
                     ProcessSo();
+
+                    labelTaxdescrip.Text = appInformation.GetDistrictDescription(miscordinf.somastds.somast[0].taxdist);
+                    RefreshControls();
                 }
                 else
                 {
-                    wsgUtilities.wsgNotice("This is a cover order.");
+                    ShowSOSearch();
                     textBoxSoNo.Text = "";
                 }
-                labelTaxdescrip.Text = appInformation.GetDistrictDescription(miscordinf.somastds.somast[0].taxdist);
-                RefreshControls();
+                
             }
             else
             {

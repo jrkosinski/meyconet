@@ -1123,13 +1123,14 @@ namespace Estimating
                     CurrentVersion = "";
                     CurrentState = "View";
                     ProcessSo("", "");
+                    RefreshControls();
                 }
                 else
                 {
-                    wsgUtilities.wsgNotice("This is not a cover order");
+                    ShowSOSearch();
                     textBoxSoNo.Text = "";
                 }
-                RefreshControls();
+                
             }
             else
             {
@@ -1164,8 +1165,7 @@ namespace Estimating
         {
             if (e.KeyCode == Keys.Return)
             {
-                ShowSOSearch();
-                //ProcessExistingQuote(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
+                ProcessExistingQuote(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
             }
         }
 
