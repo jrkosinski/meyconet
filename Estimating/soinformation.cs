@@ -164,6 +164,16 @@ namespace Estimating
             get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].materialChanged; }
         }
 
+        public bool OverlapHasChanged
+        {
+            get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].overlapChanged; }
+        }
+
+        public bool SpacingHasChanged
+        {
+            get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].spacingChanged; }
+        }
+
         public void getSingleImmasterData(string item)
         {
             itemds.immaster.Rows.Clear();
@@ -2110,6 +2120,16 @@ namespace Estimating
                 {
                     this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
                 }
+
+                if (this.OverlapHasChanged)
+                {
+                    this.UpdateOverlapForAllCovers(thisSono, thisVersion, this.clineds.socover[0].overlapid, silent);
+                }
+
+                if (this.SpacingHasChanged)
+                {
+                    this.UpdateSpacingForAllCovers(thisSono, thisVersion, this.clineds.socover[0].spacingid, silent);
+                }
             }
 
             if (somastds.somast[0].sotype == "O" && somastds.somast[0].sostat != "V")
@@ -3797,6 +3817,46 @@ namespace Estimating
                 try
                 {
                     ExecuteCommand("jksp_updateMaterialAllSoCovers", CommandType.StoredProcedure);
+                }
+                catch (SqlException ex)
+                {
+                    HandleException(ex);
+                }
+            }
+        }
+
+        public void UpdateSpacingForAllCovers(string sono, string version, int spacingId, bool silent = false)
+        {
+            bool agree = silent ? true : wsgUtilities.wsgReply($"Spacing has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            if (agree)
+            {
+                this.ClearParameters();
+                this.AddParms("@sono", sono, "SQL");
+                this.AddParms("@version", version, "SQL");
+                this.AddParms("@spacingId", spacingId, "SQL");
+                try
+                {
+                    ExecuteCommand("jksp_updateSpacingAllSoCovers", CommandType.StoredProcedure);
+                }
+                catch (SqlException ex)
+                {
+                    HandleException(ex);
+                }
+            }
+        }
+
+        public void UpdateOverlapForAllCovers(string sono, string version, int overlapId, bool silent = false)
+        {
+            bool agree = silent ? true : wsgUtilities.wsgReply($"Overlap has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            if (agree)
+            {
+                this.ClearParameters();
+                this.AddParms("@sono", sono, "SQL");
+                this.AddParms("@version", version, "SQL");
+                this.AddParms("@overlapId", overlapId, "SQL");
+                try
+                {
+                    ExecuteCommand("jksp_updateOverlapAllSoCovers", CommandType.StoredProcedure);
                 }
                 catch (SqlException ex)
                 {

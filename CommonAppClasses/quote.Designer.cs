@@ -17661,11 +17661,6 @@ namespace CommonAppClasses {
 
             private int _oldMaterialid = -1;
 
-            public bool materialChanged
-            {
-                get { return this._oldMaterialid >= 0 && this._oldMaterialid != this.materialid; }
-            }
-
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int materialid {
@@ -17683,6 +17678,11 @@ namespace CommonAppClasses {
                         this._oldMaterialid = this.materialid;
                     this[this.tablesocover.materialidColumn] = value;
                 }
+            }
+
+            public bool materialChanged
+            {
+                get { return this._oldMaterialid >= 0 && this._oldMaterialid != this.materialid; }
             }
 
             private int _oldColorid = -1;
@@ -17886,23 +17886,39 @@ namespace CommonAppClasses {
                     this[this.tablesocover.versionColumn] = value;
                 }
             }
-            
+
+            private int _oldSpacingid = -1;
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int spacingid {
-                get {
-                    try {
+            public int spacingid
+            {
+                get
+                {
+                    try
+                    {
                         return ((int)(this[this.tablesocover.spacingidColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'spacingid\' in table \'socover\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
+                    if (_oldSpacingid < 0)
+                        this._oldSpacingid = this.spacingid;
                     this[this.tablesocover.spacingidColumn] = value;
                 }
             }
-            
+
+            public bool spacingChanged
+            {
+                get { return this._oldSpacingid >= 0 && this._oldSpacingid != this.spacingid; }
+            }
+
+            private int _oldOverlapid = -1; 
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int overlapid {
@@ -17914,11 +17930,19 @@ namespace CommonAppClasses {
                         throw new global::System.Data.StrongTypingException("The value for column \'overlapid\' in table \'socover\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
+                    if (_oldOverlapid < 0)
+                        this._oldOverlapid = this.overlapid;
                     this[this.tablesocover.overlapidColumn] = value;
                 }
             }
-            
+
+            public bool overlapChanged
+            {
+                get { return this._oldOverlapid >= 0 && this._oldOverlapid != this.overlapid; }
+            }
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public decimal straps {
@@ -27352,7 +27376,9 @@ namespace CommonAppClasses {
                     this[this.tableview_coverdata.versionColumn] = value;
                 }
             }
-            
+
+            private int _oldSpacingid = -1; 
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int spacingid {
@@ -27364,11 +27390,12 @@ namespace CommonAppClasses {
                         throw new global::System.Data.StrongTypingException("The value for column \'spacingid\' in table \'view_coverdata\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableview_coverdata.spacingidColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int overlapid {

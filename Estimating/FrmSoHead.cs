@@ -2042,7 +2042,7 @@ namespace Estimating
             }
         }
 
-        public void CreateNewVersion()
+        public string CreateNewVersion()
         {
             if (soinf.somastds.somast[0].sotype == "B")
             {
@@ -2069,12 +2069,13 @@ namespace Estimating
                     newversion = "A";
                 }
                 ProcessSo(newversion, "");
-                //this.ReloadVersionsList();
             }
             else
             {
                 wsgUtilities.wsgNotice("This order was Converted. Versions can't be added.");
             }
+
+            return CurrentVersion;
         }
 
         private void dataGridViewFeatureSelector_CellContentDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -2342,7 +2343,6 @@ namespace Estimating
                 {
                     soinf.DeleteSoversion(soinf.somastds.somast[0].sono, version);
                     ProcessSo("", "");
-                    //this.ReloadVersionsList();
                 }
             }
             else
@@ -2429,7 +2429,6 @@ namespace Estimating
             }
             CurrentState = "Edit Line";
             ProcessSo(soinf.somastds.soversion[0].version, newcover);
-            //this.ReloadVersionsList();
         }
 
         private void buttonCover_Click(object sender, EventArgs e)
