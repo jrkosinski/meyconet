@@ -539,7 +539,19 @@ namespace MiscellaneousOrderEntry
         {
             if (e.KeyCode == Keys.Return)
             {
-                ShowSOSearch();
+                CurrentCustid = miscordinf.getCustomerDatabyCustno(textBoxCustno.Text);
+                if (CurrentCustid != 0)
+                {
+                    InitializeOrder();
+                    CurrentState = "Enter Order";
+                    ProcessSo();
+                }
+                else
+                {
+                    wsgUtilities.wsgNotice("Customer Not Found. Click Find to Search");
+                    CurrentState = "SelectCustno";
+                    RefreshControls();
+                }
             }
         }
 
@@ -760,7 +772,7 @@ namespace MiscellaneousOrderEntry
         {
             if (e.KeyCode == Keys.Return)
             {
-                ProcessExistingOrder(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
+                ShowSOSearch();
             }
         }
 

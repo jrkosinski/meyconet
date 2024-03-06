@@ -36,12 +36,8 @@ namespace CommonAppClasses
             this.AddParms("@meycono", meycono, "SQL");
             this.AddParms("@begindate", begindate.Date, "SQL");
             this.AddParms("@enddate", enddate.Date, "SQL");
+            this.AddParms("@enterqu", enterqu, "SQL");
 
-            if (enterqu != null)
-            {
-                spName = "wsgsp_searchsomastqu";
-                this.AddParms("@enterqu", enterqu, "SQL");
-            }
             this.FillData(somastds, "view_somastdata", spName, CommandType.StoredProcedure);
         }
 
