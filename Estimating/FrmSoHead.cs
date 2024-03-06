@@ -1139,11 +1139,33 @@ namespace Estimating
             }
         }
 
+        public void ShowSOSearch()
+        {
+            FrmSOSearch frmSoSearch = new FrmSOSearch(this.textBoxSoNo.Text, "Y");
+            frmSoSearch.ShowDialog();
+            if (frmSoSearch.SelectedSono.TrimEnd() != "")
+            {
+                CurrentSomastid = soinf.GetSomastBySono(frmSoSearch.SelectedSono);
+                CurrentSono = frmSoSearch.SelectedSono;
+
+                CurrentCustno = soinf.somastds.somast[0].custno;
+                CurrentCustid = soinf.somastds.somast[0].custid;
+                // Load customer data for this SO
+                soinf.getSingleCustomerData(CurrentCustid);
+                CurrentVersion = "";
+                CurrentState = "View";
+                ProcessSo("", "");
+                
+                RefreshControls();
+            }
+        }
+
         private void textBoxSoNo_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
-                ProcessExistingQuote(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
+                ShowSOSearch();
+                //ProcessExistingQuote(textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
             }
         }
 
@@ -2651,30 +2673,7 @@ namespace Estimating
 
         private void buttonGetSO_Click(object sender, EventArgs e)
         {
-            FrmSOSearch frmSoSearch = new FrmSOSearch(this.textBoxSoNo.Text);
-            frmSoSearch.ShowDialog();
-            if (frmSoSearch.SelectedSono.TrimEnd() != "")
-            {
-                CurrentSomastid = soinf.GetSomastBySono(frmSoSearch.SelectedSono);
-                CurrentSono = frmSoSearch.SelectedSono;
-
-                if (soinf.somastds.somast[0].enterqu == "Y")
-                {
-                    CurrentCustno = soinf.somastds.somast[0].custno;
-                    CurrentCustid = soinf.somastds.somast[0].custid;
-                    // Load customer data for this SO
-                    soinf.getSingleCustomerData(CurrentCustid);
-                    CurrentVersion = "";
-                    CurrentState = "View";
-                    ProcessSo("", "");
-                }
-                else
-                {
-                    wsgUtilities.wsgNotice("This is not a cover order");
-                    textBoxSoNo.Text = "";
-                }
-                RefreshControls();
-            }
+            ShowSOSearch();
         }
 
         private void buttonCoverItem_Click(object sender, EventArgs e)

@@ -25,11 +25,12 @@ namespace CommonAppClasses
         public string IncludeType { get; set; }
         public string ItemSearchKey { get; set; }
         public bool wascancelled = false;
+        public string Enterqu = null;
 
         private BindingSource bindingSoSelectionData = new BindingSource();
         private static ObjectCacheWithParams dataCache = new ObjectCacheWithParams(Int32.Parse(ConfigurationManager.AppSettings["CacheRetentionSeconds_SOSearch"]));
 
-        public FrmSOSearch(string sono = null)
+        public FrmSOSearch(string sono = null, string enterqu = null)
         {
             InitializeComponent();
 
@@ -39,6 +40,7 @@ namespace CommonAppClasses
             SelectedSono = "";
             // Default to include Orders and Estimates
             IncludeType = "OB";
+            Enterqu = enterqu;
             // The value for alternating rows overrides the value for all rows.
             dataGridviewSoSearch.RowsDefaultCellStyle.BackColor = Color.LightGray;
             dataGridviewSoSearch.AlternatingRowsDefaultCellStyle.BackColor = Color.DarkGray;
@@ -70,7 +72,7 @@ namespace CommonAppClasses
         {
             soSearchInf.GetSoSearchData(textBoxSono.Text.TrimStart().TrimEnd(), textBoxPonum.Text.TrimStart().TrimEnd(),
             textBoxCustno.Text.TrimStart().TrimEnd(), IncludeType, textBoxLname.Text.TrimStart().TrimEnd(),
-            textBoxMeycono.Text.TrimStart().TrimEnd(), dateTimePickerFirstSoDate.Value, dateTimePickerLastSoDate.Value);
+            textBoxMeycono.Text.TrimStart().TrimEnd(), dateTimePickerFirstSoDate.Value, dateTimePickerLastSoDate.Value, Enterqu);
             dataGridviewSoSearch.Focus();
 
             dataCache.SearchParams["custno"] = textBoxCustno.Text.TrimStart().TrimEnd();
