@@ -296,6 +296,8 @@ namespace Estimating
                     parentForm.ProcessSo(version.Version, "");
                     parentForm.Soinf.clineds.socover[0].colorid = this.SelectedColor.Value;
                     parentForm.Soinf.clineds.socover[0].materialid = this.SelectedMaterial.Value;
+                    parentForm.Soinf.clineds.socover[0].spacingid = this.SelectedSpacing.Value;
+                    parentForm.Soinf.clineds.socover[0].overlapid = this.SelectedOverlap.Value;
                     parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
                     parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
                     parentForm.SaveSo(); 
