@@ -25,9 +25,21 @@ namespace CommonAppClasses
           DateTime begindate, DateTime enddate, string enterqu = null)
         {
             somastds.view_somastdata.Rows.Clear();
+            this.ClearParameters();
             string spName = "wsgsp_searchsomast";
+
+            this.AddParms("@sono", sono, "SQL");
+            this.AddParms("@ponum", ponum, "SQL");
+            this.AddParms("@custno", custno, "SQL");
+            this.AddParms("@includetype", includetype, "SQL");
+            this.AddParms("@lname", lname, "SQL");
+            this.AddParms("@meycono", meycono, "SQL");
+            this.AddParms("@begindate", begindate.Date, "SQL");
+            this.AddParms("@enddate", enddate.Date, "SQL");
+
             if (enterqu != null)
             {
+                spName = "wsgsp_searchsomastqu";
                 this.AddParms("@enterqu", enterqu, "SQL");
             }
             this.FillData(somastds, "view_somastdata", spName, CommandType.StoredProcedure);
