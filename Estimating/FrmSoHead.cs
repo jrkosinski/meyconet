@@ -1134,9 +1134,11 @@ namespace Estimating
             }
             else
             {
-                wsgUtilities.wsgNotice("Sales Order Not Found. Click Find to Search");
+                textBoxSoNo.Text = CurrentSono;
                 CurrentState = "Select";
-                RefreshControls();
+                ShowSOSearch();
+                textBoxSoNo.Text = "";
+
             }
         }
 
