@@ -1545,6 +1545,19 @@ namespace CommonAppClasses
             ParentForm.dataGridViewCustomers.KeyDown += new System.Windows.Forms.KeyEventHandler(dataGridViewCustomers_KeyDown);
             ParentForm.buttonSearch.Click += new System.EventHandler(buttonSearch_Click);
             ParentForm.AcceptButton = ParentForm.buttonSearch;
+            ParentForm.Load += ParentForm_Load;
+        }
+
+        private void ParentForm_Load(object sender, EventArgs e)
+        {
+            ParentForm.labelDataCount.Visible = false;
+
+            if (dataCache != null && !dataCache.IsInvalid)
+            {
+                ParentForm.labelDataCount.Text = customerAccess.custsearch.arcust.Count > 0 ? customerAccess.custsearch.arcust.Count.ToString() + " records found" : "No records found";
+                ParentForm.labelDataCount.Visible = true;
+                ParentForm.labelDataCount.Update();
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -1560,6 +1573,10 @@ namespace CommonAppClasses
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            ParentForm.labelDataCount.Visible = true;
+            ParentForm.labelDataCount.Text = "Searching...";
+            ParentForm.labelDataCount.Update();
+
             customerAccess.GetCustomerSelectorInfo(ParentForm.textBoxCustno.Text, ParentForm.textBoxCompany.Text,
             ParentForm.textBoxState.Text, ParentForm.textBoxZip.Text, ParentForm.textBoxPhone.Text);
             bindingCustomerData.DataSource = customerAccess.custsearch.arcust;
@@ -1574,6 +1591,8 @@ namespace CommonAppClasses
             dataCache.SearchParams["phone"] = ParentForm.textBoxPhone.Text;
 
             ParentForm.AcceptButton = ParentForm.buttonAccept;
+
+            ParentForm.labelDataCount.Text = customerAccess.custsearch.arcust.Count > 0 ? customerAccess.custsearch.arcust.Count.ToString() + " records found" : "No records found";
         }
 
         public void ProcessSelection()

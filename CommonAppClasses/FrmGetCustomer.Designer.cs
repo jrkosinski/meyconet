@@ -71,6 +71,7 @@
         this.textBoxBillCity = new System.Windows.Forms.TextBox();
         this.textBoxBillState = new System.Windows.Forms.TextBox();
         this.textBoxBillZip = new System.Windows.Forms.TextBox();
+        this.labelDataCount = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
         this.SuspendLayout();
         // 
@@ -470,6 +471,18 @@
         this.textBoxBillZip.ReadOnly = true;
         this.textBoxBillZip.Size = new System.Drawing.Size(101, 20);
         this.textBoxBillZip.TabIndex = 423;
+
+        //
+        // labelDataCount
+        //
+        this.labelDataCount.AutoSize = true;
+        this.labelDataCount.Text = "Searching...";
+        this.labelDataCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        this.labelDataCount.Location = new System.Drawing.Point(20, 360);
+        this.labelDataCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+        this.labelDataCount.Name = "labelSearching";
+        this.labelDataCount.Size = new System.Drawing.Size(100, 13);
+
         // 
         // FrmGetCustomer
         // 
@@ -511,6 +524,7 @@
         this.Controls.Add(this.textBoxCustno);
         this.Controls.Add(this.dataGridViewCustomers);
         this.Controls.Add(this.buttonCancel);
+        this.Controls.Add(this.labelDataCount);
         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
         this.Margin = new System.Windows.Forms.Padding(2);
         this.Name = "FrmGetCustomer";
@@ -565,5 +579,6 @@
     public System.Windows.Forms.TextBox textBoxBillCity;
     public System.Windows.Forms.TextBox textBoxBillState;
     public System.Windows.Forms.TextBox textBoxBillZip;
-  }
+    public System.Windows.Forms.Label labelDataCount;
+    }
 }
