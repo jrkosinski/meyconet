@@ -60,6 +60,7 @@
           this.dateTimePickerLastSoDate = new System.Windows.Forms.DateTimePicker();
           this.labelInclude = new System.Windows.Forms.Label();
           this.textBoxLastSoDate = new System.Windows.Forms.TextBox();
+            this.labelDataCount = new System.Windows.Forms.Label();
           ((System.ComponentModel.ISupportInitialize)(this.dataGridviewSoSearch)).BeginInit();
           this.panel1.SuspendLayout();
           this.SuspendLayout();
@@ -318,6 +319,8 @@
           this.dateTimePickerFirstSoDate.Size = new System.Drawing.Size(73, 20);
           this.dateTimePickerFirstSoDate.TabIndex = 16;
           this.dateTimePickerFirstSoDate.ValueChanged += new System.EventHandler(this.dateTimePickerFirstSoDate_ValueChanged);
+
+            
           // 
           // panel1
           // 
@@ -345,7 +348,7 @@
           this.panel1.Margin = new System.Windows.Forms.Padding(2);
           this.panel1.Name = "panel1";
           this.panel1.Size = new System.Drawing.Size(840, 78);
-          this.panel1.TabIndex = 17;
+          this.panel1.TabIndex = 18;
           // 
           // label6
           // 
@@ -404,22 +407,35 @@
           this.textBoxLastSoDate.TabIndex = 17;
           this.textBoxLastSoDate.Text = " ";
           this.textBoxLastSoDate.DoubleClick += new System.EventHandler(this.textBoxShipLastDate_DoubleClick);
-          // 
-          // FrmSOSearch
-          // 
-          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            //
+            // labelDataCount
+            //
+            this.labelDataCount.AutoSize = true;
+            this.labelDataCount.Text = "Searching...";
+            this.labelDataCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDataCount.Location = new System.Drawing.Point(14, 389);
+            this.labelDataCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelDataCount.Name = "labelSearching";
+            this.labelDataCount.Size = new System.Drawing.Size(100, 13);
+
+            // 
+            // FrmSOSearch
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
           this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
           this.BackColor = System.Drawing.Color.LightSteelBlue;
           this.ClientSize = new System.Drawing.Size(875, 440);
           this.Controls.Add(this.panel1);
           this.Controls.Add(this.dataGridviewSoSearch);
+          this.Controls.Add(this.labelDataCount);
           this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
           this.Margin = new System.Windows.Forms.Padding(3);
           this.Name = "FrmSOSearch";
           this.Text = "SO Search";
           ((System.ComponentModel.ISupportInitialize)(this.dataGridviewSoSearch)).EndInit();
-          this.panel1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.FrmSOSearch_Load);
+            this.panel1.ResumeLayout(false);
           this.panel1.PerformLayout();
           this.ResumeLayout(false);
 
@@ -457,6 +473,7 @@
       private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPonum;
       private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLname;
       private System.Windows.Forms.DataGridViewTextBoxColumn ColumnMeycono;
+      private System.Windows.Forms.Label labelDataCount;
    }
 }
 

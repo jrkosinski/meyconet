@@ -56,9 +56,21 @@ namespace CommonAppClasses
 
             if (!String.IsNullOrEmpty(sono))
                 this.textBoxSono.Text = sono;
+
         }
 
         #region methods
+
+        private void FrmSOSearch_Load(object sender, EventArgs e)
+        {
+            this.labelDataCount.Visible = false;
+            if(!dataCache.IsInvalid)
+            {
+                this.labelDataCount.Text = soSearchInf.somastds.view_somastdata.Count > 0 ? soSearchInf.somastds.view_somastdata.Count.ToString() + " records found" : "No records found";
+                this.labelDataCount.Visible = true;
+                this.labelDataCount.Update();
+            }
+        }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -70,6 +82,11 @@ namespace CommonAppClasses
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            this.labelDataCount.Visible = true;
+            this.labelDataCount.Text = "Searching...";
+            this.labelDataCount.Update();
+            
+
             soSearchInf.GetSoSearchData(textBoxSono.Text.TrimStart().TrimEnd(), textBoxPonum.Text.TrimStart().TrimEnd(),
             textBoxCustno.Text.TrimStart().TrimEnd(), IncludeType, textBoxLname.Text.TrimStart().TrimEnd(),
             textBoxMeycono.Text.TrimStart().TrimEnd(), dateTimePickerFirstSoDate.Value, dateTimePickerLastSoDate.Value, Enterqu);
@@ -85,6 +102,9 @@ namespace CommonAppClasses
 
             dataCache.Refresh(soSearchInf);
             bindingSoSelectionData.DataSource = soSearchInf.somastds.view_somastdata;
+            this.labelDataCount.Text = soSearchInf.somastds.view_somastdata.Count > 0 ? soSearchInf.somastds.view_somastdata.Count.ToString() + " records found" : "No records found";
+
+            //pictureBoxLoading.Hide();
 
         } // end buttonSearch_Click
 
