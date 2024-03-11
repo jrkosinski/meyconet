@@ -1563,9 +1563,9 @@ namespace MiscellaneousOrderEntry
             }
             else
             {
-                wsgUtilities.wsgNotice("Sales Order Not Found. Click Find to Search");
+                textBoxSoNo.Text = sono;
+                ShowSOSearch();
                 CurrentState = "Select";
-                RefreshControls();
             }
         }
 
