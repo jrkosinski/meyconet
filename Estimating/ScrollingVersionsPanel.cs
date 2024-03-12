@@ -17,7 +17,7 @@ namespace Estimating
     public class ScrollingVersionsPanel : ScrollingPanel
     {
         private const int SUB_PANEL_WIDTH = 450;
-        private const int SUB_PANEL_HEIGHT = 160;
+        private const int SUB_PANEL_HEIGHT = 170;
 
         Dictionary<string, int> _versionsLookup = new Dictionary<string, int>();
         List<VersionPanel> _versionPanels = new List<VersionPanel>();
@@ -90,6 +90,17 @@ namespace Estimating
             }
         }
 
+        public void SoftReload()
+        {
+            for (int n=0; n<this._versionPanels.Count; n++)
+            {
+                if (!this._versionPanels[n].IsSelected)
+                {
+                    this._versionPanels[n].RestoreState();
+                }
+            }
+        }
+
         public void SelectVersionPanel(string version)
         {
             var selected = _versionPanels.FirstOrDefault((i) => i.IsSelected);
@@ -142,7 +153,11 @@ namespace Estimating
             public Label NetPriceLabel { get; private set; }
             public Button NewCoverButton { get; private set; }
             public Button NewVersionButton { get; private set; }
+            public Label ColorTabLabel { get; private set; }
             public Label ColorLabel { get; private set; }
+            public Label MaterialLabel { get; private set; }
+            public Label OverlapLabel { get; private set; }
+            public Label SpacingLabel { get; private set; }
 
             public bool IsSelected
             {
@@ -153,8 +168,8 @@ namespace Estimating
                     if (Panel.BackColor != backColor)
                         Panel.BackColor = backColor;
 
-                    this.NewVersionButton.Enabled = value;
-                    this.NewCoverButton.Enabled = value;
+                    this.NewVersionButton.Enabled = value && !this.ParentForm.IsEditing;
+                    this.NewCoverButton.Enabled = value && !this.ParentForm.IsEditing;
                 }
             }
             public bool IsDirty {
@@ -233,6 +248,13 @@ namespace Estimating
                     return this.Version.Covers[0].Description != null ? this.Version.Covers[0].Description.Trim() : String.Empty;
                 }
             }
+            private string ProductType
+            {
+                get
+                {
+                    return this.Version.Covers[0].ProductType != null ? this.Version.Covers[0].ProductType.Trim() : String.Empty;
+                }
+            }
             private string Material
             {
                 get
@@ -262,9 +284,13 @@ namespace Estimating
                 }
             }
             private string NewVersion { get; set; }
+            private string DeletingVersion { get; set; }
+            private FrmSOHead ParentForm { get; set; }
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
+                this.ParentForm = parentForm;
+
                 this.Panel = new Panel();
                 this.Version = version;
 
@@ -278,7 +304,6 @@ namespace Estimating
 
                 //version description label 
                 this.DescLabel = new Label();
-                //TODO: check for nulls 
                 this.DescLabel.Text = GetDescriptionText(version);
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
                 this.DescLabel.Location = new System.Drawing.Point(10, 45);
@@ -347,6 +372,8 @@ namespace Estimating
 
                 this.NewVersionButton.Click += ((object sender, EventArgs e) =>
                 {
+                    if (parentForm.IsEditing)
+                        parentForm.CancelEdit();
                     this.NewVersion = parentForm.CreateNewVersion();
                     parentForm.EnterEditCoverMode();
                 });
@@ -356,7 +383,7 @@ namespace Estimating
                 
                 //colors listbox 
                 this.ColorDropdown.FormattingEnabled = true;
-                this.ColorDropdown.Location = new System.Drawing.Point(10, 100);
+                this.ColorDropdown.Location = new System.Drawing.Point(10, 110);
                 this.ColorDropdown.Name = "colorDropdown";
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
@@ -371,7 +398,7 @@ namespace Estimating
 
                 //materials listbox 
                 this.MaterialDropdown.FormattingEnabled = true;
-                this.MaterialDropdown.Location = new System.Drawing.Point(90, 100);
+                this.MaterialDropdown.Location = new System.Drawing.Point(90, 110);
                 this.MaterialDropdown.Name = "materialDropdown";
                 this.MaterialDropdown.Size = new System.Drawing.Size(96, 21);
                 this.MaterialDropdown.TabIndex = 382;
@@ -386,7 +413,7 @@ namespace Estimating
 
                 //spacing listbox
                 this.SpacingDropdown = new ComboBox();
-                this.SpacingDropdown.Location = new System.Drawing.Point(190, 100);
+                this.SpacingDropdown.Location = new System.Drawing.Point(190, 110);
                 this.SpacingDropdown.Name = "spacingDropdown";
                 this.SpacingDropdown.Size = new System.Drawing.Size(96, 21);
                 this.SpacingDropdown.TabIndex = 382;
@@ -401,7 +428,7 @@ namespace Estimating
 
                 //overlap listbox
                 this.OverlapDropdown = new ComboBox();
-                this.OverlapDropdown.Location = new System.Drawing.Point(290, 100);
+                this.OverlapDropdown.Location = new System.Drawing.Point(290, 110);
                 this.OverlapDropdown.Name = "overlapDropdown";
                 this.OverlapDropdown.Size = new System.Drawing.Size(96, 21);
                 this.OverlapDropdown.TabIndex = 382;
@@ -414,9 +441,43 @@ namespace Estimating
                 }
                 this.SelectOverlap(version.Covers[0].Overlap);
 
+                //color label
+                this.ColorLabel = new Label();
+                this.ColorLabel.Text = "color";
+                this.ColorLabel.AutoSize = true;
+                this.ColorLabel.Size = new System.Drawing.Size(10, 45);
+                this.ColorLabel.Location = new System.Drawing.Point(10, 95);
+                this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //material label
+                this.MaterialLabel = new Label();
+                this.MaterialLabel.Text = "material";
+                this.MaterialLabel.AutoSize = true;
+                this.MaterialLabel.Size = new System.Drawing.Size(10, 45);
+                this.MaterialLabel.Location = new System.Drawing.Point(90, 95);
+                this.MaterialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //spacing label
+                this.SpacingLabel = new Label();
+                this.SpacingLabel.Text = "spacing";
+                this.SpacingLabel.AutoSize = true;
+                this.SpacingLabel.Size = new System.Drawing.Size(10, 45);
+                this.SpacingLabel.Location = new System.Drawing.Point(190, 95);
+                this.SpacingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //overlap label
+                this.OverlapLabel = new Label();
+                this.OverlapLabel.Text = "overlap";
+                this.OverlapLabel.AutoSize = true;
+                this.OverlapLabel.Size = new System.Drawing.Size(10, 45);
+                this.OverlapLabel.Location = new System.Drawing.Point(290, 95);
+                this.OverlapLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+
                 //delete action 
                 this.DeleteButton.Click += ((object sender, EventArgs e) =>
                 {
+                    this.DeletingVersion = version.Version;
                     parentForm.DeleteVersion(version.Version);
                 });
 
@@ -424,7 +485,7 @@ namespace Estimating
                 this.InternalCommentsTextbox = new TextBox();
                 this.InternalCommentsTextbox.Visible = false;
                 this.InternalCommentsTextbox.Size = new Size(0, 0);
-                this.InternalCommentsTextbox.Location = new Point(10, 160);
+                this.InternalCommentsTextbox.Location = new Point(10, 165);
                 this.InternalCommentsTextbox.Multiline = true;
                 this.InternalCommentsTextbox.Text = this.Version.InternalComments;
                 
@@ -433,7 +494,7 @@ namespace Estimating
                 this.CustomerCommentsTextbox = new TextBox();
                 this.CustomerCommentsTextbox.Visible = false;
                 this.CustomerCommentsTextbox.Size = new Size(0, 0);
-                this.CustomerCommentsTextbox.Location = new Point(10, 160);
+                this.CustomerCommentsTextbox.Location = new Point(10, 165);
                 this.CustomerCommentsTextbox.Multiline = true;
                 this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
                 
@@ -443,7 +504,7 @@ namespace Estimating
                 this.InternalCommentsButton.Text = "int comments";
                 this.InternalCommentsButton.Size = new Size(90, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Enabled = true;
-                this.InternalCommentsButton.Location = new Point(10, 130);
+                this.InternalCommentsButton.Location = new Point(10, 140);
                 this.InternalCommentsButton.Size = new Size(100, this.InternalCommentsButton.Height);
                 this.InternalCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -453,7 +514,7 @@ namespace Estimating
                 this.CustomerCommentsButton.Text = "cust comments";
                 this.CustomerCommentsButton.Size = new Size(90, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Enabled = true;
-                this.CustomerCommentsButton.Location = new Point(110, 130);
+                this.CustomerCommentsButton.Location = new Point(110, 140);
                 this.CustomerCommentsButton.Size = new Size(100, this.CustomerCommentsButton.Height);
                 this.CustomerCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
@@ -461,21 +522,21 @@ namespace Estimating
                 this.ListPriceLabel = new Label();
                 this.ListPriceLabel.Text = $"List price: ${version.Covers[0].ListPrice.ToString("#.00")}";
                 this.ListPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.ListPriceLabel.Location = new System.Drawing.Point(320, 130);
+                this.ListPriceLabel.Location = new System.Drawing.Point(320, 140);
                 this.ListPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //net price label
                 this.NetPriceLabel = new Label();
                 this.NetPriceLabel.Text = $"Net price: ${version.Covers[0].NetPrice.ToString("#.00")}";
                 this.NetPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.NetPriceLabel.Location = new System.Drawing.Point(210, 130);
+                this.NetPriceLabel.Location = new System.Drawing.Point(210, 140);
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-                this.ColorLabel = new Label();
-                this.ColorLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
-                this.ColorLabel.Location = new System.Drawing.Point(1, 1);
-                this.ColorLabel.Size = new System.Drawing.Size(50, 15);
-                this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.ColorTabLabel = new Label();
+                this.ColorTabLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
+                this.ColorTabLabel.Location = new System.Drawing.Point(1, 1);
+                this.ColorTabLabel.Size = new System.Drawing.Size(50, 15);
+                this.ColorTabLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -531,6 +592,10 @@ namespace Estimating
                 this.Panel.Controls.Add(this.DescLabel);
                 
                 this.Panel.Controls.Add(this.DeleteButton);
+                this.Panel.Controls.Add(this.ColorLabel);
+                this.Panel.Controls.Add(this.MaterialLabel);
+                this.Panel.Controls.Add(this.OverlapLabel);
+                this.Panel.Controls.Add(this.SpacingLabel);
                 this.Panel.Controls.Add(this.ColorDropdown);
                 this.Panel.Controls.Add(this.MaterialDropdown);
                 this.Panel.Controls.Add(this.SpacingDropdown);
@@ -545,7 +610,8 @@ namespace Estimating
                 this.Panel.Controls.Add(this.NetPriceLabel);
                 this.Panel.Controls.Add(this.NewCoverButton);
                 this.Panel.Controls.Add(this.NewVersionButton);
-                this.Panel.Controls.Add(this.ColorLabel);
+                this.Panel.Controls.Add(this.ColorTabLabel);
+
 
                 this.IsSelected = this.Version.Version == parentForm.CurrentVersion;
 
@@ -561,11 +627,25 @@ namespace Estimating
                         {
                             if (!String.IsNullOrEmpty(this.NewVersion))
                                 this.NewVersion = null;
+                            else if (!String.IsNullOrEmpty(this.DeletingVersion))
+                                this.DeletingVersion = null; 
                             else
                                 parentForm.SelectVersionPanel(this.Version.Version);
                         }
                     });
                 }
+            }
+
+            public void RestoreState()
+            {
+                this.ToggleTextbox(this.InternalCommentsTextbox, false);
+                this.ToggleTextbox(this.CustomerCommentsTextbox, false);
+                this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
+                this.InternalCommentsTextbox.Text = this.Version.InternalComments;
+                this.SelectColor(this.Version.Color);
+                this.SelectMaterial(this.Version.Material);
+                this.SelectOverlap(this.Version.Overlap);
+                this.SelectSpacing(this.Version.Spacing);
             }
 
             public void UpdateUI(int idcol, string descrip, int color, int material)
@@ -579,15 +659,15 @@ namespace Estimating
 
             public void Enable(bool enabled = true)
             {
-                this.DeleteButton.Enabled = enabled;
-                this.MaterialDropdown.Enabled = enabled && this.Version.IsEditable;
-                this.ColorDropdown.Enabled = enabled && this.Version.IsEditable;
-                this.SpacingDropdown.Enabled = enabled && this.Version.IsEditable;
-                this.OverlapDropdown.Enabled = enabled && this.Version.IsEditable;
-                this.InternalCommentsButton.Enabled = enabled;
-                this.CustomerCommentsButton.Enabled = enabled;
+                this.DeleteButton.Enabled = enabled && !this.ParentForm.IsEditing;
+                this.MaterialDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
+                this.ColorDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
+                this.SpacingDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
+                this.OverlapDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
+                this.InternalCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
+                this.CustomerCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
 
-                if (!enabled)
+                if (!enabled || this.ParentForm.IsEditing)
                 {
                     this.NewCoverButton.Enabled = false;
                     this.NewVersionButton.Enabled = false;
@@ -694,7 +774,7 @@ namespace Estimating
                 if (visible && !textBox.Visible)
                 {
                     textBox.Visible = true;
-                    textBox.Size = new Size(400, 80);
+                    textBox.Size = new Size(400, 90);
                     this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT + 100);
                     textBox.Focus();
                 }
@@ -711,7 +791,7 @@ namespace Estimating
                 string output = String.Empty;
                 if  (version != null && version.Covers != null && version.Covers.Count > 0 && version.Covers[0] != null)
                 {
-                    output = $"{this.Description}{this.Material}{this.Color}{this.Spacing}";
+                    output = $"{this.ProductType} {this.Description}";
                 }
 
                 return output;
@@ -729,7 +809,7 @@ namespace Estimating
             public bool Editable { get; set; }
             public decimal NetPrice { get; set; }
             public decimal ListPrice { get; set; }
-            public string Product { get; set; }
+            public string ProductType { get; set; }
 
             public CoverDto(quoterpt.view_soreportlinedataRow row)
             {
@@ -741,7 +821,7 @@ namespace Estimating
                 try { this.Spacing = row.spacing; } catch (Exception) { }
                 try { this.ListPrice = row.price; } catch (Exception) { }
                 try { this.NetPrice = row.subtotal; } catch (Exception) { }
-                try { this.Product = row.product.Trim(); } catch (Exception) { }
+                try { this.ProductType = row.product.Trim(); } catch (Exception) { }
 
                 if (this.Spacing == null) this.Spacing = String.Empty;
                 if (this.Overlap == null) this.Overlap = String.Empty;
@@ -756,6 +836,11 @@ namespace Estimating
             public List<CoverDto> Covers { get; private set; }
             public string InternalComments { get; private set; }
             public string CustomerComments { get; private set; }
+            public string ProductType { get { return this.Covers.Count > 0 ? this.Covers[0].ProductType : String.Empty; } }
+            public string Color { get { return this.Covers.Count > 0 ? this.Covers[0].Color : String.Empty; } }
+            public string Material { get { return this.Covers.Count > 0 ? this.Covers[0].Material : String.Empty; } }
+            public string Overlap { get { return this.Covers.Count > 0 ? this.Covers[0].Overlap : String.Empty; } }
+            public string Spacing { get { return this.Covers.Count > 0 ? this.Covers[0].Spacing : String.Empty; } }
             public bool IsEditable {
                 get
                 {

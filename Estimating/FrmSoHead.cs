@@ -396,7 +396,7 @@ namespace Estimating
 
         #endregion Set Bindings
 
-        private void CancelEdit()
+        public void CancelEdit()
         {
             if (soinf.somastds.somast[0].idcol > 0)
             {
@@ -689,7 +689,9 @@ namespace Estimating
         public void SelectVersionPanel(string version)
         {
             this.versionsList.SelectVersionPanel(version);
-            this.ProcessSo(version, "");
+
+            if (!this.IsEditing)
+                this.ProcessSo(version, "", forceReloadVersionsList: false);
         }
 
         #endregion Refresh Controls
@@ -912,7 +914,6 @@ namespace Estimating
                 ProcessExistingQuote(PassedSono);
             }
 
-            //TODO: why is this necessary 
             // Deposit Requirements
             SetTextBoxDollarsBinding(textBoxDepover0, soinf.soitemsds, "deposittiers.depover0");
             SetTextBoxDollarsBinding(textBoxDepover1, soinf.soitemsds, "deposittiers.depover1");
@@ -991,7 +992,7 @@ namespace Estimating
 
                 // Clear all other datasets
                 soinf.ClearCoverVersionLine();
-                ProcessSo(thisversion, thiscover, loadVersionsList:loadVersionsList);
+                ProcessSo(thisversion, thiscover, loadVersionsList:loadVersionsList, forceReloadVersionsList:true);
 
                 RefreshControls();
             }
@@ -1130,7 +1131,6 @@ namespace Estimating
                     ShowSOSearch();
                     textBoxSoNo.Text = "";
                 }
-                
             }
             else
             {
@@ -1138,7 +1138,6 @@ namespace Estimating
                 CurrentState = "Select";
                 ShowSOSearch();
                 textBoxSoNo.Text = "";
-
             }
         }
 
@@ -1173,7 +1172,7 @@ namespace Estimating
 
         #region Process SO
 
-        public void ProcessSo(string version, string cover, bool reloadLineItems = false, bool loadVersionsList = true)
+        public void ProcessSo(string version, string cover, bool reloadLineItems = false, bool loadVersionsList = true, bool forceReloadVersionsList = false)
         {
             /* This routine establishes all data tables for the estimate and postions the
                estimate at the current version and cover
@@ -1375,7 +1374,7 @@ namespace Estimating
             LoadingLine = false;
 
             if (loadVersionsList)
-                this.LoadVersionsList(true);
+                this.LoadVersionsList(forceReloadVersionsList);
         }
 
         #endregion Process SO
@@ -1698,7 +1697,7 @@ namespace Estimating
             ClearQuote();
             ClearLineitems();
             this.versionsList.Clear();
-            this.versionsList.Hide();
+            this.ShowVersionsList(false);
             soinf.ClearResultsTable();
             bindingResults.DataSource = soinf.resultsds.soline;
             CurrentState = "Select";
@@ -1733,6 +1732,15 @@ namespace Estimating
             }
 
             ProcessSo(originalVersion, originalCover); 
+        }
+
+        private void ShowVersionsList(bool show = true)
+        {
+            if (show)
+                this.versionsList.Show();
+            else
+                this.versionsList.Hide();
+            this.labelVersions.Visible = show;
         }
 
         private void ClearQuote()
@@ -2344,7 +2352,7 @@ namespace Estimating
                 if (wsgUtilities.wsgReply("Delete Version " + version + "?") == true)
                 {
                     soinf.DeleteSoversion(soinf.somastds.somast[0].sono, version);
-                    ProcessSo("", "");
+                    ProcessSo("", "", forceReloadVersionsList:true);
                 }
             }
             else
@@ -2844,7 +2852,7 @@ namespace Estimating
             this.Size = new Size(this.Size.Width + 450, this.Size.Height);
 
             this.versionsList = new ScrollingVersionsPanel(this, this.panelVersions);
-            this.versionsList.Hide();
+            this.ShowVersionsList(false);
         }
 
         private void labelTrackingData_Click(object sender, EventArgs e)
@@ -3128,7 +3136,11 @@ namespace Estimating
             if (this.versionsList.Count > 0)
             {
                 if (!force)
+                {
+                    //soft reload
+                    this.versionsList.SoftReload();
                     return;
+                }
             }
             this.versionsList.Clear();
 
@@ -3139,19 +3151,13 @@ namespace Estimating
                 this.versionsList.AddVersion(version, versionCovers[version]);
             }
 
-            if (this.versionsList.Count < 1)
-                this.versionsList.Hide();
-            else
-                this.versionsList.Show();
+            this.ShowVersionsList(this.versionsList.Count >= 1);
         }
 
         private void ReloadVersionsList()
         {
             this.LoadVersionsList(true);
-            if (this.versionsList.Count < 1)
-                this.versionsList.Hide();
-            else
-                this.versionsList.Show();
+            this.ShowVersionsList(this.versionsList.Count >= 1);
         }
 
     } // class

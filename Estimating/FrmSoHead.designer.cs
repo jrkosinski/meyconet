@@ -73,7 +73,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panelVersions = new System.Windows.Forms.Panel(); 
+            this.panelVersions = new System.Windows.Forms.Panel();
+            this.labelVersions = new System.Windows.Forms.Label();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.Label13 = new System.Windows.Forms.Label();
             this.labelDefaultCustTiers = new System.Windows.Forms.Label();
@@ -7895,15 +7896,24 @@
             // 
             // panelVersions
             // 
-            this.panelVersions.Location = new System.Drawing.Point(890, 10);
+            this.panelVersions.Location = new System.Drawing.Point(890, 30);
             this.panelVersions.Name = "panelVersions";
-            this.panelVersions.Size = new System.Drawing.Size(450, 700);
+            this.panelVersions.Size = new System.Drawing.Size(460, 745);
             this.panelVersions.TabIndex = 423;
-            this.panelVersions.BackColor = System.Drawing.Color.LightGray;
+            this.panelVersions.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panelVersions.AutoScroll = true;
             this.panelVersions.HorizontalScroll.Visible = false;
             this.panelVersions.HorizontalScroll.Enabled = false;
             this.panelVersions.Visible = true;
+            // 
+            // labelVersions
+            // 
+            this.labelVersions.AutoSize = true;
+            this.labelVersions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersions.Location = new System.Drawing.Point(890, 10);
+            this.labelVersions.Text = "Quote Versions";
+            this.labelVersions.Size = new System.Drawing.Size(88, 13);
+            this.labelVersions.Visible = false;
             // 
             // labelTrackingData
             // 
@@ -8050,6 +8060,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Label3);
             this.Controls.Add(this.panelVersions);
+            this.Controls.Add(this.labelVersions);
 
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -8726,6 +8737,7 @@
         private System.Windows.Forms.Button buttonCoverItem;
         private System.Windows.Forms.TextBox textBoxVersion;
         private System.Windows.Forms.Panel panelVersions;
+        private System.Windows.Forms.Label labelVersions;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
