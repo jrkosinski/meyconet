@@ -2056,8 +2056,8 @@ namespace Estimating
         {
             if (soinf.somastds.somast[0].sotype == "B")
             {
-                string newversion = "";
-                string priorversion = "";
+                string newversion = string.Empty;
+                string priorversion = string.Empty;
                 soinf.LoadVersionViewData(soinf.somastds.somast[0].sono);
                 if (soinf.somastds.view_versiondata.Rows.Count > 0)
                 {
