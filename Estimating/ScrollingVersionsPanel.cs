@@ -575,9 +575,21 @@ namespace Estimating
                 {
                     this.EnableSave(this.IsDirty);
                 });
+                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => {
+                    parentForm.ProcessSo(version.Version, "");
+                    parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
+                    parentForm.SaveSo(true, false);
+                });
+
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
+                });
+                this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
+                {
+                    parentForm.ProcessSo(version.Version, "");
+                    parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
+                    parentForm.SaveSo(true, false);
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
