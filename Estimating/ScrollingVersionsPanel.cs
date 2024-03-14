@@ -374,7 +374,7 @@ namespace Estimating
                 {
                     if (parentForm.IsEditing)
                         parentForm.CancelEdit();
-                    this.NewVersion = parentForm.CreateNewVersion();
+                    this.NewVersion = parentForm.CreateNewVersion(version.Version);
                     parentForm.EnterEditCoverMode();
                 });
 
