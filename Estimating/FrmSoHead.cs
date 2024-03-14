@@ -2052,7 +2052,7 @@ namespace Estimating
             }
         }
 
-        public string CreateNewVersion()
+        public string CreateNewVersion(string selectedVersion = "")
         {
             if (soinf.somastds.somast[0].sotype == "B")
             {
@@ -2064,7 +2064,11 @@ namespace Estimating
                     // Find the last row in the version view and increment that version
                     int lastrow = soinf.somastds.view_versiondata.Rows.Count - 1;
                     char c = Convert.ToChar(soinf.somastds.view_versiondata[lastrow].version);
-                    priorversion = c.ToString();
+                    if(string.IsNullOrEmpty(selectedVersion))
+                        priorversion = c.ToString();
+                    else
+                        priorversion = selectedVersion;
+
                     c++;
                     newversion = c.ToString();
                     CurrentVersion = newversion;
