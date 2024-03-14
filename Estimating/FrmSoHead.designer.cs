@@ -592,7 +592,7 @@
             this.label121 = new System.Windows.Forms.Label();
             this.buttonEditSoHead = new WSGUtilitieslib.Telemetry.Button();
             this.buttonDeleteCover = new WSGUtilitieslib.Telemetry.Button();
-            this.buttonRefresh = new WSGUtilitieslib.Telemetry.Button();
+            this.buttonReinitialize = new WSGUtilitieslib.Telemetry.Button();
             this.buttonEditLine = new WSGUtilitieslib.Telemetry.Button();
             this.buttonDeleteVersion = new WSGUtilitieslib.Telemetry.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -6617,19 +6617,19 @@
             this.buttonDeleteCover.UseVisualStyleBackColor = false;
             this.buttonDeleteCover.Click += new System.EventHandler(this.buttonDeleteCover_Click);
             // 
-            // buttonRefresh
+            // buttonReinitialize
             // 
-            this.buttonRefresh.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRefresh.Location = new System.Drawing.Point(302, 151);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(69, 31);
-            this.buttonRefresh.TabIndex = 421;
-            this.buttonRefresh.Text = "Reinitialize";
-            this.buttonRefresh.UseVisualStyleBackColor = false;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.buttonReinitialize.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonReinitialize.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonReinitialize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReinitialize.Location = new System.Drawing.Point(302, 151);
+            this.buttonReinitialize.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonReinitialize.Name = "buttonReinitialize";
+            this.buttonReinitialize.Size = new System.Drawing.Size(69, 31);
+            this.buttonReinitialize.TabIndex = 421;
+            this.buttonReinitialize.Text = "Reinitialize";
+            this.buttonReinitialize.UseVisualStyleBackColor = false;
+            this.buttonReinitialize.Click += new System.EventHandler(this.buttonReinitialize_Click);
             // 
             // buttonEditLine
             // 
@@ -8038,7 +8038,7 @@
             this.Controls.Add(this.buttonClearOrder);
             this.Controls.Add(this.buttonGetSO);
             this.Controls.Add(this.buttonDeleteCover);
-            this.Controls.Add(this.buttonRefresh);
+            this.Controls.Add(this.buttonReinitialize);
             this.Controls.Add(this.buttonGetCustomer);
             this.Controls.Add(this.textBoxSoNo);
             this.Controls.Add(this.buttonClose);
@@ -8671,7 +8671,7 @@
         internal System.Windows.Forms.Label label257;
         internal System.Windows.Forms.TextBox textBoxThisCoverTotal;
         private System.Windows.Forms.Button buttonDeleteCover;
-        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Button buttonReinitialize;
         private System.Windows.Forms.Button buttonViewPDF;
         internal System.Windows.Forms.TextBox textBoxTotalSqft;
         internal System.Windows.Forms.Label label259;

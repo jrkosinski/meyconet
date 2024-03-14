@@ -546,7 +546,7 @@ namespace Estimating
                         buttonViewQuote.Enabled = true;
                         buttonConvert.Enabled = true;
                         buttonDeleteCover.Enabled = true;
-                        buttonRefresh.Enabled = this.soinf.IsOpen; //TODO: should take into account whether quote or not 
+                        buttonReinitialize.Enabled = false;
                         buttonDeleteVersion.Enabled = true;
                         buttonConvertWorksheet.Enabled = true;
                         labelSoType.Visible = true;
@@ -603,6 +603,7 @@ namespace Estimating
                         buttonEditLine.Enabled = false;
                         buttonEditSoHead.Enabled = false;
                         versionsList.Enable(false);
+                        buttonReinitialize.Enabled = this.soinf.IsOpen;
                         break;
                     }
                 case "Enter Order":
@@ -639,6 +640,7 @@ namespace Estimating
                         textBoxTaxdist.Enabled = false;
                         textBoxTaxrate.Enabled = false;
                         versionsList.Enable(false);
+                        buttonReinitialize.Enabled = this.soinf.IsOpen;
 
                         this.SetDepositTiersDefaultState(this.DepositTiersUsingDefaults());
 
