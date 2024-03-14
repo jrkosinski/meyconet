@@ -605,7 +605,7 @@
             // buttonSave
             // 
             this.buttonSave.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonSave.Location = new System.Drawing.Point(365, 10);
+            this.buttonSave.Location = new System.Drawing.Point(665, 10);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(70, 32);
