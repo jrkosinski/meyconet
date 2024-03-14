@@ -733,6 +733,7 @@ namespace Estimating
             soinf.somastds.somast[0].repdisc = soinf.ards.arcust[0].repdisc;
             soinf.somastds.somast[0].shipdisc = soinf.ards.arcust[0].shipdisc;
             soinf.somastds.somast[0].upcharge = soinf.ards.arcust[0].upcharge;
+
             // Establish Quote record type
             soinf.somastds.somast[0].enterqu = "Y";
 
@@ -957,6 +958,10 @@ namespace Estimating
 
         public void SaveSo(bool silent = false, bool loadVersionsList = true)
         {
+            OrderCreator creator = new OrderCreator();
+            InputParams input = new InputParams();
+            input.CustomerId = 0;
+
             if (soinf.ValidateSO(CurrentFeature, true, silent: silent) == true)
             {
                 CurrentFeature = "";
@@ -983,11 +988,10 @@ namespace Estimating
                 // Check for mulitple covers. If there multiple covers, force selection
                 if (!silent && soinf.GetVersionCoverCount(saveSono, thisversion) > 1)
                 {
-                    //TODO: decide if this shoould be left in or removed 
                     //if (wsgUtilities.wsgReply("There are other covers. Edit them?"))
-                    {
-                        thiscover = miscDataMethods.GetSOVersionCover(saveSono, thisversion);
-                    }
+                    //{
+                    //    thiscover = miscDataMethods.GetSOVersionCover(saveSono, thisversion);
+                    //}
                 }
 
                 // Clear all other datasets
@@ -1303,8 +1307,7 @@ namespace Estimating
             bool productOK = true;
             string strExpr = "cover = '" + CurrentCover + "'";
             // Use the Select method to the current cover, if it exists.
-            DataRow[] foundCoverRows =
-            soinf.somastds.view_coverdata.Select(strExpr);
+            DataRow[] foundCoverRows = soinf.somastds.view_coverdata.Select(strExpr);
 
             if (foundCoverRows.Length < 1)
             {
