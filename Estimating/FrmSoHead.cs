@@ -1,4 +1,5 @@
-﻿using CommonAppClasses;
+﻿
+using CommonAppClasses;
 using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.ComponentModel;
@@ -2611,6 +2612,7 @@ namespace Estimating
                         MakeQuotePDF(SaveSono, soinf.somastds.somast[0].sotype);
                         wsgUtilities.wsgNotice("Conversion Complete.");
                         labelSoType.Text = "This is an order";
+                        this.LoadVersionsList(true);
                         RefreshControls();
                     }
                     else
