@@ -1,5 +1,4 @@
-﻿
-using CommonAppClasses;
+﻿using CommonAppClasses;
 using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.ComponentModel;
@@ -1710,7 +1709,7 @@ namespace Estimating
             RefreshControls();
         }
 
-        private void buttonRefresh_Click(object sender, EventArgs e)
+        private void buttonReinitialize_Click(object sender, EventArgs e)
         {
             if (wsgUtilities.wsgReply("This action will reinitialize the prices of all line items from the master table prices for those items. It may also take up to a minute for orders with many versions. Are you sure you want to proceed?"))
             {
@@ -2058,19 +2057,19 @@ namespace Estimating
             }
         }
 
-        public string CreateNewVersion(string selectedVersion = "")
+        public string CreateNewVersion(string selectedVersion = null)
         {
             if (soinf.somastds.somast[0].sotype == "B")
             {
-                string newversion = string.Empty;
-                string priorversion = string.Empty;
+                string newversion = String.Empty;
+                string priorversion = String.Empty;
                 soinf.LoadVersionViewData(soinf.somastds.somast[0].sono);
                 if (soinf.somastds.view_versiondata.Rows.Count > 0)
                 {
                     // Find the last row in the version view and increment that version
                     int lastrow = soinf.somastds.view_versiondata.Rows.Count - 1;
                     char c = Convert.ToChar(soinf.somastds.view_versiondata[lastrow].version);
-                    if(string.IsNullOrEmpty(selectedVersion))
+                    if (string.IsNullOrEmpty(selectedVersion))
                         priorversion = c.ToString();
                     else
                         priorversion = selectedVersion;

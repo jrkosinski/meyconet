@@ -2121,6 +2121,8 @@ namespace Estimating
                     this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
                 }
 
+                //don't do 'for all' for overlap or spacing
+                /*
                 if (this.OverlapHasChanged)
                 {
                     this.UpdateOverlapForAllCovers(thisSono, thisVersion, this.clineds.socover[0].overlapid, silent);
@@ -2130,6 +2132,7 @@ namespace Estimating
                 {
                     this.UpdateSpacingForAllCovers(thisSono, thisVersion, this.clineds.socover[0].spacingid, silent);
                 }
+                */
             }
 
             if (somastds.somast[0].sotype == "O" && somastds.somast[0].sostat != "V")
@@ -3787,7 +3790,7 @@ namespace Estimating
 
         public void UpdateColorForAllCovers(string sono, string version, int colorId, bool silent = false)
         {
-            bool agree = silent ? true : wsgUtilities.wsgReply($"Color has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            bool agree = silent ? false : wsgUtilities.wsgReply($"Color has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
             if (agree)
             {
                 this.ClearParameters();
@@ -3807,7 +3810,7 @@ namespace Estimating
 
         public void UpdateMaterialForAllCovers(string sono, string version, int materialId, bool silent = false)
         {
-            bool agree = silent ? true : wsgUtilities.wsgReply($"Material has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            bool agree = silent ? false : wsgUtilities.wsgReply($"Material has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
             if (agree)
             {
                 this.ClearParameters();
@@ -3825,9 +3828,10 @@ namespace Estimating
             }
         }
 
+        //TODO: this is not used
         public void UpdateSpacingForAllCovers(string sono, string version, int spacingId, bool silent = false)
         {
-            bool agree = silent ? true : wsgUtilities.wsgReply($"Spacing has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            bool agree = silent ? false : wsgUtilities.wsgReply($"Spacing has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
             if (agree)
             {
                 this.ClearParameters();
@@ -3845,9 +3849,10 @@ namespace Estimating
             }
         }
 
+        //TODO: this is not used
         public void UpdateOverlapForAllCovers(string sono, string version, int overlapId, bool silent = false)
         {
-            bool agree = silent ? true : wsgUtilities.wsgReply($"Overlap has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
+            bool agree = silent ? false : wsgUtilities.wsgReply($"Overlap has changed in one cover for version {version}. Would you like to update it for all covers in that version? ");
             if (agree)
             {
                 this.ClearParameters();
