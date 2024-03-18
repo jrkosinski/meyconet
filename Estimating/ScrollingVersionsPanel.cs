@@ -578,15 +578,14 @@ namespace Estimating
                     this.EnableSave(this.IsDirty);
                     this.IsIntComDirty = true;
                 });
-                this.InternalCommentsTextbox.Leave += ((object sender, EventArgs e) => 
+                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => 
                 {
                     if (this.IsIntComDirty)
                     {
-                        parentForm.ProcessSo(version.Version, "");
                         parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
-                        this.IsIntComDirty = false;
                     }
-                    
+                    this.IsIntComDirty = false;
+
                 });
 
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
@@ -594,15 +593,14 @@ namespace Estimating
                     this.EnableSave(this.IsDirty);
                     this.IsCustComDirty = true;
                 });
-                this.CustomerCommentsTextbox.Leave += ((object sender, EventArgs e) =>
+                this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
                 {
                     if (this.IsCustComDirty)
                     {
-                        //parentForm.ProcessSo(version.Version, "");
                         parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
-                        this.IsCustComDirty = false;
                     }
-                    
+                    this.IsCustComDirty = false;
+
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
