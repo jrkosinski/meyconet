@@ -286,6 +286,8 @@ namespace Estimating
             private string NewVersion { get; set; }
             private string DeletingVersion { get; set; }
             private FrmSOHead ParentForm { get; set; }
+            private bool IsIntComDirty { get; set; }
+            private bool IsCustComDirty { get;set; }
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
@@ -574,22 +576,33 @@ namespace Estimating
                 this.InternalCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
+                    this.IsIntComDirty = true;
                 });
-                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => {
-                    parentForm.ProcessSo(version.Version, "");
-                    parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
-                    parentForm.SaveSo(true, false);
+                this.InternalCommentsTextbox.Leave += ((object sender, EventArgs e) => 
+                {
+                    if (this.IsIntComDirty)
+                    {
+                        parentForm.ProcessSo(version.Version, "");
+                        parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                        this.IsIntComDirty = false;
+                    }
+                    
                 });
 
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
+                    this.IsCustComDirty = true;
                 });
-                this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
+                this.CustomerCommentsTextbox.Leave += ((object sender, EventArgs e) =>
                 {
-                    parentForm.ProcessSo(version.Version, "");
-                    parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
-                    parentForm.SaveSo(true, false);
+                    if (this.IsCustComDirty)
+                    {
+                        //parentForm.ProcessSo(version.Version, "");
+                        parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                        this.IsCustComDirty = false;
+                    }
+                    
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>

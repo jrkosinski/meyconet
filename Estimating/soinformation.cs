@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Ticketing;
 using WSGUtilitieslib;
@@ -3867,6 +3868,23 @@ namespace Estimating
                 {
                     HandleException(ex);
                 }
+            }
+        }
+
+        public void UpdateSOVersionComments(string sono, string version, string intcomments, string custcomments)
+        {
+            this.ClearParameters();
+            this.AddParms("@sono", sono, "SQL");
+            this.AddParms("@version", version, "SQL");
+            this.AddParms("@intcomment", intcomments, "SQL");
+            this.AddParms("@custcomment", custcomments, "SQL");
+            try
+            {
+                ExecuteCommand("wsgsp_updateversioncomment", CommandType.StoredProcedure);
+            }
+            catch (SqlException ex)
+            {
+                HandleException(ex);
             }
         }
 
