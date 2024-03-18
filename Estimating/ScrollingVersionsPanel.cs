@@ -1,16 +1,11 @@
 ﻿using CommonAppClasses;
-using CrystalDecisions.CrystalReports.Engine;
 using System;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
-using WSGUtilitieslib;
+
+//TODO: block the UI temporarily while selecting panel 
 
 namespace Estimating
 {
@@ -609,7 +604,7 @@ namespace Estimating
                 {
                     if (!this.IsSelected)
                     {
-                        parentForm.SelectVersionPanel(this.Version.Version);
+                        this.SelectThisVersionPanel(this.Version.Version);
                     }
                 });
 
@@ -655,7 +650,7 @@ namespace Estimating
                             else if (!String.IsNullOrEmpty(this.DeletingVersion))
                                 this.DeletingVersion = null; 
                             else
-                                parentForm.SelectVersionPanel(this.Version.Version);
+                                this.SelectThisVersionPanel(this.Version.Version);
                         }
                     });
                 }
@@ -744,6 +739,12 @@ namespace Estimating
             public void SelectOverlap(int overlap)
             {
                 this.SelectDropdownItem(this.OverlapDropdown, overlap); ;
+            }
+
+            private void SelectThisVersionPanel(string version)
+            {
+                this.Panel.Enabled = false;
+                this.ParentForm.SelectVersionPanel(this.Version.Version);
             }
 
             private void SelectDropdownItem(ComboBox dropdown, string display)
