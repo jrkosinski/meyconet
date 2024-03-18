@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-
+using System.Collections.Generic;
 
 namespace WSGUtilitieslib
 {
@@ -892,12 +892,13 @@ namespace WSGUtilitieslib
             }
         }
 
-        protected void GenerateAppTableRowSave(DataRow dr)
+        protected void GenerateAppTableRowSave(DataRow dr, IList<string> excludeColumns = null)
         {
             int idcolvalue = 0;
             bool Inserting = false;
             string SaveCommand = "";
             string ValueString = "";
+
             for (int i = 0; i < dr.Table.Columns.Count; i++)
             {
                 if (dr.Table.Columns[i].ColumnName == "idcol")
@@ -920,7 +921,9 @@ namespace WSGUtilitieslib
                 ValueString = " VALUES (";
                 for (int i = 0; i < dr.Table.Columns.Count; i++)
                 {
-                    if (dr.Table.Columns[i].ColumnName != "idcol")
+                    string colName = dr.Table.Columns[i].ColumnName;
+
+                    if (colName != "idcol" && (excludeColumns == null || !excludeColumns.Contains(colName)))
                     {
                         if (!SaveCommand.EndsWith("("))
                         {
@@ -947,7 +950,8 @@ namespace WSGUtilitieslib
                 SaveCommand = "UPDATE " + dr.Table.TableName + " SET ";
                 for (int i = 0; i < dr.Table.Columns.Count; i++)
                 {
-                    if (dr.Table.Columns[i].ColumnName != "idcol")
+                    string colName = dr.Table.Columns[i].ColumnName;
+                    if (colName != "idcol" && (excludeColumns == null || !excludeColumns.Contains(colName)))
                     {
                         if (!SaveCommand.TrimEnd().EndsWith("SET"))
                         {
