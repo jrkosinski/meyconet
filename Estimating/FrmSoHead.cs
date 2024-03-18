@@ -998,6 +998,11 @@ namespace Estimating
             }
         }
 
+        public void SaveSoVersionComments(string version, string intComment, string custComment)
+        {
+            soinf.UpdateSOVersionComments(soinf.somastds.somast[0].sono, version, intComment, custComment);
+        }
+
         #endregion Save SO
 
         private void buttonShipto_Click(object sender, EventArgs e)
