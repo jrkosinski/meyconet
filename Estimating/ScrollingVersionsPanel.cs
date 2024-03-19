@@ -153,6 +153,7 @@ namespace Estimating
             public Label MaterialLabel { get; private set; }
             public Label OverlapLabel { get; private set; }
             public Label SpacingLabel { get; private set; }
+            public ComboBox CoverDropdown { get; private set; }
 
             public bool IsSelected
             {
@@ -304,6 +305,27 @@ namespace Estimating
                 this.NameLabel.Location = new System.Drawing.Point(10, 20);
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
                 this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                //dropdown for covers
+                this.CoverDropdown = new ComboBox();
+                this.CoverDropdown.FormattingEnabled = true;
+                this.CoverDropdown.Location = new System.Drawing.Point(260, 20);
+                this.CoverDropdown.Size = new System.Drawing.Size(50, 23);
+                this.CoverDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.CoverDropdown.Enabled = this.Version.IsEditable;
+                this.CoverDropdown.Visible = false;
+
+                if(version.Covers.Count > 1 )
+                {
+                    this.CoverDropdown.Visible = true;
+
+                    foreach (var row in version.Covers)
+                    {
+                        this.CoverDropdown.Items.Add(new DropdownItem(row.IdCol, row.Cover.Trim()));
+                    }
+                    this.SelectCover(version.Covers[0].Cover.Trim());
+                }
+                
 
                 //version description label 
                 this.DescLabel = new Label();
@@ -605,6 +627,10 @@ namespace Estimating
                     }
                     //this.IsCustComDirty = false;
                 });
+                this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
+                {
+                    parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
+                });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
                 {
@@ -616,6 +642,7 @@ namespace Estimating
 
                 this.Panel.Controls.Add(this.NameLabel);
                 this.Panel.Controls.Add(this.DescLabel);
+                this.Panel.Controls.Add(this.CoverDropdown);
                 
                 this.Panel.Controls.Add(this.DeleteButton);
                 this.Panel.Controls.Add(this.ColorLabel);
@@ -747,6 +774,16 @@ namespace Estimating
                 this.SelectDropdownItem(this.OverlapDropdown, overlap); ;
             }
 
+            public void SelectCover(string cover)
+            {
+                this.SelectDropdownItem(this.CoverDropdown, cover);
+            }
+
+            public void SelectCover(int cover)
+            {
+                this.SelectDropdownItem(this.CoverDropdown, cover);
+            }
+
             private void SelectThisVersionPanel(string version)
             {
                 this.Panel.Enabled = false;
@@ -842,6 +879,7 @@ namespace Estimating
             public decimal NetPrice { get; set; }
             public decimal ListPrice { get; set; }
             public string ProductType { get; set; }
+            public string Cover { get; set; }
 
             public CoverDto(quoterpt.view_soreportlinedataRow row)
             {
@@ -854,6 +892,7 @@ namespace Estimating
                 try { this.ListPrice = row.price; } catch (Exception) { }
                 try { this.NetPrice = row.subtotal; } catch (Exception) { }
                 try { this.ProductType = row.product.Trim(); } catch (Exception) { }
+                try { this.Cover = row.cover.Trim(); } catch (Exception) { }
 
                 if (this.Spacing == null) this.Spacing = String.Empty;
                 if (this.Overlap == null) this.Overlap = String.Empty;
