@@ -154,6 +154,7 @@ namespace Estimating
             public Label OverlapLabel { get; private set; }
             public Label SpacingLabel { get; private set; }
             public ComboBox CoverDropdown { get; private set; }
+            public Label CoverLabel { get; private set; }
 
             public bool IsSelected
             {
@@ -300,10 +301,18 @@ namespace Estimating
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
                 this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
+                //label for version name 
+                this.CoverLabel = new Label();
+                this.CoverLabel.Text = $"Cover";
+                this.CoverLabel.Location = new System.Drawing.Point(260, 21);
+                this.CoverLabel.Size = new System.Drawing.Size(50, 23);
+                this.CoverLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.CoverLabel.Visible = false;
+
                 //dropdown for covers
                 this.CoverDropdown = new ComboBox();
                 this.CoverDropdown.FormattingEnabled = true;
-                this.CoverDropdown.Location = new System.Drawing.Point(260, 20);
+                this.CoverDropdown.Location = new System.Drawing.Point(320, 20);
                 this.CoverDropdown.Size = new System.Drawing.Size(50, 23);
                 this.CoverDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 this.CoverDropdown.Enabled = this.Version.IsEditable;
@@ -311,6 +320,7 @@ namespace Estimating
 
                 if(version.Covers.Count > 1 )
                 {
+                    this.CoverLabel.Visible = true;
                     this.CoverDropdown.Visible = true;
 
                     foreach (var row in version.Covers)
@@ -622,6 +632,10 @@ namespace Estimating
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
                     parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
+                    this.SelectColor(version.Covers[this.CoverDropdown.SelectedIndex].Color);
+                    this.SelectMaterial(version.Covers[this.CoverDropdown.SelectedIndex].Material);
+                    this.SelectSpacing(version.Covers[this.CoverDropdown.SelectedIndex].Spacing);
+                    this.SelectOverlap(version.Covers[this.CoverDropdown.SelectedIndex].Overlap);
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
@@ -634,6 +648,7 @@ namespace Estimating
 
                 this.Panel.Controls.Add(this.NameLabel);
                 this.Panel.Controls.Add(this.DescLabel);
+                this.Panel.Controls.Add(this.CoverLabel);
                 this.Panel.Controls.Add(this.CoverDropdown);
                 
                 this.Panel.Controls.Add(this.DeleteButton);

@@ -1374,6 +1374,8 @@ namespace Estimating
 
                 soinf.RefreshTotals();
                 RefreshControls();
+
+                this.versionsList.UpdateVersionCover(CurrentVersion, CurrentCover);
             }
 
             labelTaxdescrip.Text = appInformation.GetDistrictDescription(soinf.somastds.somast[0].taxdist);
