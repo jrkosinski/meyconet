@@ -960,10 +960,6 @@ namespace Estimating
 
         public void SaveSo(bool silent = false, bool loadVersionsList = true)
         {
-            //OrderCreator creator = new OrderCreator();
-            //InputParams input = new InputParams();
-            //input.CustomerId = 0;
-
             if (soinf.ValidateSO(CurrentFeature, true, silent: silent) == true)
             {
                 CurrentFeature = "";
@@ -1002,6 +998,11 @@ namespace Estimating
 
                 RefreshControls();
             }
+        }
+
+        public void SaveSoVersionComments(string version, string intComment, string custComment)
+        {
+            soinf.UpdateSOVersionComments(soinf.somastds.somast[0].sono, version, intComment, custComment);
         }
 
         #endregion Save SO

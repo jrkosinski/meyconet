@@ -1,16 +1,11 @@
 ﻿using CommonAppClasses;
-using CrystalDecisions.CrystalReports.Engine;
 using System;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
-using WSGUtilitieslib;
+
+//TODO: block the UI temporarily while selecting panel 
 
 namespace Estimating
 {
@@ -287,6 +282,8 @@ namespace Estimating
             private string NewVersion { get; set; }
             private string DeletingVersion { get; set; }
             private FrmSOHead ParentForm { get; set; }
+            private bool IsIntComDirty { get; set; }
+            private bool IsCustComDirty { get;set; }
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
@@ -596,22 +593,31 @@ namespace Estimating
                 this.InternalCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
+                    this.IsIntComDirty = true;
                 });
-                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => {
-                    parentForm.ProcessSo(version.Version, "");
-                    parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
-                    parentForm.SaveSo(true, false);
+                this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => 
+                {
+                    if (this.IsIntComDirty)
+                    {
+                        parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                    }
+                    this.IsIntComDirty = false;
+
                 });
 
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
+                    this.IsCustComDirty = true;
                 });
                 this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
                 {
-                    parentForm.ProcessSo(version.Version, "");
-                    parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
-                    parentForm.SaveSo(true, false);
+                    if (this.IsCustComDirty)
+                    {
+                        parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                    }
+                    this.IsCustComDirty = false;
+
                 });
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
@@ -622,7 +628,7 @@ namespace Estimating
                 {
                     if (!this.IsSelected)
                     {
-                        parentForm.SelectVersionPanel(this.Version.Version);
+                        this.SelectThisVersionPanel(this.Version.Version);
                     }
                 });
 
@@ -669,7 +675,7 @@ namespace Estimating
                             else if (!String.IsNullOrEmpty(this.DeletingVersion))
                                 this.DeletingVersion = null; 
                             else
-                                parentForm.SelectVersionPanel(this.Version.Version);
+                                this.SelectThisVersionPanel(this.Version.Version);
                         }
                     });
                 }
@@ -762,12 +768,18 @@ namespace Estimating
 
             public void SelectCover(string cover)
             {
-                this.SelectDropdownItem(this.CoverDropdown, cover); ;
+                this.SelectDropdownItem(this.CoverDropdown, cover);
             }
 
             public void SelectCover(int cover)
             {
-                this.SelectDropdownItem(this.CoverDropdown, cover); ;
+                this.SelectDropdownItem(this.CoverDropdown, cover);
+            }
+
+            private void SelectThisVersionPanel(string version)
+            {
+                this.Panel.Enabled = false;
+                this.ParentForm.SelectVersionPanel(this.Version.Version);
             }
 
             private void SelectDropdownItem(ComboBox dropdown, string display)

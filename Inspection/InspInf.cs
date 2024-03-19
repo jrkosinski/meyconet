@@ -426,7 +426,7 @@ namespace Inspection
                     inspds.inspmast[0].coverstring += inspds.inspmast[0].x4lenin.ToString().TrimEnd().TrimStart() + '"';
                 }
             }
-            GenerateAppTableRowSave(inspds.inspmast[0]);
+            GenerateAppTableRowSave(inspds.inspmast[0], excludeColumns: new string[] { "prwcov" });
         }
 
         public void EstablishBlankInspmastData()
@@ -1326,7 +1326,7 @@ namespace Inspection
             foreach (DataRow row in soitemsds.inspline)
             {
                 row["sono"] = somastds.somast[0].sono;
-                GenerateAppTableRowSave(row);
+                GenerateAppTableRowSave(row, excludeColumns: new string[] { "prwcov" });
             }
 
             // Locate any items that were in the orginal items and are no longer present, and delete them
