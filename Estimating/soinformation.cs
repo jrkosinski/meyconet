@@ -255,6 +255,42 @@ namespace Estimating
             return output; 
         }
 
+        public decimal GetDefaultDepositReq(int index, bool useArds = true)
+        {
+            index = (index < 0 ? 0 : index);
+            decimal[] originalValues;
+
+            if (useArds) {
+                decimal[] values = { ards.arcust[0].depover0, ards.arcust[0].depover1, ards.arcust[0].depover2, ards.arcust[0].depover3 };
+                originalValues = values;
+            }
+            else {
+                decimal[] values = { somastds.arcust[0].depover0, somastds.arcust[0].depover1, somastds.arcust[0].depover2, somastds.arcust[0].depover3 };
+                originalValues = values;
+            }
+
+            index = (index >= originalValues.Length ? originalValues.Length - 1 : index);
+            return index < 0 ? 0 : originalValues[index];
+        }
+
+        public decimal GetDepositReq(int index, bool useArds = true)
+        {
+            decimal output = 0;
+            index = (index < 0 ? 0 : index);
+
+            output = GetDefaultDepositReq(index, useArds);
+
+            //the new way
+            if (soitemsds.Tables["deposittiers"] != null && soitemsds.Tables["deposittiers"].Rows.Count > 0)
+            {
+                object[] values = soitemsds.Tables["deposittiers"].Rows[0].ItemArray;
+                index = (index >= values.Length ? values.Length - 1 : index);
+                output = Decimal.Parse(values[index].ToString()); 
+            }
+
+            return output / 100;
+        }
+
         public void EstablishFeatureds()
         {
             featureds.view_immasterdata.Rows.Clear();
@@ -1481,27 +1517,27 @@ namespace Estimating
             // Calculate the deposit
             if (somastds.soversion[0].ordamt < 1000)
             {
-                somastds.soversion[0].depositreq = decimal.Round((somastds.soversion[0].ordamt *
-                (ards.arcust[0].depover0 / 100)), 2);
+                somastds.soversion[0].depositreq = decimal.Round(somastds.soversion[0].ordamt *
+                GetDepositReq(0), 2); 
             }
             else
             {
                 if (somastds.soversion[0].ordamt < 2000)
                 {
-                    somastds.soversion[0].depositreq = decimal.Round((somastds.soversion[0].ordamt *
-                  (ards.arcust[0].depover1 / 100)), 2);
+                    somastds.soversion[0].depositreq = decimal.Round(somastds.soversion[0].ordamt *
+                    GetDepositReq(1), 2);
                 }
                 else
                 {
                     if (somastds.soversion[0].ordamt < 3000)
                     {
-                        somastds.soversion[0].depositreq = decimal.Round((somastds.soversion[0].ordamt *
-                       (ards.arcust[0].depover2 / 100)), 2);
+                        somastds.soversion[0].depositreq = decimal.Round(somastds.soversion[0].ordamt *
+                        GetDepositReq(2), 2);
                     }
                     else
                     {
-                        somastds.soversion[0].depositreq = decimal.Round((somastds.soversion[0].ordamt *
-                       (ards.arcust[0].depover3 / 100)), 2);
+                        somastds.soversion[0].depositreq = decimal.Round(somastds.soversion[0].ordamt *
+                        GetDepositReq(3), 2);
                     }
                 }
             }
@@ -3745,27 +3781,27 @@ namespace Estimating
                             // Calculate the deposit
                             if (somastds.soversion[v].ordamt < 1000)
                             {
-                                somastds.soversion[v].depositreq = decimal.Round((somastds.soversion[v].ordamt *
-                                (somastds.arcust[0].depover0 / 100)), 2);
+                                somastds.soversion[v].depositreq = decimal.Round(somastds.soversion[v].ordamt *
+                                GetDepositReq(0), 2);
                             }
                             else
                             {
                                 if (somastds.soversion[v].ordamt < 2000)
                                 {
-                                    somastds.soversion[v].depositreq = decimal.Round((somastds.soversion[v].ordamt *
-                                  (somastds.arcust[0].depover1 / 100)), 2);
+                                    somastds.soversion[v].depositreq = decimal.Round(somastds.soversion[v].ordamt *
+                                    GetDepositReq(1), 2);
                                 }
                                 else
                                 {
                                     if (somastds.soversion[v].ordamt < 3000)
                                     {
-                                        somastds.soversion[v].depositreq = decimal.Round((somastds.soversion[v].ordamt *
-                                       (somastds.arcust[0].depover2 / 100)), 2);
+                                        somastds.soversion[v].depositreq = decimal.Round(somastds.soversion[v].ordamt *
+                                        GetDepositReq(2), 2);
                                     }
                                     else
                                     {
-                                        somastds.soversion[v].depositreq = decimal.Round((somastds.soversion[v].ordamt *
-                                       (somastds.arcust[0].depover3 / 100)), 2);
+                                        somastds.soversion[v].depositreq = decimal.Round(somastds.soversion[v].ordamt *
+                                        GetDepositReq(3), 2);
                                     }
                                 }
                             }
