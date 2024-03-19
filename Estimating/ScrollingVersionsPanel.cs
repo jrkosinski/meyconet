@@ -670,7 +670,7 @@ namespace Estimating
 
                 this.Panel.Enabled = true;
                 this.EnableSave(false);
-                this.Panel.Size = new Size(SUB_PANEL_WIDTH, SUB_PANEL_HEIGHT);
+                this.SetSize(SUB_PANEL_WIDTH, SUB_PANEL_HEIGHT); 
                 this.Panel.BorderStyle = BorderStyle.FixedSingle;
 
                 foreach (Control control in Panel.Controls)
@@ -844,14 +844,14 @@ namespace Estimating
                 {
                     textBox.Visible = true;
                     textBox.Size = new Size(400, 90);
-                    this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT + 100);
+                    this.SetSize(this.Panel.Size.Width, SUB_PANEL_HEIGHT+100);
                     textBox.Focus();
                 }
                 else if (textBox.Visible)
                 {
                     textBox.Visible = false;
                     textBox.Size = new Size(0, 0);
-                    this.Panel.Size = new Size(this.Panel.Size.Width, SUB_PANEL_HEIGHT);
+                    this.SetSize(this.Panel.Size.Width, SUB_PANEL_HEIGHT);
                 }
             }
 
@@ -864,6 +864,16 @@ namespace Estimating
                 }
 
                 return output;
+            }
+
+            private void SetSize(int width, int height)
+            {
+                this.Panel.Size = new Size(width, height);
+                if (height <= SUB_PANEL_HEIGHT)
+                {
+                    this.InternalCommentsTextbox.Visible = false;
+                    this.CustomerCommentsTextbox.Visible = false;
+                }
             }
         }
 
