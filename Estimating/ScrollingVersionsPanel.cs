@@ -307,7 +307,7 @@ namespace Estimating
                 this.CoverDropdown = new ComboBox();
                 this.CoverDropdown.FormattingEnabled = true;
                 this.CoverDropdown.Location = new System.Drawing.Point(260, 20);
-                this.CoverDropdown.Size = new System.Drawing.Size(140, 23);
+                this.CoverDropdown.Size = new System.Drawing.Size(50, 23);
                 this.CoverDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 this.CoverDropdown.Enabled = this.Version.IsEditable;
                 this.CoverDropdown.Visible = false;
@@ -318,9 +318,9 @@ namespace Estimating
 
                     foreach (var row in version.Covers)
                     {
-                        this.CoverDropdown.Items.Add(new DropdownItem(row.IdCol, row.Description.Trim()));
+                        this.CoverDropdown.Items.Add(new DropdownItem(row.IdCol, row.Cover.Trim()));
                     }
-                    this.SelectCover(version.Covers[0].Description);
+                    this.SelectCover(version.Covers[0].Cover.Trim());
                 }
                 
 
@@ -613,6 +613,10 @@ namespace Estimating
                     parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
                     parentForm.SaveSo(true, false);
                 });
+                this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
+                {
+                    parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
+                });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
                 {
@@ -855,6 +859,7 @@ namespace Estimating
             public decimal NetPrice { get; set; }
             public decimal ListPrice { get; set; }
             public string ProductType { get; set; }
+            public string Cover { get; set; }
 
             public CoverDto(quoterpt.view_soreportlinedataRow row)
             {
@@ -867,6 +872,7 @@ namespace Estimating
                 try { this.ListPrice = row.price; } catch (Exception) { }
                 try { this.NetPrice = row.subtotal; } catch (Exception) { }
                 try { this.ProductType = row.product.Trim(); } catch (Exception) { }
+                try { this.Cover = row.cover.Trim(); } catch (Exception) { }
 
                 if (this.Spacing == null) this.Spacing = String.Empty;
                 if (this.Overlap == null) this.Overlap = String.Empty;
