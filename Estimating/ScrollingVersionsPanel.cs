@@ -281,8 +281,14 @@ namespace Estimating
             private string NewVersion { get; set; }
             private string DeletingVersion { get; set; }
             private FrmSOHead ParentForm { get; set; }
-            private bool IsIntComDirty { get; set; }
-            private bool IsCustComDirty { get;set; }
+            private bool IsIntComDirty
+            {
+                get { return this.InternalCommentsTextbox.Text != this.Version.InternalComments; }
+            }
+            private bool IsCustComDirty
+            {
+                get { return this.CustomerCommentsTextbox.Text != this.Version.CustomerComments; }
+            }
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
@@ -571,31 +577,33 @@ namespace Estimating
                 this.InternalCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
-                    this.IsIntComDirty = true;
+                    //this.IsIntComDirty = (this.InternalCommentsTextbox.Text != this.Version.InternalComments);
                 });
                 this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => 
                 {
                     if (this.IsIntComDirty)
                     {
-                        parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                        parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
+                        this.Version.InternalComments = this.InternalCommentsTextbox.Text;
+                        parentForm.SaveSoVersionComments(this.Version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
                     }
-                    this.IsIntComDirty = false;
-
+                    //this.IsIntComDirty = false;
                 });
 
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
-                    this.IsCustComDirty = true;
+                    //this.IsCustComDirty = true;
                 });
                 this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
                 {
                     if (this.IsCustComDirty)
                     {
+                        parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
+                        this.Version.CustomerComments = this.CustomerCommentsTextbox.Text;
                         parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
                     }
-                    this.IsCustComDirty = false;
-
+                    //this.IsCustComDirty = false;
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
@@ -858,8 +866,8 @@ namespace Estimating
         {
             public string Version { get; set; }
             public List<CoverDto> Covers { get; private set; }
-            public string InternalComments { get; private set; }
-            public string CustomerComments { get; private set; }
+            public string InternalComments { get; set; }
+            public string CustomerComments { get; set; }
             public string ProductType { get { return this.Covers.Count > 0 ? this.Covers[0].ProductType : String.Empty; } }
             public string Color { get { return this.Covers.Count > 0 ? this.Covers[0].Color : String.Empty; } }
             public string Material { get { return this.Covers.Count > 0 ? this.Covers[0].Material : String.Empty; } }
