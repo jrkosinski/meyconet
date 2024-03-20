@@ -306,16 +306,23 @@ namespace Estimating
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
                 this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
+                Label coverLabel = new Label(); 
+                coverLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                coverLabel.Text = "cover";
+                coverLabel.Location = new System.Drawing.Point(330, 24);
+                coverLabel.AutoSize = true;
+                this.Panel.Controls.Add(coverLabel);
+
                 //dropdown for covers
                 this.CoverDropdown = new ComboBox();
                 this.CoverDropdown.FormattingEnabled = true;
-                this.CoverDropdown.Location = new System.Drawing.Point(260, 20);
+                this.CoverDropdown.Location = new System.Drawing.Point(375, 20);
                 this.CoverDropdown.Size = new System.Drawing.Size(50, 23);
                 this.CoverDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 this.CoverDropdown.Enabled = this.Version.IsEditable;
                 this.CoverDropdown.Visible = false;
 
-                if(version.Covers.Count > 1 )
+                if (version.Covers.Count > 1 )
                 {
                     this.CoverDropdown.Visible = true;
 
@@ -408,7 +415,7 @@ namespace Estimating
                 
                 //colors listbox 
                 this.ColorDropdown.FormattingEnabled = true;
-                this.ColorDropdown.Location = new System.Drawing.Point(10, 110);
+                this.ColorDropdown.Location = new System.Drawing.Point(110, 110);
                 this.ColorDropdown.Name = "colorDropdown";
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
@@ -423,7 +430,7 @@ namespace Estimating
 
                 //materials listbox 
                 this.MaterialDropdown.FormattingEnabled = true;
-                this.MaterialDropdown.Location = new System.Drawing.Point(90, 110);
+                this.MaterialDropdown.Location = new System.Drawing.Point(10, 110);
                 this.MaterialDropdown.Name = "materialDropdown";
                 this.MaterialDropdown.Size = new System.Drawing.Size(96, 21);
                 this.MaterialDropdown.TabIndex = 382;
@@ -471,7 +478,7 @@ namespace Estimating
                 this.ColorLabel.Text = "color";
                 this.ColorLabel.AutoSize = true;
                 this.ColorLabel.Size = new System.Drawing.Size(10, 45);
-                this.ColorLabel.Location = new System.Drawing.Point(10, 95);
+                this.ColorLabel.Location = new System.Drawing.Point(110, 95);
                 this.ColorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //material label
@@ -479,7 +486,7 @@ namespace Estimating
                 this.MaterialLabel.Text = "material";
                 this.MaterialLabel.AutoSize = true;
                 this.MaterialLabel.Size = new System.Drawing.Size(10, 45);
-                this.MaterialLabel.Location = new System.Drawing.Point(90, 95);
+                this.MaterialLabel.Location = new System.Drawing.Point(10, 95);
                 this.MaterialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //spacing label
@@ -599,7 +606,6 @@ namespace Estimating
                 this.InternalCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
-                    //this.IsIntComDirty = (this.InternalCommentsTextbox.Text != this.Version.InternalComments);
                 });
                 this.InternalCommentsTextbox.LostFocus += ((object sender, EventArgs e) => 
                 {
@@ -609,13 +615,11 @@ namespace Estimating
                         this.Version.InternalComments = this.InternalCommentsTextbox.Text;
                         parentForm.SaveSoVersionComments(this.Version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
                     }
-                    //this.IsIntComDirty = false;
                 });
 
                 this.CustomerCommentsTextbox.TextChanged += ((object sender, EventArgs e) =>
                 {
                     this.EnableSave(this.IsDirty);
-                    //this.IsCustComDirty = true;
                 });
                 this.CustomerCommentsTextbox.LostFocus += ((object sender, EventArgs e) =>
                 {
@@ -625,7 +629,6 @@ namespace Estimating
                         this.Version.CustomerComments = this.CustomerCommentsTextbox.Text;
                         parentForm.SaveSoVersionComments(version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
                     }
-                    //this.IsCustComDirty = false;
                 });
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
