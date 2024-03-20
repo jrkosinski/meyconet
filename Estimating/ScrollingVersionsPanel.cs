@@ -42,11 +42,16 @@ namespace Estimating
             int index = this._versionsLookup.ContainsKey(version) ? this._versionsLookup[version] : -1;
             if (index >= 0)
             {
+                var row = ((FrmSOHead)this._parentForm).Soinf.clineds.socover.FirstOrDefault(x => x.cover == cover);
+
                 this._versionPanels[index].UpdateUI(
-                    ((FrmSOHead)this._parentForm).Soinf.clineds.socover[0].idcol,
-                    ((FrmSOHead)this._parentForm).Soinf.clineds.socover[0].descrip,
-                    ((FrmSOHead)this._parentForm).Soinf.clineds.socover[0].colorid,
-                    ((FrmSOHead)this._parentForm).Soinf.clineds.socover[0].materialid
+                    row.idcol,
+                    row.product.Trim(),
+                    row.descrip.Trim(),
+                    row.colorid,
+                    row.materialid,
+                    row.overlapid,
+                    row.spacingid
                 );
             }
         }
@@ -640,10 +645,7 @@ namespace Estimating
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
                     parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
-                    this.SelectColor(version.Covers[this.CoverDropdown.SelectedIndex].Color);
-                    this.SelectMaterial(version.Covers[this.CoverDropdown.SelectedIndex].Material);
-                    this.SelectSpacing(version.Covers[this.CoverDropdown.SelectedIndex].Spacing);
-                    this.SelectOverlap(version.Covers[this.CoverDropdown.SelectedIndex].Overlap);
+                    
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
@@ -716,13 +718,15 @@ namespace Estimating
                 this.SelectSpacing(this.Version.Spacing);
             }
 
-            public void UpdateUI(int idcol, string descrip, int color, int material)
+            public void UpdateUI(int idcol, string product, string descrip, int color, int material, int overlap, int spacing)
             {
-                if (idcol == this.Version.Covers[0].IdCol)
-                    this.DescLabel.Text = descrip;
-
+                
+                this.DescLabel.Text = $"{product} {descrip}";
                 this.SelectColor(color);
                 this.SelectMaterial(material);
+                this.SelectOverlap(overlap);
+                this.SelectSpacing(spacing);
+                this.SelectCover(idcol);
             }
 
             public void Enable(bool enabled = true)
