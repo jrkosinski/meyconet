@@ -77,6 +77,7 @@ namespace Estimating
         public int CurrentCustid { get; set; }
         public string CurrentCustno { get; set; }
         private string _currentVersion = String.Empty;
+        private string _currentCover = String.Empty;
         public string CurrentVersion
         {
             get { return _currentVersion; }
@@ -91,7 +92,20 @@ namespace Estimating
                 }
             }
         }
-        public string CurrentCover { get; set; }
+        public string CurrentCover
+        {
+            get { return _currentCover; }
+            set
+            {
+                if (value != _currentCover)
+                {
+                    _currentCover = value;
+
+                    if (_selectedCoverChanged != null)
+                        _selectedCoverChanged.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
         public string CurrentState { get; set; }
         public string PassedSono { get; set; }
         public string CurrentSono { get; set; }
@@ -118,6 +132,13 @@ namespace Estimating
         {
             add { _selectedVersionChanged += value; }
             remove { _selectedVersionChanged -= value; }
+        }
+
+        private EventHandler _selectedCoverChanged;
+        public event EventHandler SelectedCoverChanged
+        {
+            add { _selectedCoverChanged += value; }
+            remove { _selectedCoverChanged -= value; }
         }
 
         private void buttonSoHeadClose_Click(object sender, EventArgs e)
@@ -688,12 +709,12 @@ namespace Estimating
             this.Update();
         }
 
-        public void SelectVersionPanel(string version)
+        public void SelectVersionPanel(string version, string cover)
         {
             this.versionsList.SelectVersionPanel(version);
 
             if (!this.IsEditing)
-                this.ProcessSo(version, "", forceReloadVersionsList: false);
+                this.ProcessSo(version, cover, forceReloadVersionsList: false);
         }
 
         #endregion Refresh Controls
@@ -1374,14 +1395,12 @@ namespace Estimating
 
                 soinf.RefreshTotals();
                 RefreshControls();
-
-                this.versionsList.UpdateVersionCover(CurrentVersion, CurrentCover);
             }
 
             labelTaxdescrip.Text = appInformation.GetDistrictDescription(soinf.somastds.somast[0].taxdist);
             LoadingLine = false;
 
-            if (loadVersionsList)
+            if (loadVersionsList || forceReloadVersionsList)
                 this.LoadVersionsList(forceReloadVersionsList);
         }
 
@@ -2364,7 +2383,7 @@ namespace Estimating
                 if (wsgUtilities.wsgReply("Delete Version " + version + "?") == true)
                 {
                     soinf.DeleteSoversion(soinf.somastds.somast[0].sono, version);
-                    ProcessSo("", "", forceReloadVersionsList:true);
+                    ProcessSo("", "", loadVersionsList: true, forceReloadVersionsList:true);
                 }
             }
             else
@@ -2471,7 +2490,7 @@ namespace Estimating
                 if (wsgUtilities.wsgReply("Delete Cover " + SelectedCover + "?") == true)
                 {
                     soinf.DeleteSocover(soinf.somastds.soversion[0].version, SelectedCover);
-                    ProcessSo(soinf.somastds.soversion[0].version, "");
+                    ProcessSo(soinf.somastds.soversion[0].version, "", forceReloadVersionsList:true);
                 }
             }
         }
@@ -2938,22 +2957,6 @@ namespace Estimating
                 this.textBoxAcctMemo,
                 this.TabPageDiscounts, 
 
-                //discounts tab
-                //this.textBoxDisc,
-                //this.textBoxStanddisc,
-                //this.textBoxRepdisc,
-                //this.textBoxShipdisc,
-                //this.textBoxStockdisc,
-                //this.textBoxCommldisc,
-                //this.textBoxRepldisc,
-                //this.textBoxUpcharge, 
-
-                //deposits tab
-                //this.textBoxDepover0,
-                //this.textBoxDepover1,
-                //this.textBoxDepover2,
-                //this.textBoxDepover3,
-
                 //main form buttons 
                 this.buttonRoute,
                 this.buttonClearOrder,
@@ -3164,12 +3167,6 @@ namespace Estimating
                 this.versionsList.AddVersion(version, versionCovers[version]);
             }
 
-            this.ShowVersionsList(this.versionsList.Count >= 1);
-        }
-
-        private void ReloadVersionsList()
-        {
-            this.LoadVersionsList(true);
             this.ShowVersionsList(this.versionsList.Count >= 1);
         }
 

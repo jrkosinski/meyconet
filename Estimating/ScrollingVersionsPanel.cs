@@ -6,8 +6,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 
-//TODO: block the UI temporarily while selecting panel 
-
 namespace Estimating
 {
     public class ScrollingVersionsPanel : ScrollingPanel
@@ -26,6 +24,9 @@ namespace Estimating
             FrmSOHead parent = (FrmSOHead)parentForm;
             parent.SelectedVersionChanged -= this.OnSelectedVersionChanged;
             parent.SelectedVersionChanged += this.OnSelectedVersionChanged;
+
+            parent.SelectedCoverChanged -= this.OnSelectedCoverChanged;
+            parent.SelectedCoverChanged += this.OnSelectedCoverChanged;
         }
 
         public void AddVersion(string version, List<quoterpt.view_soreportlinedataRow> covers)
@@ -131,14 +132,38 @@ namespace Estimating
             }
         }
 
+        private void OnSelectedCoverChanged(object sender, EventArgs e)
+        {
+            FrmSOHead parent = (FrmSOHead)this._parentForm;
+            if (!String.IsNullOrEmpty(parent.CurrentVersion) && !String.IsNullOrEmpty(parent.CurrentCover))
+            {
+                VersionPanel currentVersion = _versionPanels.FirstOrDefault((i) => i.VersionCode == parent.CurrentVersion); 
+                if (currentVersion != null)
+                    currentVersion.SetSelectedCover(parent.CurrentCover);
+            }
+        }
+
         private class VersionPanel
         {
+            private string _selectedCover = "A";
+            private bool _pauseEvents = false;
+
             public string VersionCode { get { return this.Version.Version; } }
+            public CoverDto SelectedCover
+            {
+                get {
+                    var cover = this.GetCover(this._selectedCover);
+
+                    if (cover == null)
+                        cover = this.Version.Covers.FirstOrDefault();
+
+                    return cover;
+                }
+            }
             private VersionDto Version { get; set; }
             public Panel Panel { get; private set; }
             public Label NameLabel { get; private set; }
             public Label DescLabel { get; private set; }
-            //public Button SelectButton { get; private set; }
             public Button DeleteButton { get; private set; }
             public Button SaveButton { get; private set; }
             public Button CancelButton { get; private set; }
@@ -190,6 +215,15 @@ namespace Estimating
                     }
                     return false;
                 }
+            }
+            private CoverDto GetCover(string coverCode)
+            {
+                if (this.Version != null)
+                {
+                    return this.Version.Covers.FirstOrDefault((c) => c.Cover == coverCode);
+                }
+
+                return null;
             }
             private DropdownItem SelectedColor
             {
@@ -247,46 +281,52 @@ namespace Estimating
                     }
                 }
             }
-            private string Description
-            {
-                get
-                {
-                    return this.Version.Covers[0].Description != null ? this.Version.Covers[0].Description.Trim() : String.Empty;
-                }
-            }
-            private string ProductType
-            {
-                get
-                {
-                    return this.Version.Covers[0].ProductType != null ? this.Version.Covers[0].ProductType.Trim() : String.Empty;
-                }
-            }
             private string Material
             {
                 get
                 {
-                    return this.Version.Covers[0].Material != null ? this.Version.Covers[0].Material.Trim() : String.Empty;
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Material != null ? cover.Material.Trim() : String.Empty;
                 }
             }
             private string Color
             {
                 get
                 {
-                    return this.Version.Covers[0].Color != null ? this.Version.Covers[0].Color.Trim() : String.Empty;
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Color != null ? cover.Color.Trim() : String.Empty;
                 }
             }
             private string Spacing
             {
                 get
                 {
-                    return this.Version.Covers[0].Spacing != null ? this.Version.Covers[0].Spacing.Trim() : String.Empty;
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Spacing != null ? cover.Spacing.Trim() : String.Empty;
                 }
             }
             private string Overlap
             {
                 get
                 {
-                    return this.Version.Covers[0].Overlap != null ? this.Version.Covers[0].Overlap.Trim() : String.Empty;
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Overlap != null ? cover.Overlap.Trim() : String.Empty;
+                }
+            }
+            private string Description
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Description != null ? cover.Description.Trim() : String.Empty;
+                }
+            }
+            private string ProductType
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.ProductType != null ? cover.ProductType.Trim() : String.Empty;
                 }
             }
             private string NewVersion { get; set; }
@@ -310,8 +350,6 @@ namespace Estimating
 
                 //label for version name 
                 this.NameLabel = new Label();
-                string covercount = version.Covers.Count == 1 ? $"1 cover" : $"{version.Covers.Count} covers";
-                this.NameLabel.Text = $"Version {version.Version} ({covercount})";
                 this.NameLabel.Location = new System.Drawing.Point(10, 20);
                 this.NameLabel.Size = new System.Drawing.Size(250, 23);
                 this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -330,25 +368,24 @@ namespace Estimating
                 this.CoverDropdown.Location = new System.Drawing.Point(375, 20);
                 this.CoverDropdown.Size = new System.Drawing.Size(50, 23);
                 this.CoverDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.CoverDropdown.Enabled = this.Version.IsEditable;
+                this.CoverDropdown.Enabled = this.SelectedCover.IsEditable;
                 this.CoverDropdown.Visible = false;
 
                 if (version.Covers.Count > 1)
                 {
                     this.CoverLabel.Visible = true;
                     this.CoverDropdown.Visible = true;
+                    int index = 0;
 
                     foreach (var row in version.Covers)
                     {
-                        this.CoverDropdown.Items.Add(new DropdownItem(row.IdCol, row.Cover.Trim()));
+                        this.CoverDropdown.Items.Add(new DropdownItem(index++, row.Cover.Trim()));
                     }
-                    this.SelectCover(version.Covers[0].Cover.Trim());
                 }
 
 
                 //version description label 
                 this.DescLabel = new Label();
-                this.DescLabel.Text = GetDescriptionText(version);
                 this.DescLabel.Size = new System.Drawing.Size(250, 23);
                 this.DescLabel.Location = new System.Drawing.Point(10, 45);
                 this.DescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -369,14 +406,19 @@ namespace Estimating
 
                 this.SaveButton.Click += ((object sender, EventArgs e) =>
                 {
-                    parentForm.ProcessSo(version.Version, "");
-                    parentForm.Soinf.clineds.socover[0].colorid = this.SelectedColor.Value;
-                    parentForm.Soinf.clineds.socover[0].materialid = this.SelectedMaterial.Value;
-                    parentForm.Soinf.clineds.socover[0].spacingid = this.SelectedSpacing.Value;
-                    parentForm.Soinf.clineds.socover[0].overlapid = this.SelectedOverlap.Value;
+                    parentForm.ProcessSo(version.Version, this._selectedCover);
+                    if (this.SelectedColor != null)
+                        parentForm.Soinf.clineds.socover[0].colorid = this.SelectedColor.Value;
+                    if (this.SelectedMaterial != null)
+                        parentForm.Soinf.clineds.socover[0].materialid = this.SelectedMaterial.Value;
+                    if (this.SelectedSpacing != null)
+                        parentForm.Soinf.clineds.socover[0].spacingid = this.SelectedSpacing.Value;
+                    if (this.SelectedOverlap != null)
+                        parentForm.Soinf.clineds.socover[0].overlapid = this.SelectedOverlap.Value;
+                    
                     parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
                     parentForm.Soinf.somastds.soversion[0].custcomments = this.CustomerCommentsTextbox.Text;
-                    parentForm.SaveSo();
+                    parentForm.SaveSo(loadVersionsList: false);
                 });
 
                 //cancel button 
@@ -403,8 +445,11 @@ namespace Estimating
 
                 this.NewCoverButton.Click += ((object sender, EventArgs e) =>
                 {
-                    parentForm.EnterEditCoverMode();
-                    parentForm.CreateNewCover();
+                    if (!_pauseEvents)
+                    {
+                        parentForm.EnterEditCoverMode();
+                        parentForm.CreateNewCover();
+                    }
                 });
 
                 //new version button 
@@ -432,7 +477,7 @@ namespace Estimating
                 this.ColorDropdown.Size = new System.Drawing.Size(76, 21);
                 this.ColorDropdown.TabIndex = 382;
                 this.ColorDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.ColorDropdown.Enabled = this.Version.IsEditable;
+                this.ColorDropdown.Enabled = this.SelectedCover.IsEditable;
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qucolordata)
                 {
@@ -447,7 +492,7 @@ namespace Estimating
                 this.MaterialDropdown.Size = new System.Drawing.Size(96, 21);
                 this.MaterialDropdown.TabIndex = 382;
                 this.MaterialDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.MaterialDropdown.Enabled = this.Version.IsEditable;
+                this.MaterialDropdown.Enabled = this.SelectedCover.IsEditable;
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_qumaterialdata)
                 {
@@ -462,7 +507,7 @@ namespace Estimating
                 this.SpacingDropdown.Size = new System.Drawing.Size(96, 21);
                 this.SpacingDropdown.TabIndex = 382;
                 this.SpacingDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.SpacingDropdown.Enabled = this.Version.IsEditable;
+                this.SpacingDropdown.Enabled = this.SelectedCover.IsEditable;
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_quspacingdata)
                 {
@@ -477,7 +522,7 @@ namespace Estimating
                 this.OverlapDropdown.Size = new System.Drawing.Size(96, 21);
                 this.OverlapDropdown.TabIndex = 382;
                 this.OverlapDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.OverlapDropdown.Enabled = this.Version.IsEditable;
+                this.OverlapDropdown.Enabled = this.SelectedCover.IsEditable;
 
                 foreach (var row in parentForm.Soinf.soreferenceds.view_quoverlapdata)
                 {
@@ -564,23 +609,26 @@ namespace Estimating
 
                 //list price label
                 this.ListPriceLabel = new Label();
-                this.ListPriceLabel.Text = $"List price: ${version.Covers[0].ListPrice.ToString("#.00")}";
                 this.ListPriceLabel.Size = new System.Drawing.Size(250, 23);
                 this.ListPriceLabel.Location = new System.Drawing.Point(320, 140);
                 this.ListPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //net price label
                 this.NetPriceLabel = new Label();
-                this.NetPriceLabel.Text = $"Net price: ${version.Covers[0].NetPrice.ToString("#.00")}";
                 this.NetPriceLabel.Size = new System.Drawing.Size(250, 23);
                 this.NetPriceLabel.Location = new System.Drawing.Point(210, 140);
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.ColorTabLabel = new Label();
-                this.ColorTabLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
                 this.ColorTabLabel.Location = new System.Drawing.Point(1, 1);
                 this.ColorTabLabel.Size = new System.Drawing.Size(50, 15);
                 this.ColorTabLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                if (version.Covers.Count > 0)
+                {
+                    this.SelectCover(0);
+                    this.LoadCover(this.SelectedCover);
+                }
 
                 this.InternalCommentsButton.Click += ((object sender, EventArgs e) =>
                 {
@@ -625,7 +673,7 @@ namespace Estimating
                     {
                         parentForm.Soinf.somastds.soversion[0].intcomments = this.InternalCommentsTextbox.Text;
                         this.Version.InternalComments = this.InternalCommentsTextbox.Text;
-                        parentForm.SaveSoVersionComments(this.Version.Version, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
+                        parentForm.SaveSoVersionComments(this.VersionCode, this.InternalCommentsTextbox.Text, this.CustomerCommentsTextbox.Text);
                     }
                 });
 
@@ -644,15 +692,21 @@ namespace Estimating
                 });
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
-                    parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
-                    
+                    if (!_pauseEvents)
+                    {
+                        string selectedCover = this.CoverDropdown.SelectedItem.ToString();
+                        parentForm.ProcessSo(version.Version, selectedCover);
+
+                        //set the correct cover 
+                        this.SetSelectedCover(selectedCover);
+                    }
                 });
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
                 {
                     if (!this.IsSelected)
                     {
-                        this.SelectThisVersionPanel(this.Version.Version);
+                        this.SelectThisVersionPanel(this.VersionCode);
                     }
                 });
 
@@ -683,7 +737,9 @@ namespace Estimating
                 this.Panel.Controls.Add(this.ColorTabLabel);
 
 
-                this.IsSelected = this.Version.Version == parentForm.CurrentVersion;
+                this.IsSelected = this.VersionCode == parentForm.CurrentVersion;
+                if (this.IsSelected)
+                    this.SetSelectedCover(parentForm.CurrentCover);
 
                 this.Panel.Enabled = true;
                 this.EnableSave(false);
@@ -700,7 +756,7 @@ namespace Estimating
                             else if (!String.IsNullOrEmpty(this.DeletingVersion))
                                 this.DeletingVersion = null;
                             else
-                                this.SelectThisVersionPanel(this.Version.Version);
+                                this.SelectThisVersionPanel(this.VersionCode);
                         }
                     });
                 }
@@ -712,15 +768,14 @@ namespace Estimating
                 this.ToggleTextbox(this.CustomerCommentsTextbox, false);
                 this.CustomerCommentsTextbox.Text = this.Version.CustomerComments;
                 this.InternalCommentsTextbox.Text = this.Version.InternalComments;
-                this.SelectColor(this.Version.Color);
-                this.SelectMaterial(this.Version.Material);
-                this.SelectOverlap(this.Version.Overlap);
-                this.SelectSpacing(this.Version.Spacing);
+                this.SelectColor(this.Color);
+                this.SelectMaterial(this.Material);
+                this.SelectOverlap(this.Overlap);
+                this.SelectSpacing(this.Spacing);
             }
 
             public void UpdateUI(int idcol, string product, string descrip, int color, int material, int overlap, int spacing)
             {
-                
                 this.DescLabel.Text = $"{product} {descrip}";
                 this.SelectColor(color);
                 this.SelectMaterial(material);
@@ -732,10 +787,10 @@ namespace Estimating
             public void Enable(bool enabled = true)
             {
                 this.DeleteButton.Enabled = enabled && !this.ParentForm.IsEditing;
-                this.MaterialDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
-                this.ColorDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
-                this.SpacingDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
-                this.OverlapDropdown.Enabled = enabled && this.Version.IsEditable && !this.ParentForm.IsEditing;
+                this.MaterialDropdown.Enabled = enabled && this.SelectedCover.IsEditable && !this.ParentForm.IsEditing;
+                this.ColorDropdown.Enabled = enabled && this.SelectedCover.IsEditable && !this.ParentForm.IsEditing;
+                this.SpacingDropdown.Enabled = enabled && this.SelectedCover.IsEditable && !this.ParentForm.IsEditing;
+                this.OverlapDropdown.Enabled = enabled && this.SelectedCover.IsEditable && !this.ParentForm.IsEditing;
                 this.InternalCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
                 this.CustomerCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
 
@@ -803,10 +858,54 @@ namespace Estimating
                 this.SelectDropdownItem(this.CoverDropdown, cover);
             }
 
+            public void SetSelectedCover(string coverCode)
+            {
+                this._pauseEvents = true;
+                try
+                {
+                    if (coverCode != this._selectedCover)
+                    {
+                        if (this.GetCover(coverCode) != null)
+                        {
+                            this._selectedCover = coverCode;
+
+                            //find the right cover
+                            CoverDto cover = this.SelectedCover;
+                            if (cover != null)
+                            {
+                                this.LoadCover(cover);
+                                this.SelectCover(cover.Cover);
+                            }
+                        }
+                    }
+                }
+                finally
+                {
+                    this._pauseEvents = false;
+                }
+            }
+
             private void SelectThisVersionPanel(string version)
             {
                 this.Panel.Enabled = false;
-                this.ParentForm.SelectVersionPanel(this.Version.Version);
+                this.ParentForm.SelectVersionPanel(this.VersionCode, this._selectedCover);
+            }
+
+            private void LoadCover(CoverDto cover)
+            {
+                string covercount = this.Version.Covers.Count == 1 ? $"1 cover" : $"{this.Version.Covers.Count} covers";
+                this.NameLabel.Text = $"Version {this.VersionCode} ({covercount})";
+
+                this.DescLabel.Text = GetDescriptionText(this.Version, cover);
+                this.SelectColor(cover.Color);
+                this.SelectMaterial(cover.Material);
+                this.SelectOverlap(cover.Overlap);
+                this.SelectSpacing(cover.Spacing);
+                this.SelectCover(cover.IdCol);
+
+                this.ColorTabLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
+                this.ListPriceLabel.Text = $"List price: ${this.SelectedCover.ListPrice.ToString("#.00")}";
+                this.NetPriceLabel.Text = $"Net price: ${this.SelectedCover.NetPrice.ToString("#.00")}";
             }
 
             private void SelectDropdownItem(ComboBox dropdown, string display)
@@ -874,12 +973,18 @@ namespace Estimating
                 }
             }
 
+            private string GetDescriptionText(VersionDto version, CoverDto cover)
+            {
+                string output = String.Empty;
+                return $"{cover.ProductType} {cover.Description}";
+            }
+
             private string GetDescriptionText(VersionDto version)
             {
                 string output = String.Empty;
                 if (version != null && version.Covers != null && version.Covers.Count > 0 && version.Covers[0] != null)
                 {
-                    output = $"{this.ProductType} {this.Description}";
+                    output = this.GetDescriptionText(version, version.Covers[0]);
                 }
 
                 return output;
@@ -904,7 +1009,7 @@ namespace Estimating
             public string Material { get; set; }
             public string Spacing { get; set; }
             public string Overlap { get; set; }
-            public bool Editable { get; set; }
+            public bool IsEditable { get; set; }
             public decimal NetPrice { get; set; }
             public decimal ListPrice { get; set; }
             public string ProductType { get; set; }
@@ -926,7 +1031,7 @@ namespace Estimating
                 if (this.Spacing == null) this.Spacing = String.Empty;
                 if (this.Overlap == null) this.Overlap = String.Empty;
 
-                this.Editable = row.product.Trim().ToUpper() != "STOCK COVER";
+                this.IsEditable = row.product.Trim().ToUpper() != "STOCK COVER";
             }
         }
 
@@ -936,18 +1041,13 @@ namespace Estimating
             public List<CoverDto> Covers { get; private set; }
             public string InternalComments { get; set; }
             public string CustomerComments { get; set; }
-            public string ProductType { get { return this.Covers.Count > 0 ? this.Covers[0].ProductType : String.Empty; } }
-            public string Color { get { return this.Covers.Count > 0 ? this.Covers[0].Color : String.Empty; } }
-            public string Material { get { return this.Covers.Count > 0 ? this.Covers[0].Material : String.Empty; } }
-            public string Overlap { get { return this.Covers.Count > 0 ? this.Covers[0].Overlap : String.Empty; } }
-            public string Spacing { get { return this.Covers.Count > 0 ? this.Covers[0].Spacing : String.Empty; } }
             public bool IsEditable
             {
                 get
                 {
                     for (int n = 0; n < this.Covers.Count; n++)
                     {
-                        if (this.Covers[n].Editable)
+                        if (this.Covers[n].IsEditable)
                             return true;
                     }
                     return false;
