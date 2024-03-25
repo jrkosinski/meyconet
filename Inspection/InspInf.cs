@@ -845,18 +845,7 @@ namespace Inspection
         {
             if (e.KeyCode == Keys.Return)
             {
-                LoadInspection(parentform.textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
-                if (CurrentSomastid > 0)
-                {
-                    ProcessSo("", "");
-                    RefreshParentControls();
-                }
-                else
-                {
-                    wsgUtilities.wsgNotice("Sales Order Not Found. Click Find to Search");
-                    CurrentState = "Select";
-                    RefreshParentControls();
-                }
+                this.LoadSono(parentform.textBoxSoNo.Text.TrimEnd().TrimStart().PadLeft(10));
             }
         }
 
@@ -866,19 +855,25 @@ namespace Inspection
             frmSoSearch.ShowDialog();
             if (frmSoSearch.SelectedSono.TrimEnd() != "")
             {
-                LoadInspection(frmSoSearch.SelectedSono.TrimEnd());
-                if (CurrentSomastid > 0)
-                {
-                    CurrentState = "View";
-                    ProcessSo("", "");
-                    RefreshParentControls();
-                }
-                else
-                {
-                    wsgUtilities.wsgNotice("Sales Order Not Found. Click Find to Search");
-                    CurrentState = "Select";
-                    RefreshParentControls();
-                }
+                this.LoadSono(frmSoSearch.SelectedSono.TrimEnd());
+            }
+        }
+
+        private void LoadSono(string sono)
+        {
+            this.CurrentSono = sono;
+            LoadInspection(sono);
+            if (CurrentSomastid > 0)
+            {
+                CurrentState = "View";
+                ProcessSo("", "");
+                RefreshParentControls();
+            }
+            else
+            {
+                wsgUtilities.wsgNotice("Sales Order Not Found. Click Find to Search");
+                CurrentState = "Select";
+                RefreshParentControls();
             }
         }
 
@@ -1035,6 +1030,7 @@ namespace Inspection
                 socurrentitemsds.inspline.Rows.Clear();
                 CurrentState = "Select";
                 RefreshParentControls();
+                this.LoadSono(this.CurrentSono);
             }
         }
 
