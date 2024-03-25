@@ -610,13 +610,15 @@ namespace Estimating
                 //list price label
                 this.ListPriceLabel = new Label();
                 this.ListPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.ListPriceLabel.Location = new System.Drawing.Point(320, 140);
+                this.ListPriceLabel.AutoSize = true;
+                this.ListPriceLabel.Location = new System.Drawing.Point(210, 140);
                 this.ListPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 //net price label
                 this.NetPriceLabel = new Label();
                 this.NetPriceLabel.Size = new System.Drawing.Size(250, 23);
-                this.NetPriceLabel.Location = new System.Drawing.Point(210, 140);
+                this.NetPriceLabel.AutoSize = true;
+                this.NetPriceLabel.Location = new System.Drawing.Point(320, 140);
                 this.NetPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 this.ColorTabLabel = new Label();
@@ -904,8 +906,8 @@ namespace Estimating
                 this.SelectCover(cover.IdCol);
 
                 this.ColorTabLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
-                this.ListPriceLabel.Text = $"List price: ${this.SelectedCover.ListPrice.ToString("#.00")}";
-                this.NetPriceLabel.Text = $"Net price: ${this.SelectedCover.NetPrice.ToString("#.00")}";
+                this.ListPriceLabel.Text = $"List price: ${this.Version.ListPriceTotal.ToString("#,###.00")}";
+                this.NetPriceLabel.Text = $"Net price: ${this.Version.NetPriceTotal.ToString("#,###.00")}";
             }
 
             private void SelectDropdownItem(ComboBox dropdown, string display)
@@ -1024,7 +1026,7 @@ namespace Estimating
                 try { this.Overlap = row.overlap; } catch (Exception) { }
                 try { this.Spacing = row.spacing; } catch (Exception) { }
                 try { this.ListPrice = row.price; } catch (Exception) { }
-                try { this.NetPrice = row.subtotal; } catch (Exception) { }
+                try { this.NetPrice = row.extprice; } catch (Exception) { }
                 try { this.ProductType = row.product.Trim(); } catch (Exception) { }
                 try { this.Cover = row.cover.Trim(); } catch (Exception) { }
 
@@ -1041,6 +1043,16 @@ namespace Estimating
             public List<CoverDto> Covers { get; private set; }
             public string InternalComments { get; set; }
             public string CustomerComments { get; set; }
+            public decimal ListPriceTotal {
+                get {
+                    return this.Covers.Select((c) => c.ListPrice).Sum();
+                }
+            }
+            public decimal NetPriceTotal {
+                get {
+                    return this.Covers.Select((c) => c.NetPrice).Sum();
+                }
+            }
             public bool IsEditable
             {
                 get
