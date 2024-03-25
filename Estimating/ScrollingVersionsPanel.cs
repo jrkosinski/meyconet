@@ -290,6 +290,7 @@ namespace Estimating
             private FrmSOHead ParentForm { get; set; }
             private bool IsIntComDirty { get; set; }
             private bool IsCustComDirty { get;set; }
+            private string currentSelectedCover { get; set; } 
 
             public VersionPanel(FrmSOHead parentForm, VersionDto version)
             {
@@ -636,7 +637,12 @@ namespace Estimating
                 });
                 this.CoverDropdown.SelectedIndexChanged += ((object sender, EventArgs e) =>
                 {
-                    parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
+                    if(currentSelectedCover != this.CoverDropdown.SelectedItem.ToString())
+                    {
+                        currentSelectedCover = this.CoverDropdown.SelectedItem.ToString();
+                        parentForm.ProcessSo(version.Version, this.CoverDropdown.SelectedItem.ToString());
+                    }
+                    
                     
                 });
 
@@ -719,6 +725,7 @@ namespace Estimating
                 this.SelectOverlap(overlap);
                 this.SelectSpacing(spacing);
                 this.SelectCover(idcol);
+                
             }
 
             public void Enable(bool enabled = true)
