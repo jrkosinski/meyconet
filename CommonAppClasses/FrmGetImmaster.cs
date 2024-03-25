@@ -42,12 +42,13 @@ namespace CommonAppClasses
             {
                 if (dataCache.IsInvalid)
                 {
-                    immasterAccess.GetImmasterData();
+                    immasterAccess.itemds.Clear();
                     dataCache.Refresh(immasterAccess);
                 }
             }
             else
             {
+                immasterAccess.itemds.Clear();
                 immasterAccess.GetSelectedItemGroup(SelectedCode);
                 dataCache.Invalidate();
             }
