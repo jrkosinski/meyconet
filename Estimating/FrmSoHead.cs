@@ -111,6 +111,7 @@ namespace Estimating
         public string CurrentSono { get; set; }
         public int CurrentSomastid { get; set; }
         public string CurrentItem { get; set; }
+        public bool IsCopyQuote { get; set; }
 
         public bool Quoting { get; set; }
         public bool NewOrder { get; set; }
@@ -933,9 +934,9 @@ namespace Estimating
 
         private void FrmSOHead_Shown(object sender, EventArgs e)
         {
-            if (PassedSono.TrimEnd() != "")
+            if (!String.IsNullOrEmpty(PassedSono.TrimEnd()))
             {
-                ProcessExistingQuote(PassedSono);
+                ProcessExistingQuote(PassedSono, IsCopyQuote);
             }
 
             // Deposit Requirements
@@ -1002,7 +1003,7 @@ namespace Estimating
 
                 // Reload Somast dataset
                 CurrentSomastid = soinf.GetSomastBySono(saveSono);
-                CurrentSono = saveSono; 
+                CurrentSono = saveSono;
 
                 // Check for mulitple covers. If there multiple covers, force selection
                 if (!silent && soinf.GetVersionCoverCount(saveSono, thisversion) > 1)
@@ -1015,10 +1016,33 @@ namespace Estimating
 
                 // Clear all other datasets
                 soinf.ClearCoverVersionLine();
-                ProcessSo(thisversion, thiscover, loadVersionsList:loadVersionsList, forceReloadVersionsList:true);
+                ProcessSo(thisversion, thiscover, loadVersionsList: loadVersionsList, forceReloadVersionsList: true);
 
                 RefreshControls();
             }
+        }
+
+        public void SaveSo_NoUI()
+        {
+            CurrentFeature = "";
+            string thisversion = soinf.somastds.soversion[0].version;
+            string thiscover = soinf.clineds.socover[0].cover;
+
+            // Save Order
+            soinf.somastds.somast[0].defloc = "SC"; //TODO: do not hard0-cocde
+            soinf.SaveOrderData(false, silent:true);
+
+            // Save the sono for PDF Creation
+            string saveSono = soinf.somastds.somast[0].sono;
+            MakeQuotePDF(saveSono, soinf.somastds.somast[0].sotype);
+
+            // Reload Somast dataset
+            CurrentSomastid = soinf.GetSomastBySono(saveSono);
+            CurrentSono = saveSono;
+
+            // Clear all other datasets
+            soinf.ClearCoverVersionLine();
+            ProcessSo_NoUI(thisversion, thiscover);
         }
 
         public void SaveSoVersionComments(string version, string intComment, string custComment)
@@ -1136,7 +1160,7 @@ namespace Estimating
         }
 
 
-        public void ProcessExistingQuote(string sono)
+        public void ProcessExistingQuote(string sono, bool isCopyQuote = false)
         {
             CurrentSomastid = soinf.GetSomastBySono(sono);
             CurrentSono = sono; 
@@ -1149,15 +1173,23 @@ namespace Estimating
                     CurrentCustid = soinf.somastds.somast[0].custid;
                     // Load customer data for this SO
                     soinf.getSingleCustomerData(CurrentCustid);
-                    CurrentVersion = "";
+                    CurrentVersion = String.Empty;
+                    CurrentCover = String.Empty;
+
+                    if (isCopyQuote)
+                    {
+                        FinishCopyQuote(sono);
+                    }
+
+                    CurrentVersion = String.Empty;
                     CurrentState = "View";
-                    ProcessSo("", "");
+                    ProcessSo(String.Empty, String.Empty);
                     RefreshControls();
                 }
                 else
                 {
                     ShowSOSearch();
-                    textBoxSoNo.Text = "";
+                    textBoxSoNo.Text = String.Empty;
                 }
             }
             else
@@ -1165,8 +1197,48 @@ namespace Estimating
                 textBoxSoNo.Text = CurrentSono;
                 CurrentState = "Select";
                 ShowSOSearch();
-                textBoxSoNo.Text = "";
+                textBoxSoNo.Text = String.Empty;
             }
+        }
+
+        private void FinishCopyQuote(string sono)
+        {
+            this.ShowLoadingScreen(true);
+            try
+            {
+                var versionCovers = this.GetVersionsAndCovers(sono);
+
+                foreach (string version in versionCovers.Keys)
+                {
+                    foreach (var cover in versionCovers[version])
+                    {
+                        ProcessSo_NoUI(version, cover);
+                        SaveSo_NoUI();
+                    }
+                }
+            }
+            finally
+            {
+                this.ShowLoadingScreen(false);
+            }
+        }
+
+        private Dictionary<string, List<string>> GetVersionsAndCovers(string sono)
+        {
+            var coversByVersion = soinf.GetCoversByVersion(sono);
+            var versionCovers = new Dictionary<string, List<string>>();
+
+            foreach (string version in coversByVersion.Keys)
+            {
+                versionCovers.Add(version, new List<string>());
+
+                foreach (var row in coversByVersion[version])
+                {
+                    versionCovers[version].Add(row.cover);
+                }
+            }
+
+            return versionCovers;
         }
 
         public void ShowSOSearch()
@@ -1402,6 +1474,130 @@ namespace Estimating
 
             if (loadVersionsList || forceReloadVersionsList)
                 this.LoadVersionsList(forceReloadVersionsList);
+        }
+
+        public void ProcessSo_NoUI(string version, string cover, bool reloadLineItems = false)
+        {
+            CurrentFeature = "";
+
+            LoadingLine = true;
+
+            // Locate the version view data for the current sono
+            soinf.LoadVersionViewData(soinf.somastds.somast[0].sono);
+
+            if (soinf.somastds.view_versiondata.Rows.Count == 0)
+            {
+                soinf.EstablishBlankSoversionData();
+                if (version == "")
+                {
+                    soinf.somastds.soversion[0].version = "A";
+                    CurrentVersion = "A";
+                }
+                else
+                {
+                    // Creating a new version with no prior versions
+                    soinf.somastds.soversion[0].version = version;
+                    CurrentVersion = version;
+                }
+            }
+            else
+            {
+                // There are existing versions
+                if (version == String.Empty)
+                {
+                    // If not targeting a version, use the first version
+                    CurrentVersion = soinf.somastds.view_versiondata[0].version;
+                    soinf.somastds.soversion.Rows.Clear();
+                    soinf.somastds.soversion.ImportRow(soinf.somastds.view_versiondata.Rows[0]);
+                }
+                else
+                {
+                    DataRow[] foundRows;
+                    // Retrieve Version Row from view
+                    foundRows = soinf.somastds.view_versiondata.Select("version = '" + version + "'");
+                    if (foundRows.Length != 0)
+                    {
+                        soinf.somastds.soversion.Rows.Clear();
+                        soinf.somastds.soversion.ImportRow(foundRows[0]);
+                        CurrentVersion = version;
+                    }
+                    else
+                    {
+                        soinf.EstablishBlankSoversionData();
+                        soinf.somastds.soversion[0].version = version;
+                        CurrentVersion = version;
+                    }
+                }
+            }
+
+            // Establish cover line, extensions and miscellaneous items
+            // Locate the cover view data for the current sono, version
+            soinf.LoadCoverViewData(soinf.somastds.somast[0].sono, CurrentVersion);
+
+            if (soinf.somastds.view_coverdata.Rows.Count == 0)
+            {
+                // No rows. Use "A" if none specified
+                if (cover == "")
+                {
+                    CurrentCover = "A";
+                }
+                else
+                {
+                    CurrentCover = cover;
+                }
+            }
+            else
+            {
+                // Rows found
+                if (cover == "")
+                {
+                    // Use the first cover is none is specified
+                    CurrentCover = soinf.somastds.view_coverdata[0].cover;
+                }
+                else
+                {
+                    CurrentCover = cover;
+                }
+            }
+            string product = String.Empty;
+            bool productOK = true;
+            string strExpr = "cover = '" + CurrentCover + "'";
+            // Use the Select method to the current cover, if it exists.
+
+            //establish cover items & load deposit tiers
+            if (productOK == true)
+            {
+                soinf.LoadAllCoverData(soinf.somastds.somast[0].sono, CurrentVersion, CurrentCover, product, reloadLineItems);
+                // Establish cover items table
+                // Note: The items will be specific to the cover type
+                soinf.EstablishCoverItemsTable(soinf.clineds.socover[0].product);
+                soinf.LoadDepositTiers(soinf.somastds.somast[0].idcol);
+            }
+
+            // If new cover, check for import
+            if (productOK)
+            {
+                if (soinf.clineds.socover[0].idcol < 1)
+                {
+                    productOK = soinf.CheckInspImport();
+                }
+            }
+
+            // establish and clear Features Dataset, set upcharge info
+            if (productOK == true)
+            {
+                // Establish and clear Features Dataset
+                soinf.EstablishFeatureds();
+                // Set Upcharge information
+                soinf.clineds.socover[0].upcharge = soinf.ards.arcust[0].upcharge;
+
+                RefreshCover();
+
+                soinf.RefreshTotals();
+            }
+
+            labelTaxdescrip.Text = appInformation.GetDistrictDescription(soinf.somastds.somast[0].taxdist);
+            LoadingLine = false;
         }
 
         #endregion Process SO

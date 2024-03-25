@@ -39,6 +39,7 @@ namespace Estimating
                     // Activate Estimating form
                     Estimating.FrmSOHead frmSoHead = new Estimating.FrmSOHead();
                     frmSoHead.PassedSono = soinf.somastds.somast[0].sono;
+                    frmSoHead.IsCopyQuote = true;
                     frmSoHead.MdiParent = Menuform;
                     frmSoHead.Show();
                 }
