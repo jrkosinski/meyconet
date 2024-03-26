@@ -66,7 +66,7 @@ namespace Estimating
 
         public bool IsOpen
         {
-            get { return this.GetSoStatus() == "Open";  }
+            get { return this.GetSoStatus() == "Open"; }
         }
 
         public Soinf(string DataStore, string AppConfigName)
@@ -236,12 +236,13 @@ namespace Estimating
 
         public Dictionary<string, List<quoterpt.view_soreportlinedataRow>> GetCoversByVersion(string sono)
         {
-            var output = new Dictionary<string, List<quoterpt.view_soreportlinedataRow>>(); 
+            var output = new Dictionary<string, List<quoterpt.view_soreportlinedataRow>>();
 
             //populate the data if not yet populated 
             getallsoreportdata(sono);
 
-            for(int n=0; n<this.quorptds.view_soreportlinedata.Rows.Count; n++) {
+            for (int n = 0; n < this.quorptds.view_soreportlinedata.Rows.Count; n++)
+            {
                 quoterpt.view_soreportlinedataRow row = this.quorptds.view_soreportlinedata[n];
                 if (row.source.Trim().ToUpper() == "C")
                 {
@@ -252,7 +253,7 @@ namespace Estimating
                 }
             }
 
-            return output; 
+            return output;
         }
 
         public decimal GetDefaultDepositReq(int index, bool useArds = true)
@@ -260,11 +261,13 @@ namespace Estimating
             index = (index < 0 ? 0 : index);
             decimal[] originalValues;
 
-            if (useArds) {
+            if (useArds)
+            {
                 decimal[] values = { ards.arcust[0].depover0, ards.arcust[0].depover1, ards.arcust[0].depover2, ards.arcust[0].depover3 };
                 originalValues = values;
             }
-            else {
+            else
+            {
                 decimal[] values = { somastds.arcust[0].depover0, somastds.arcust[0].depover1, somastds.arcust[0].depover2, somastds.arcust[0].depover3 };
                 originalValues = values;
             }
@@ -285,7 +288,7 @@ namespace Estimating
             {
                 object[] values = soitemsds.Tables["deposittiers"].Rows[0].ItemArray;
                 index = (index >= values.Length ? values.Length - 1 : index);
-                output = Decimal.Parse(values[index].ToString()); 
+                output = Decimal.Parse(values[index].ToString());
             }
 
             return output / 100;
@@ -1127,11 +1130,11 @@ namespace Estimating
                 // Prepare the dimension strings for printing
                 clineds.socover[0].coverstring = "";
                 clineds.socover[0].poolstring = "";
-                PrepareStringDimensons(clineds.socover);
-                PrepareStringDimensons(tempext1lineds.socover);
-                PrepareStringDimensons(tempext2lineds.socover);
-                PrepareStringDimensons(tempext3lineds.socover);
-                PrepareStringDimensons(tempext4lineds.socover);
+                PrepareStringDimensions(clineds.socover);
+                PrepareStringDimensions(tempext1lineds.socover);
+                PrepareStringDimensions(tempext2lineds.socover);
+                PrepareStringDimensions(tempext3lineds.socover);
+                PrepareStringDimensions(tempext4lineds.socover);
                 clineds.AcceptChanges();
                 clineds.socover[0].AcceptChanges();
             }// ItemOk = true
@@ -1171,7 +1174,7 @@ namespace Estimating
             return SoStatus;
         }
 
-        public void PrepareStringDimensons(quote.socoverDataTable dtcover)
+        private void PrepareStringDimensions(quote.socoverDataTable dtcover)
         {
             string thiscoverstring = "";
             string thispoolstring = "";
@@ -1518,7 +1521,7 @@ namespace Estimating
             if (somastds.soversion[0].ordamt < 1000)
             {
                 somastds.soversion[0].depositreq = decimal.Round(somastds.soversion[0].ordamt *
-                GetDepositReq(0), 2); 
+                GetDepositReq(0), 2);
             }
             else
             {
@@ -1867,7 +1870,7 @@ namespace Estimating
             LoadCoverViewData(sono, version);
             while (rowcount <= somastds.view_coverdata.Rows.Count - 1)
             {
-                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C "); 
+                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C ");
                 if (customOnly)
                 {
                     itCounts = itCounts && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
@@ -2017,7 +2020,7 @@ namespace Estimating
 
             string spName = "wsgsp_findMiscellaneousSolineData";
             if (refreshFromImmaster)
-                spName = "jksp_getReinitSoLineItems"; 
+                spName = "jksp_getReinitSoLineItems";
 
             this.FillData(soitemsds, "soline", spName, CommandType.StoredProcedure);
 
@@ -2144,9 +2147,9 @@ namespace Estimating
             SaveDepositTiers(restoreDefaultDepositTiers);
 
             string thisSono = this.somastds.somast[0].sono;
-            string thisVersion = this.clineds.socover[0].version; 
+            string thisVersion = this.clineds.socover[0].version;
 
-            if (this.GetVersionCoverCount(thisSono, thisVersion, customOnly:true) > 1)
+            if (this.GetVersionCoverCount(thisSono, thisVersion, customOnly: true) > 1)
             {
                 if (this.ColorHasChanged)
                 {
@@ -2416,7 +2419,7 @@ namespace Estimating
         public bool ValidateSO(string CurentFeature, bool saving, bool silent = false)
         {
             bool SoOk = true;
-            SoOk = ValidateSOCover(CurentFeature, saving, silent:silent);
+            SoOk = ValidateSOCover(CurentFeature, saving, silent: silent);
             if (SoOk == true)
             {
                 SoOk = ValidateSOHead(saving, silent: silent);
@@ -3916,7 +3919,7 @@ namespace Estimating
             this.AddParms("@custcomment", custcomments, "SQL");
             try
             {
-                ExecuteCommand("wsgsp_updateversioncomment", CommandType.StoredProcedure);
+                ExecuteCommand("jksp_updateversioncomment", CommandType.StoredProcedure);
             }
             catch (SqlException ex)
             {

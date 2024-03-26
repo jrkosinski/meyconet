@@ -1377,7 +1377,7 @@ namespace Estimating
             if (soinf.somastds.view_coverdata.Rows.Count == 0)
             {
                 // No rows. Use "A" if none specified
-                if (cover == "")
+                if (String.IsNullOrEmpty(cover))
                 {
                     CurrentCover = "A";
                 }
@@ -1389,7 +1389,7 @@ namespace Estimating
             else
             {
                 // Rows found
-                if (cover == "")
+                if (String.IsNullOrEmpty(cover))
                 {
                     // Use the first cover is none is specified
                     CurrentCover = soinf.somastds.view_coverdata[0].cover;
@@ -1399,25 +1399,36 @@ namespace Estimating
                     CurrentCover = cover;
                 }
             }
-            string product = "";
+            string product = String.Empty;
             bool productOK = true;
             string strExpr = "cover = '" + CurrentCover + "'";
             // Use the Select method to the current cover, if it exists.
             DataRow[] foundCoverRows = soinf.somastds.view_coverdata.Select(strExpr);
+            bool loadSelectedCover = false;
 
             if (foundCoverRows.Length < 1)
             {
                 // If the requested cover doesn't exist, prompt for the product before continuing.
+                string selectedProduct = String.Empty;
+                if (soinf.somastds.view_coverdata.Count > 0 && 
+                    this.versionsList.SelectedVersionPanel != null &&
+                    this.versionsList.SelectedVersionPanel.SelectedCover != null &&
+                    wsgUtilities.wsgReply("Do you want to copy from from another cover?"))
+                {
+                    selectedProduct = this.versionsList.SelectedVersionPanel.SelectedCover.ProductType;
+                    loadSelectedCover = true;
+                }
+                else
+                    selectedProduct = SelectProduct();
 
-                string selectedproduct = SelectProduct();
-                if (selectedproduct == "")
+                if (selectedProduct == String.Empty)
                 {
                     wsgUtilities.wsgNotice("You must select a product for the cover");
                     productOK = false;
                 }
                 else
                 {
-                    product = selectedproduct;
+                    product = selectedProduct;
                     if (product.TrimEnd() == "Worksheet" &&
                     ((soinf.clineds.socover[0].cover.TrimEnd() != "" && soinf.clineds.socover[0].cover.TrimEnd() != "A")
                      || (soinf.clineds.socover[0].version.TrimEnd() != "" && soinf.clineds.socover[0].version.TrimEnd() != "A")))
@@ -1470,10 +1481,52 @@ namespace Estimating
             }
 
             labelTaxdescrip.Text = appInformation.GetDistrictDescription(soinf.somastds.somast[0].taxdist);
-            LoadingLine = false;
 
-            if (loadVersionsList || forceReloadVersionsList)
-                this.LoadVersionsList(forceReloadVersionsList);
+
+            if (loadSelectedCover && this.versionsList.SelectedVersionPanel != null)
+            {
+                CopySelectedCover();
+            }
+            else
+            {
+                if (loadVersionsList || forceReloadVersionsList)
+                    this.LoadVersionsList(forceReloadVersionsList);
+            }
+            LoadingLine = false;
+        }
+
+        private void CopySelectedCover()
+        {
+            // For stock covers, -99 will force a reca
+            if (this.versionsList.SelectedVersionPanel.SelectedCover.ProductType == "Stock Cover")
+            {
+                soinf.somastds.somast[0].produnits = -99;
+            }
+            soinf.clineds.socover[0].item = this.versionsList.SelectedVersionPanel.SelectedCover.Item;
+            soinf.clineds.socover[0].descrip = soinf.GetItemDescription(soinf.clineds.socover[0].item);
+            soinf.FillColorAndMaterial(this.versionsList.SelectedVersionPanel.SelectedCover.Item);
+            RefreshCover();
+
+            if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Material))
+            {
+                this.comboBoxMaterial.SelectedIndex = this.versionsList.SelectedVersionPanel.MaterialDropdown.SelectedIndex;
+                this.comboBoxMaterial.Text = this.versionsList.SelectedVersionPanel.Material;
+            }
+            if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Color))
+            {
+                this.comboBoxColor.SelectedIndex = this.versionsList.SelectedVersionPanel.ColorDropdown.SelectedIndex;
+                this.comboBoxColor.Text = this.versionsList.SelectedVersionPanel.Color;
+            }
+            if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Overlap))
+            {
+                this.comboBoxOverlap.SelectedIndex = this.versionsList.SelectedVersionPanel.OverlapDropdown.SelectedIndex;
+                this.comboBoxOverlap.Text = this.versionsList.SelectedVersionPanel.Overlap;
+            }
+            if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Spacing))
+            {
+                this.comboBoxSpacing.SelectedIndex = this.versionsList.SelectedVersionPanel.SpacingDropdown.SelectedIndex;
+                this.comboBoxSpacing.Text = this.versionsList.SelectedVersionPanel.Spacing;
+            }
         }
 
         public void ProcessSo_NoUI(string version, string cover, bool reloadLineItems = false)
@@ -2664,6 +2717,7 @@ namespace Estimating
             {
                 newcover = "A";
             }
+
             CurrentState = "Edit Line";
             ProcessSo(soinf.somastds.soversion[0].version, newcover);
         }

@@ -219,7 +219,6 @@
             // 
             // buttonRefresh
             // 
-            //TODO: change control name as well (to buttonReinitialize) 
             this.buttonRefresh.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRefresh.Enabled = false;
             this.buttonRefresh.Location = new System.Drawing.Point(319, 2);

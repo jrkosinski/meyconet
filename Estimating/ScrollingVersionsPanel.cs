@@ -17,6 +17,13 @@ namespace Estimating
         List<VersionPanel> _versionPanels = new List<VersionPanel>();
         private int _originalPanelWidth = 0;
 
+        public VersionPanel SelectedVersionPanel
+        {
+            get {
+                return (this._versionPanels.Count > 0) ? this._versionPanels.FirstOrDefault((p) => p.IsSelected) : null;
+            }
+        }
+
         public ScrollingVersionsPanel(Form parentForm, Panel panel) : base(parentForm, panel)
         {
             this._originalPanelWidth = panel.Width;
@@ -143,7 +150,7 @@ namespace Estimating
             }
         }
 
-        private class VersionPanel
+        public class VersionPanel
         {
             private string _selectedCover = "A";
             private bool _pauseEvents = false;
@@ -158,6 +165,46 @@ namespace Estimating
                         cover = this.Version.Covers.FirstOrDefault();
 
                     return cover;
+                }
+            }
+            public string Material
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Material != null ? cover.Material.Trim() : String.Empty;
+                }
+            }
+            public string Color
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Color != null ? cover.Color.Trim() : String.Empty;
+                }
+            }
+            public string Spacing
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Spacing != null ? cover.Spacing.Trim() : String.Empty;
+                }
+            }
+            public string Overlap
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Overlap != null ? cover.Overlap.Trim() : String.Empty;
+                }
+            }
+            public string Description
+            {
+                get
+                {
+                    CoverDto cover = this.SelectedCover;
+                    return cover != null && cover.Description != null ? cover.Description.Trim() : String.Empty;
                 }
             }
             private VersionDto Version { get; set; }
@@ -279,46 +326,6 @@ namespace Estimating
                     {
                         return null;
                     }
-                }
-            }
-            private string Material
-            {
-                get
-                {
-                    CoverDto cover = this.SelectedCover;
-                    return cover != null && cover.Material != null ? cover.Material.Trim() : String.Empty;
-                }
-            }
-            private string Color
-            {
-                get
-                {
-                    CoverDto cover = this.SelectedCover;
-                    return cover != null && cover.Color != null ? cover.Color.Trim() : String.Empty;
-                }
-            }
-            private string Spacing
-            {
-                get
-                {
-                    CoverDto cover = this.SelectedCover;
-                    return cover != null && cover.Spacing != null ? cover.Spacing.Trim() : String.Empty;
-                }
-            }
-            private string Overlap
-            {
-                get
-                {
-                    CoverDto cover = this.SelectedCover;
-                    return cover != null && cover.Overlap != null ? cover.Overlap.Trim() : String.Empty;
-                }
-            }
-            private string Description
-            {
-                get
-                {
-                    CoverDto cover = this.SelectedCover;
-                    return cover != null && cover.Description != null ? cover.Description.Trim() : String.Empty;
                 }
             }
             private string ProductType
@@ -445,6 +452,9 @@ namespace Estimating
 
                 this.NewCoverButton.Click += ((object sender, EventArgs e) =>
                 {
+                    if (!this.IsSelected)
+                        this.SelectThisVersionPanel();
+
                     if (!_pauseEvents)
                     {
                         parentForm.EnterEditCoverMode();
@@ -461,6 +471,9 @@ namespace Estimating
 
                 this.NewVersionButton.Click += ((object sender, EventArgs e) =>
                 {
+                    if (!this.IsSelected)
+                        this.SelectThisVersionPanel();
+
                     if (parentForm.IsEditing)
                         parentForm.CancelEdit();
                     this.NewVersion = parentForm.CreateNewVersion(version.Version);
@@ -708,7 +721,7 @@ namespace Estimating
                 {
                     if (!this.IsSelected)
                     {
-                        this.SelectThisVersionPanel(this.VersionCode);
+                        this.SelectThisVersionPanel();
                     }
                 });
 
@@ -758,7 +771,7 @@ namespace Estimating
                             else if (!String.IsNullOrEmpty(this.DeletingVersion))
                                 this.DeletingVersion = null;
                             else
-                                this.SelectThisVersionPanel(this.VersionCode);
+                                this.SelectThisVersionPanel();
                         }
                     });
                 }
@@ -887,7 +900,7 @@ namespace Estimating
                 }
             }
 
-            private void SelectThisVersionPanel(string version)
+            private void SelectThisVersionPanel()
             {
                 this.Panel.Enabled = false;
                 this.ParentForm.SelectVersionPanel(this.VersionCode, this._selectedCover);
@@ -1003,9 +1016,10 @@ namespace Estimating
             }
         }
 
-        private class CoverDto
+        public class CoverDto
         {
             public int IdCol { get; private set; }
+            public string Item { get; set; }
             public string Description { get; set; }
             public string Color { get; set; }
             public string Material { get; set; }
@@ -1020,6 +1034,7 @@ namespace Estimating
             public CoverDto(quoterpt.view_soreportlinedataRow row)
             {
                 try { this.IdCol = row.idcol; } catch (Exception) { }
+                try { this.Item = row.item; } catch (Exception) { }
                 try { this.Description = row.descrip; } catch (Exception) { }
                 try { this.Color = row.color; } catch (Exception) { }
                 try { this.Material = row.material; } catch (Exception) { }
@@ -1037,7 +1052,7 @@ namespace Estimating
             }
         }
 
-        private class VersionDto
+        public class VersionDto
         {
             public string Version { get; set; }
             public List<CoverDto> Covers { get; private set; }
