@@ -165,16 +165,6 @@ namespace Estimating
             get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].materialChanged; }
         }
 
-        public bool OverlapHasChanged
-        {
-            get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].overlapChanged; }
-        }
-
-        public bool SpacingHasChanged
-        {
-            get { return this.clineds.socover != null && this.clineds.socover.Count > 0 && this.clineds.socover[0].spacingChanged; }
-        }
-
         public void getSingleImmasterData(string item)
         {
             itemds.immaster.Rows.Clear();
@@ -1863,25 +1853,37 @@ namespace Estimating
             resultsds.AcceptChanges();
         }
 
-        public int GetVersionCoverCount(string sono, string version, bool customOnly = false)
+        //TODO: this might be solvable by just one lambda query 
+        public bool CoversColorChanged(string sono, string version, int id, int color)
         {
-            int covercount = 0;
+            return CoversPropertyChanged(sono, version, id, color, (c) => c.colorid);
+        }
+
+        public bool CoversMaterialChanged(string sono, string version, int id, int material)
+        {
+            return CoversPropertyChanged(sono, version, id, material, (c) => c.materialid);
+        }
+
+        private bool CoversPropertyChanged(string sono, string version, int rootCoverId, int propertyId, Func<quote.view_coverdataRow, int> getprop)
+        {
             int rowcount = 0;
             LoadCoverViewData(sono, version);
             while (rowcount <= somastds.view_coverdata.Rows.Count - 1)
             {
-                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C ");
-                if (customOnly)
-                {
-                    itCounts = itCounts && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
-                }
+                //only custom covers
+                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C ") && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
+
                 if (itCounts)
                 {
-                    covercount++;
+                    if (somastds.view_coverdata[rowcount].idcol != rootCoverId)
+                    {
+                        if (somastds.view_coverdata[rowcount].colorid != propertyId)
+                            return true;
+                    }
                 }
                 rowcount++;
             }
-            return covercount;
+            return false;
         }
 
         public void EstablishBlankSOarcustData()
@@ -2148,18 +2150,25 @@ namespace Estimating
 
             string thisSono = this.somastds.somast[0].sono;
             string thisVersion = this.clineds.socover[0].version;
+            int thisId = this.clineds.socover[0].idcol;
+            int thisColor = this.clineds.socover[0].colorid;
+            int thisMaterial = this.clineds.socover[0].materialid;
 
-            if (this.GetVersionCoverCount(thisSono, thisVersion, customOnly: true) > 1)
+            if (this.ColorHasChanged)
             {
-                if (this.ColorHasChanged)
+                if (this.CoversColorChanged(thisSono, thisVersion, thisId, thisColor))
                 {
                     this.UpdateColorForAllCovers(thisSono, thisVersion, this.clineds.socover[0].colorid, silent);
                 }
+            }
 
-                if (this.MaterialHasChanged)
+            if (this.MaterialHasChanged)
+            {
+                if (this.CoversMaterialChanged(thisSono, thisVersion, thisId, thisMaterial))
                 {
                     this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
                 }
+            }
 
                 //don't do 'for all' for overlap or spacing
                 /*
@@ -2173,7 +2182,6 @@ namespace Estimating
                     this.UpdateSpacingForAllCovers(thisSono, thisVersion, this.clineds.socover[0].spacingid, silent);
                 }
                 */
-            }
 
             if (somastds.somast[0].sotype == "O" && somastds.somast[0].sostat != "V")
             {

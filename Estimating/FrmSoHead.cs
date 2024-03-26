@@ -1005,15 +1005,6 @@ namespace Estimating
                 CurrentSomastid = soinf.GetSomastBySono(saveSono);
                 CurrentSono = saveSono;
 
-                // Check for mulitple covers. If there multiple covers, force selection
-                if (!silent && soinf.GetVersionCoverCount(saveSono, thisversion) > 1)
-                {
-                    //if (wsgUtilities.wsgReply("There are other covers. Edit them?"))
-                    //{
-                    //    thiscover = miscDataMethods.GetSOVersionCover(saveSono, thisversion);
-                    //}
-                }
-
                 // Clear all other datasets
                 soinf.ClearCoverVersionLine();
                 ProcessSo(thisversion, thiscover, loadVersionsList: loadVersionsList, forceReloadVersionsList: true);
