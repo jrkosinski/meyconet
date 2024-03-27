@@ -2298,6 +2298,7 @@ namespace CommonAppClasses
                     BindingSource bindingCovers = new BindingSource();
                     bindingCovers.DataSource = somastds.view_coverdata;
                     frmCoverSelector.dataGridViewCoverSelector.DataSource = bindingCovers;
+                    frmCoverSelector.labelDataGridCount.Text = $"Returned {bindingCovers.Count} items";
                     frmCoverSelector.ShowDialog();
                     cover = frmCoverSelector.SelectedCover;
                 }
