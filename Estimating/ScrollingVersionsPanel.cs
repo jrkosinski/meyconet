@@ -413,6 +413,7 @@ namespace Estimating
 
                 this.SaveButton.Click += ((object sender, EventArgs e) =>
                 {
+                    this.Enable(false);
                     parentForm.ProcessSo(version.Version, this._selectedCover);
                     if (this.SelectedColor != null)
                         parentForm.Soinf.clineds.socover[0].colorid = this.SelectedColor.Value;
@@ -920,7 +921,7 @@ namespace Estimating
 
                 this.ColorTabLabel.BackColor = this.Color == "MOCHA" ? ColorTranslator.FromHtml("#C0A392") : System.Drawing.Color.FromName(this.Color);
                 this.ListPriceLabel.Text = $"List price: ${this.Version.ListPriceTotal.ToString("#,###.00")}";
-                this.NetPriceLabel.Text = $"Net price: ${this.Version.NetPriceTotal.ToString("#,###.00")}";
+                this.NetPriceLabel.Text = $"Net price: ${this.SelectedCover.NetPrice.ToString("#,###.00")}";
             }
 
             private void SelectDropdownItem(ComboBox dropdown, string display)
@@ -1041,7 +1042,7 @@ namespace Estimating
                 try { this.Overlap = row.overlap; } catch (Exception) { }
                 try { this.Spacing = row.spacing; } catch (Exception) { }
                 try { this.ListPrice = row.price; } catch (Exception) { }
-                try { this.NetPrice = row.extprice; } catch (Exception) { }
+                try { this.NetPrice = row.ordamt; } catch (Exception) { }
                 try { this.ProductType = row.product.Trim(); } catch (Exception) { }
                 try { this.Cover = row.cover.Trim(); } catch (Exception) { }
 
