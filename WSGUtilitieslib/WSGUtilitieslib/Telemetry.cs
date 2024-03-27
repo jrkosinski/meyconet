@@ -358,9 +358,9 @@ namespace WSGUtilitieslib.Telemetry
         {
             if (visible)
             {
-                this.timer.Interval = 100;
-                this.timer.Enabled = true; 
-                this.timer.Start();
+                //this.timer.Interval = 100;
+                //this.timer.Enabled = true; 
+                //this.timer.Start();
 
                 LoadingPanel.Size = this.ClientSize;
                 LoadingPanel.Location = new Point(0, 0);
@@ -370,8 +370,8 @@ namespace WSGUtilitieslib.Telemetry
                 Graphics g = Graphics.FromImage(controlImage);
                 g.FillRectangle(semiTransBrush, new Rectangle(Point.Empty, controlImage.Size));
 
-                this.loadingSpinner.Image = Image.FromFile("spinner.gif");
-                this.loadingSpinner.Size = new Size(300, 300);
+                //this.loadingSpinner.Image = Image.FromFile("spinner.gif");
+                //this.loadingSpinner.Size = new Size(300, 300);
                 //LoadingPanel.Controls.Add(this.loadingSpinner); 
 
                 LoadingPanel.BackgroundImage = controlImage;
@@ -382,10 +382,11 @@ namespace WSGUtilitieslib.Telemetry
 
             else
             {
-                this.timer.Stop();
-                this.timer.Enabled = false;
+                //this.timer.Stop();
+                //this.timer.Enabled = false;
                 this.Controls.Remove(this.LoadingPanel);
             }
+            this.Refresh();
         }
 
         protected virtual void Timer_Tick(object sender, System.Timers.ElapsedEventArgs e)
