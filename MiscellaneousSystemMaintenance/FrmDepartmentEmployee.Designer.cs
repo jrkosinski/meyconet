@@ -44,7 +44,7 @@
             this.buttonSave.Location = new System.Drawing.Point(350, 22);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 1;
+            this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
@@ -69,7 +69,7 @@
             this.buttonReturn.Location = new System.Drawing.Point(269, 22);
             this.buttonReturn.Name = "buttonReturn";
             this.buttonReturn.Size = new System.Drawing.Size(75, 23);
-            this.buttonReturn.TabIndex = 5;
+            this.buttonReturn.TabIndex = 0;
             this.buttonReturn.Text = "Return";
             this.buttonReturn.UseVisualStyleBackColor = true;
             // 
@@ -79,7 +79,7 @@
             this.listBoxDepartment.Location = new System.Drawing.Point(132, 80);
             this.listBoxDepartment.Name = "listBoxDepartment";
             this.listBoxDepartment.Size = new System.Drawing.Size(194, 160);
-            this.listBoxDepartment.TabIndex = 6;
+            this.listBoxDepartment.TabIndex = 1;
             // 
             // label1
             // 
@@ -127,22 +127,20 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmDepartmentEmployee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Department Employees";
+            this.Text = "0";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        public System.Windows.Forms.Button buttonSave;
         public System.Windows.Forms.ListBox listBoxUnassigned;
         public System.Windows.Forms.ListBox listBoxAssigned;
-        public System.Windows.Forms.Button buttonReturn;
         public System.Windows.Forms.ListBox listBoxDepartment;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-
+        public WSGUtilitieslib.Telemetry.Button buttonSave;
+        public WSGUtilitieslib.Telemetry.Button buttonReturn;
     }
 }

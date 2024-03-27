@@ -1,4 +1,5 @@
-﻿using WSGUtilitieslib;
+﻿using System.Windows.Forms;
+using WSGUtilitieslib;
 
 namespace MaintainSystemReferences
 {
@@ -13,6 +14,24 @@ namespace MaintainSystemReferences
             InitializeComponent();
             // Create the Inspection Information processing object
             MaintainSysReference MaintainSysRef = new MaintainSysReference("SQL", "SQLConnString", this);
+
+            SetTabOrder();
         }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.comboBoxRefrenceGroups,
+                this.buttonInsert,
+                this.buttonEdit,
+                this.buttonDelete,
+                this.buttonClear,
+                this.textBoxDescrip,
+                this.buttonSave,
+                this.buttonClose
+            });
+        }
+
     }
 }

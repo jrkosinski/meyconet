@@ -5,6 +5,13 @@
         public FrmReportViewerGeneral()
         {
             InitializeComponent();
+
+            SetTabOrder();
+        }
+
+        protected override void SetTabOrder()
+        {
+            base.SetTabOrder();
         }
     }
 }

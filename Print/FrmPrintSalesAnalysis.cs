@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using WSGUtilitieslib;
 
 namespace Print
@@ -15,9 +16,22 @@ namespace Print
         {
             InitializeComponent();
             dateTimePickerStart.Value = Convert.ToDateTime("01/01/2010");
-            dateTimePickerEnd.Value = Convert.ToDateTime("12/31/2999");
+            dateTimePickerEnd.Value = Convert.ToDateTime("31/12/2998");
             SoStartDate = dateTimePickerStart.Value;
             SoEndDate = dateTimePickerEnd.Value;
+
+            SetTabOrder();
+        }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.buttonGenerate,
+                this.dateTimePickerStart,
+                this.dateTimePickerEnd,
+                this.buttonClose
+            });
         }
 
         public DateTime SoStartDate { get; set; }
