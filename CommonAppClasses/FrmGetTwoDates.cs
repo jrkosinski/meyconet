@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using WSGUtilitieslib;
 
 namespace CommonAppClasses
@@ -15,6 +16,19 @@ namespace CommonAppClasses
             SelectedStartDate = DateTime.Now;
             SelectedEndDate = DateTime.Now;
             InitializeComponent();
+
+            SetTabOrder();
+        }
+
+        protected override void SetTabOrder()
+        {
+            this.SetTabOrder(new Control[]
+            {
+                this.dateTimePickerStart,
+                this.dateTimePickerEnd,
+                this.buttonOK,
+                this.buttonCancel
+            });
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

@@ -36,6 +36,7 @@
         this.ColumnMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
         this.ColumnColor = new System.Windows.Forms.DataGridViewTextBoxColumn();
         this.ColumnDescrip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+        this.labelDataGridCount = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCoverSelector)).BeginInit();
         this.SuspendLayout();
         // 
@@ -113,6 +114,18 @@
         this.ColumnDescrip.HeaderText = "Cover Type";
         this.ColumnDescrip.Name = "ColumnDescrip";
         this.ColumnDescrip.Width = 175;
+        //
+        // labelDataGridCount
+        //
+        this.labelDataGridCount.AutoSize = true;
+        this.labelDataGridCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        this.labelDataGridCount.Location = new System.Drawing.Point(13, 265);
+        this.labelDataGridCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+        this.labelDataGridCount.Name = "labelDataGridCount";
+        this.labelDataGridCount.Size = new System.Drawing.Size(43, 13);
+        this.labelDataGridCount.TabIndex = 3;
+        this.labelDataGridCount.Text = "Returned {n} items";
+
         // 
         // FrmCoverSelector
         // 
@@ -122,6 +135,7 @@
         this.ClientSize = new System.Drawing.Size(835, 300);
         this.Controls.Add(this.dataGridViewCoverSelector);
         this.Controls.Add(this.buttonCancel);
+        this.Controls.Add(this.labelDataGridCount);
         this.Margin = new System.Windows.Forms.Padding(2);
         this.Name = "FrmCoverSelector";
         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -141,5 +155,6 @@
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnColor;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDescrip;
     public System.Windows.Forms.DataGridView dataGridViewCoverSelector;
+    public System.Windows.Forms.Label labelDataGridCount;
   }
 }

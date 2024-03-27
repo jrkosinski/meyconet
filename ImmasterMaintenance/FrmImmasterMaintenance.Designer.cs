@@ -134,7 +134,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(318, 28);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 2;
+            this.buttonCancel.TabIndex = 17;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -143,7 +143,7 @@
             this.buttonSave.Location = new System.Drawing.Point(417, 28);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 3;
+            this.buttonSave.TabIndex = 16;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
@@ -152,7 +152,7 @@
             this.buttonClose.Location = new System.Drawing.Point(532, 28);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
-            this.buttonClose.TabIndex = 4;
+            this.buttonClose.TabIndex = 18;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
@@ -172,7 +172,7 @@
             this.textBoxItem.Name = "textBoxItem";
             this.textBoxItem.ReadOnly = true;
             this.textBoxItem.Size = new System.Drawing.Size(119, 20);
-            this.textBoxItem.TabIndex = 6;
+            this.textBoxItem.TabIndex = 20;
             // 
             // textBoxDescrip
             // 
@@ -180,14 +180,14 @@
             this.textBoxDescrip.Name = "textBoxDescrip";
             this.textBoxDescrip.ReadOnly = true;
             this.textBoxDescrip.Size = new System.Drawing.Size(332, 20);
-            this.textBoxDescrip.TabIndex = 7;
+            this.textBoxDescrip.TabIndex = 22;
             // 
             // textBoxPrcdesc
             // 
             this.textBoxPrcdesc.Location = new System.Drawing.Point(146, 124);
             this.textBoxPrcdesc.Name = "textBoxPrcdesc";
             this.textBoxPrcdesc.Size = new System.Drawing.Size(392, 20);
-            this.textBoxPrcdesc.TabIndex = 9;
+            this.textBoxPrcdesc.TabIndex = 2;
             // 
             // label2
             // 
@@ -205,7 +205,7 @@
             this.textBoxPwidthft.Location = new System.Drawing.Point(130, 13);
             this.textBoxPwidthft.Name = "textBoxPwidthft";
             this.textBoxPwidthft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPwidthft.TabIndex = 11;
+            this.textBoxPwidthft.TabIndex = 0;
             // 
             // label3
             // 
@@ -224,7 +224,7 @@
             this.label4.Location = new System.Drawing.Point(157, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(15, 13);
-            this.label4.TabIndex = 12;
+            this.label4.TabIndex = 1;
             this.label4.Text = "ft";
             // 
             // label5
@@ -234,7 +234,7 @@
             this.label5.Location = new System.Drawing.Point(205, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
-            this.label5.TabIndex = 14;
+            this.label5.TabIndex = 3;
             this.label5.Text = "in";
             // 
             // textBoxPwidthin
@@ -243,7 +243,7 @@
             this.textBoxPwidthin.Location = new System.Drawing.Point(176, 13);
             this.textBoxPwidthin.Name = "textBoxPwidthin";
             this.textBoxPwidthin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPwidthin.TabIndex = 13;
+            this.textBoxPwidthin.TabIndex = 2;
             // 
             // textBoxPlenin
             // 
@@ -251,7 +251,7 @@
             this.textBoxPlenin.Location = new System.Drawing.Point(434, 17);
             this.textBoxPlenin.Name = "textBoxPlenin";
             this.textBoxPlenin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPlenin.TabIndex = 18;
+            this.textBoxPlenin.TabIndex = 6;
             // 
             // label6
             // 
@@ -260,7 +260,7 @@
             this.label6.Location = new System.Drawing.Point(415, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(15, 13);
-            this.label6.TabIndex = 17;
+            this.label6.TabIndex = 5;
             this.label6.Text = "ft";
             // 
             // textBoxPlenft
@@ -269,7 +269,7 @@
             this.textBoxPlenft.Location = new System.Drawing.Point(388, 17);
             this.textBoxPlenft.Name = "textBoxPlenft";
             this.textBoxPlenft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPlenft.TabIndex = 16;
+            this.textBoxPlenft.TabIndex = 4;
             // 
             // label7
             // 
@@ -288,7 +288,7 @@
             this.label8.Location = new System.Drawing.Point(464, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 13);
-            this.label8.TabIndex = 19;
+            this.label8.TabIndex = 7;
             this.label8.Text = "in";
             // 
             // label9
@@ -298,7 +298,7 @@
             this.label9.Location = new System.Drawing.Point(465, 46);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(17, 13);
-            this.label9.TabIndex = 29;
+            this.label9.TabIndex = 15;
             this.label9.Text = "in";
             // 
             // textBoxPextlenin
@@ -306,7 +306,7 @@
             this.textBoxPextlenin.Location = new System.Drawing.Point(435, 44);
             this.textBoxPextlenin.Name = "textBoxPextlenin";
             this.textBoxPextlenin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPextlenin.TabIndex = 28;
+            this.textBoxPextlenin.TabIndex = 14;
             // 
             // label10
             // 
@@ -315,7 +315,7 @@
             this.label10.Location = new System.Drawing.Point(416, 46);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 13);
-            this.label10.TabIndex = 27;
+            this.label10.TabIndex = 13;
             this.label10.Text = "ft";
             // 
             // textBoxPextlenft
@@ -323,7 +323,7 @@
             this.textBoxPextlenft.Location = new System.Drawing.Point(389, 44);
             this.textBoxPextlenft.Name = "textBoxPextlenft";
             this.textBoxPextlenft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPextlenft.TabIndex = 26;
+            this.textBoxPextlenft.TabIndex = 12;
             // 
             // label11
             // 
@@ -342,7 +342,7 @@
             this.label12.Location = new System.Drawing.Point(206, 46);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(17, 13);
-            this.label12.TabIndex = 24;
+            this.label12.TabIndex = 11;
             this.label12.Text = "in";
             // 
             // textBoxPextwidin
@@ -350,7 +350,7 @@
             this.textBoxPextwidin.Location = new System.Drawing.Point(177, 40);
             this.textBoxPextwidin.Name = "textBoxPextwidin";
             this.textBoxPextwidin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPextwidin.TabIndex = 23;
+            this.textBoxPextwidin.TabIndex = 10;
             // 
             // label13
             // 
@@ -359,7 +359,7 @@
             this.label13.Location = new System.Drawing.Point(158, 46);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(15, 13);
-            this.label13.TabIndex = 22;
+            this.label13.TabIndex = 9;
             this.label13.Text = "ft";
             // 
             // textBoxPextwidft
@@ -367,7 +367,7 @@
             this.textBoxPextwidft.Location = new System.Drawing.Point(131, 40);
             this.textBoxPextwidft.Name = "textBoxPextwidft";
             this.textBoxPextwidft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxPextwidft.TabIndex = 21;
+            this.textBoxPextwidft.TabIndex = 8;
             // 
             // label14
             // 
@@ -407,7 +407,7 @@
             this.groupBoxPool.Name = "groupBoxPool";
             this.groupBoxPool.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBoxPool.Size = new System.Drawing.Size(531, 76);
-            this.groupBoxPool.TabIndex = 30;
+            this.groupBoxPool.TabIndex = 3;
             this.groupBoxPool.TabStop = false;
             this.groupBoxPool.Text = "Pool";
             // 
@@ -438,7 +438,7 @@
             this.groupBoxCover.Name = "groupBoxCover";
             this.groupBoxCover.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBoxCover.Size = new System.Drawing.Size(531, 101);
-            this.groupBoxCover.TabIndex = 31;
+            this.groupBoxCover.TabIndex = 4;
             this.groupBoxCover.TabStop = false;
             this.groupBoxCover.Text = "Cover";
             // 
@@ -449,7 +449,7 @@
             this.label15.Location = new System.Drawing.Point(465, 46);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(17, 13);
-            this.label15.TabIndex = 29;
+            this.label15.TabIndex = 15;
             this.label15.Text = "in";
             // 
             // textBoxElenin
@@ -458,7 +458,7 @@
             this.textBoxElenin.Location = new System.Drawing.Point(435, 44);
             this.textBoxElenin.Name = "textBoxElenin";
             this.textBoxElenin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxElenin.TabIndex = 28;
+            this.textBoxElenin.TabIndex = 14;
             // 
             // label16
             // 
@@ -467,7 +467,7 @@
             this.label16.Location = new System.Drawing.Point(416, 46);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(15, 13);
-            this.label16.TabIndex = 27;
+            this.label16.TabIndex = 13;
             this.label16.Text = "ft";
             // 
             // textBoxElenft
@@ -476,7 +476,7 @@
             this.textBoxElenft.Location = new System.Drawing.Point(389, 44);
             this.textBoxElenft.Name = "textBoxElenft";
             this.textBoxElenft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxElenft.TabIndex = 26;
+            this.textBoxElenft.TabIndex = 12;
             // 
             // label17
             // 
@@ -495,7 +495,7 @@
             this.label18.Location = new System.Drawing.Point(206, 42);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(17, 13);
-            this.label18.TabIndex = 24;
+            this.label18.TabIndex = 11;
             this.label18.Text = "in";
             // 
             // textBoxEwidthin
@@ -504,7 +504,7 @@
             this.textBoxEwidthin.Location = new System.Drawing.Point(177, 40);
             this.textBoxEwidthin.Name = "textBoxEwidthin";
             this.textBoxEwidthin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxEwidthin.TabIndex = 23;
+            this.textBoxEwidthin.TabIndex = 10;
             // 
             // label19
             // 
@@ -513,7 +513,7 @@
             this.label19.Location = new System.Drawing.Point(158, 42);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(15, 13);
-            this.label19.TabIndex = 22;
+            this.label19.TabIndex = 9;
             this.label19.Text = "ft";
             // 
             // textBoxEwidthft
@@ -522,7 +522,7 @@
             this.textBoxEwidthft.Location = new System.Drawing.Point(131, 40);
             this.textBoxEwidthft.Name = "textBoxEwidthft";
             this.textBoxEwidthft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxEwidthft.TabIndex = 21;
+            this.textBoxEwidthft.TabIndex = 8;
             // 
             // label21
             // 
@@ -531,7 +531,7 @@
             this.label21.Location = new System.Drawing.Point(464, 21);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(17, 13);
-            this.label21.TabIndex = 19;
+            this.label21.TabIndex = 7;
             this.label21.Text = "in";
             // 
             // textBoxClenin
@@ -540,7 +540,7 @@
             this.textBoxClenin.Location = new System.Drawing.Point(434, 17);
             this.textBoxClenin.Name = "textBoxClenin";
             this.textBoxClenin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxClenin.TabIndex = 18;
+            this.textBoxClenin.TabIndex = 6;
             // 
             // label22
             // 
@@ -549,7 +549,7 @@
             this.label22.Location = new System.Drawing.Point(415, 21);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(15, 13);
-            this.label22.TabIndex = 17;
+            this.label22.TabIndex = 5;
             this.label22.Text = "ft";
             // 
             // textBoxClenft
@@ -558,7 +558,7 @@
             this.textBoxClenft.Location = new System.Drawing.Point(388, 17);
             this.textBoxClenft.Name = "textBoxClenft";
             this.textBoxClenft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxClenft.TabIndex = 16;
+            this.textBoxClenft.TabIndex = 4;
             // 
             // label23
             // 
@@ -577,7 +577,7 @@
             this.label24.Location = new System.Drawing.Point(205, 19);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(17, 13);
-            this.label24.TabIndex = 14;
+            this.label24.TabIndex = 3;
             this.label24.Text = "in";
             // 
             // textBoxCwidthin
@@ -586,7 +586,7 @@
             this.textBoxCwidthin.Location = new System.Drawing.Point(176, 13);
             this.textBoxCwidthin.Name = "textBoxCwidthin";
             this.textBoxCwidthin.Size = new System.Drawing.Size(24, 20);
-            this.textBoxCwidthin.TabIndex = 13;
+            this.textBoxCwidthin.TabIndex = 2;
             // 
             // label25
             // 
@@ -595,7 +595,7 @@
             this.label25.Location = new System.Drawing.Point(157, 19);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(15, 13);
-            this.label25.TabIndex = 12;
+            this.label25.TabIndex = 1;
             this.label25.Text = "ft";
             // 
             // textBoxCwidthft
@@ -604,7 +604,7 @@
             this.textBoxCwidthft.Location = new System.Drawing.Point(130, 13);
             this.textBoxCwidthft.Name = "textBoxCwidthft";
             this.textBoxCwidthft.Size = new System.Drawing.Size(24, 20);
-            this.textBoxCwidthft.TabIndex = 11;
+            this.textBoxCwidthft.TabIndex = 0;
             // 
             // label26
             // 
@@ -621,7 +621,7 @@
             this.textBoxSqft.Location = new System.Drawing.Point(149, 319);
             this.textBoxSqft.Name = "textBoxSqft";
             this.textBoxSqft.Size = new System.Drawing.Size(52, 20);
-            this.textBoxSqft.TabIndex = 33;
+            this.textBoxSqft.TabIndex = 5;
             // 
             // label27
             // 
@@ -638,7 +638,7 @@
             this.textBoxEsqft.Location = new System.Drawing.Point(408, 319);
             this.textBoxEsqft.Name = "textBoxEsqft";
             this.textBoxEsqft.Size = new System.Drawing.Size(52, 20);
-            this.textBoxEsqft.TabIndex = 35;
+            this.textBoxEsqft.TabIndex = 6;
             // 
             // label28
             // 
@@ -673,7 +673,7 @@
             this.textBoxStrap.Location = new System.Drawing.Point(147, 468);
             this.textBoxStrap.Name = "textBoxStrap";
             this.textBoxStrap.Size = new System.Drawing.Size(52, 20);
-            this.textBoxStrap.TabIndex = 43;
+            this.textBoxStrap.TabIndex = 12;
             // 
             // label30
             // 
@@ -710,7 +710,7 @@
             this.textBoxCustplan.Location = new System.Drawing.Point(148, 500);
             this.textBoxCustplan.Name = "textBoxCustplan";
             this.textBoxCustplan.Size = new System.Drawing.Size(418, 20);
-            this.textBoxCustplan.TabIndex = 45;
+            this.textBoxCustplan.TabIndex = 13;
             // 
             // label20
             // 
@@ -727,7 +727,7 @@
             this.textBoxSpechard.Location = new System.Drawing.Point(147, 525);
             this.textBoxSpechard.Name = "textBoxSpechard";
             this.textBoxSpechard.Size = new System.Drawing.Size(419, 20);
-            this.textBoxSpechard.TabIndex = 47;
+            this.textBoxSpechard.TabIndex = 14;
             // 
             // label33
             // 
@@ -745,7 +745,7 @@
             this.textBoxPrccom.Multiline = true;
             this.textBoxPrccom.Name = "textBoxPrccom";
             this.textBoxPrccom.Size = new System.Drawing.Size(419, 58);
-            this.textBoxPrccom.TabIndex = 49;
+            this.textBoxPrccom.TabIndex = 15;
             // 
             // label34
             // 
@@ -763,7 +763,7 @@
             this.radioButtonStock.Location = new System.Drawing.Point(24, 19);
             this.radioButtonStock.Name = "radioButtonStock";
             this.radioButtonStock.Size = new System.Drawing.Size(53, 17);
-            this.radioButtonStock.TabIndex = 50;
+            this.radioButtonStock.TabIndex = 0;
             this.radioButtonStock.TabStop = true;
             this.radioButtonStock.Text = "Stock";
             this.radioButtonStock.UseVisualStyleBackColor = true;
@@ -774,7 +774,7 @@
             this.radioButtonStd.Location = new System.Drawing.Point(24, 38);
             this.radioButtonStd.Name = "radioButtonStd";
             this.radioButtonStd.Size = new System.Drawing.Size(68, 17);
-            this.radioButtonStd.TabIndex = 51;
+            this.radioButtonStd.TabIndex = 1;
             this.radioButtonStd.TabStop = true;
             this.radioButtonStd.Text = "Standard";
             this.radioButtonStd.UseVisualStyleBackColor = true;
@@ -786,7 +786,7 @@
             this.groupBoxCoverType.Location = new System.Drawing.Point(127, 345);
             this.groupBoxCoverType.Name = "groupBoxCoverType";
             this.groupBoxCoverType.Size = new System.Drawing.Size(114, 64);
-            this.groupBoxCoverType.TabIndex = 52;
+            this.groupBoxCoverType.TabIndex = 7;
             this.groupBoxCoverType.TabStop = false;
             // 
             // label29
@@ -824,7 +824,7 @@
             this.textBoxPrwcov.Location = new System.Drawing.Point(147, 439);
             this.textBoxPrwcov.Name = "textBoxPrwcov";
             this.textBoxPrwcov.Size = new System.Drawing.Size(93, 20);
-            this.textBoxPrwcov.TabIndex = 56;
+            this.textBoxPrwcov.TabIndex = 11;
             // 
             // checkBoxAppldisc
             // 
@@ -832,7 +832,7 @@
             this.checkBoxAppldisc.Location = new System.Drawing.Point(149, 421);
             this.checkBoxAppldisc.Name = "checkBoxAppldisc";
             this.checkBoxAppldisc.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAppldisc.TabIndex = 57;
+            this.checkBoxAppldisc.TabIndex = 10;
             this.checkBoxAppldisc.UseVisualStyleBackColor = true;
             // 
             // comboBoxColor
@@ -841,7 +841,7 @@
             this.comboBoxColor.Location = new System.Drawing.Point(354, 358);
             this.comboBoxColor.Name = "comboBoxColor";
             this.comboBoxColor.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxColor.TabIndex = 58;
+            this.comboBoxColor.TabIndex = 8;
             // 
             // comboBoxMaterial
             // 
@@ -849,7 +849,7 @@
             this.comboBoxMaterial.Location = new System.Drawing.Point(355, 423);
             this.comboBoxMaterial.Name = "comboBoxMaterial";
             this.comboBoxMaterial.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxMaterial.TabIndex = 59;
+            this.comboBoxMaterial.TabIndex = 9;
             // 
             // FrmImmasterMaintenance
             // 
@@ -908,12 +908,6 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.Button buttonSelect;
-        public System.Windows.Forms.Button buttonEdit;
-        public System.Windows.Forms.Button buttonCancel;
-        public System.Windows.Forms.Button buttonSave;
-        public System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBoxItem;
         public System.Windows.Forms.TextBox textBoxDescrip;
@@ -964,8 +958,6 @@
         private System.Windows.Forms.Label label27;
         public System.Windows.Forms.TextBox textBoxEsqft;
         private System.Windows.Forms.Label label28;
-        public System.Windows.Forms.Button button1;
-        public System.Windows.Forms.Button button2;
         public System.Windows.Forms.TextBox textBoxStrap;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
@@ -986,5 +978,12 @@
         public System.Windows.Forms.CheckBox checkBoxAppldisc;
         public System.Windows.Forms.ComboBox comboBoxColor;
         public System.Windows.Forms.ComboBox comboBoxMaterial;
+        public WSGUtilitieslib.Telemetry.Button buttonSelect;
+        public WSGUtilitieslib.Telemetry.Button buttonEdit;
+        public WSGUtilitieslib.Telemetry.Button buttonCancel;
+        public WSGUtilitieslib.Telemetry.Button buttonSave;
+        public WSGUtilitieslib.Telemetry.Button buttonClose;
+        public WSGUtilitieslib.Telemetry.Button button1;
+        public WSGUtilitieslib.Telemetry.Button button2;
     }
 }
