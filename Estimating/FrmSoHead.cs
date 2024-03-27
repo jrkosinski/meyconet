@@ -1400,17 +1400,19 @@ namespace Estimating
             if (foundCoverRows.Length < 1)
             {
                 // If the requested cover doesn't exist, prompt for the product before continuing.
-                string selectedProduct = String.Empty;
+                string selectedProduct = SelectProduct();
+
+                //here we ask ourselves: should we copy from the source cover?
                 if (soinf.somastds.view_coverdata.Count > 0 && 
                     this.versionsList.SelectedVersionPanel != null &&
-                    this.versionsList.SelectedVersionPanel.SelectedCover != null &&
-                    wsgUtilities.wsgReply("Do you want to copy from from another cover?"))
+                    this.versionsList.SelectedVersionPanel.SelectedCover != null)
                 {
-                    selectedProduct = this.versionsList.SelectedVersionPanel.SelectedCover.ProductType;
-                    loadSelectedCover = true;
+                    if (selectedProduct != "Stock Cover")
+                    {
+                        if (this.versionsList.SelectedVersionPanel.SelectedCover.ProductType != "Stock Cover")
+                            loadSelectedCover = true;
+                    }
                 }
-                else
-                    selectedProduct = SelectProduct();
 
                 if (selectedProduct == String.Empty)
                 {
@@ -1501,23 +1503,28 @@ namespace Estimating
             if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Material))
             {
                 this.comboBoxMaterial.SelectedIndex = this.versionsList.SelectedVersionPanel.MaterialDropdown.SelectedIndex;
-                this.comboBoxMaterial.Text = this.versionsList.SelectedVersionPanel.Material;
+                soinf.clineds.socover[0].materialid = Convert.ToInt32(comboBoxMaterial.SelectedValue);
+                textBoxMaterialDesc.Text = soinf.GetMaterialDescription(soinf.clineds.socover[0].materialid);
             }
             if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Color))
             {
                 this.comboBoxColor.SelectedIndex = this.versionsList.SelectedVersionPanel.ColorDropdown.SelectedIndex;
-                this.comboBoxColor.Text = this.versionsList.SelectedVersionPanel.Color;
+                soinf.clineds.socover[0].colorid = Convert.ToInt32(comboBoxColor.SelectedValue);
+                textBoxColordesc.Text = soinf.GetColorDescription(soinf.clineds.socover[0].colorid);
             }
             if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Overlap))
             {
                 this.comboBoxOverlap.SelectedIndex = this.versionsList.SelectedVersionPanel.OverlapDropdown.SelectedIndex;
-                this.comboBoxOverlap.Text = this.versionsList.SelectedVersionPanel.Overlap;
+                soinf.clineds.socover[0].overlapid = Convert.ToInt32(comboBoxOverlap.SelectedValue);
+                textBoxOverlapdesc.Text = soinf.GetOverlapDescription(soinf.clineds.socover[0].overlapid);
             }
             if (!String.IsNullOrEmpty(this.versionsList.SelectedVersionPanel.Spacing))
             {
                 this.comboBoxSpacing.SelectedIndex = this.versionsList.SelectedVersionPanel.SpacingDropdown.SelectedIndex;
-                this.comboBoxSpacing.Text = this.versionsList.SelectedVersionPanel.Spacing;
+                soinf.clineds.socover[0].spacingid = Convert.ToInt32(comboBoxSpacing.SelectedValue);
+                textBoxSpacingdesc.Text = soinf.GetSpacingDescription(soinf.clineds.socover[0].spacingid);
             }
+            this.Update();
         }
 
         public void ProcessSo_NoUI(string version, string cover, bool reloadLineItems = false)
