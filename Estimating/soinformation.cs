@@ -1867,21 +1867,24 @@ namespace Estimating
         private bool CoversPropertyChanged(string sono, string version, int rootCoverId, int propertyId, Func<quote.view_coverdataRow, int> getprop)
         {
             int rowcount = 0;
-            LoadCoverViewData(sono, version);
-            while (rowcount <= somastds.view_coverdata.Rows.Count - 1)
+            if (rootCoverId > 0)
             {
-                //only custom covers
-                bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C ") && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
-
-                if (itCounts)
+                LoadCoverViewData(sono, version);
+                while (rowcount <= somastds.view_coverdata.Rows.Count - 1)
                 {
-                    if (somastds.view_coverdata[rowcount].idcol != rootCoverId)
+                    //only custom covers
+                    bool itCounts = (somastds.view_coverdata[rowcount].covertype == "C ") && (somastds.view_coverdata[rowcount].product.Trim() != "Stock Cover");
+
+                    if (itCounts)
                     {
-                        if (somastds.view_coverdata[rowcount].colorid != propertyId)
-                            return true;
+                        if (somastds.view_coverdata[rowcount].idcol != rootCoverId)
+                        {
+                            if (getprop(somastds.view_coverdata[rowcount]) != propertyId)
+                                return true;
+                        }
                     }
+                    rowcount++;
                 }
-                rowcount++;
             }
             return false;
         }
@@ -2154,34 +2157,24 @@ namespace Estimating
             int thisColor = this.clineds.socover[0].colorid;
             int thisMaterial = this.clineds.socover[0].materialid;
 
-            if (this.ColorHasChanged)
+            if (this.clineds.socover[0].cover == "A")
             {
-                if (this.CoversColorChanged(thisSono, thisVersion, thisId, thisColor))
+                if (this.ColorHasChanged)
                 {
-                    this.UpdateColorForAllCovers(thisSono, thisVersion, this.clineds.socover[0].colorid, silent);
+                    if (this.CoversColorChanged(thisSono, thisVersion, thisId, thisColor))
+                    {
+                        this.UpdateColorForAllCovers(thisSono, thisVersion, this.clineds.socover[0].colorid, silent);
+                    }
+                }
+
+                if (this.MaterialHasChanged)
+                {
+                    if (this.CoversMaterialChanged(thisSono, thisVersion, thisId, thisMaterial))
+                    {
+                        this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
+                    }
                 }
             }
-
-            if (this.MaterialHasChanged)
-            {
-                if (this.CoversMaterialChanged(thisSono, thisVersion, thisId, thisMaterial))
-                {
-                    this.UpdateMaterialForAllCovers(thisSono, thisVersion, this.clineds.socover[0].materialid, silent);
-                }
-            }
-
-                //don't do 'for all' for overlap or spacing
-                /*
-                if (this.OverlapHasChanged)
-                {
-                    this.UpdateOverlapForAllCovers(thisSono, thisVersion, this.clineds.socover[0].overlapid, silent);
-                }
-
-                if (this.SpacingHasChanged)
-                {
-                    this.UpdateSpacingForAllCovers(thisSono, thisVersion, this.clineds.socover[0].spacingid, silent);
-                }
-                */
 
             if (somastds.somast[0].sotype == "O" && somastds.somast[0].sostat != "V")
             {
