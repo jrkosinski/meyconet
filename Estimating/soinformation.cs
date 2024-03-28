@@ -2157,6 +2157,7 @@ namespace Estimating
             int thisColor = this.clineds.socover[0].colorid;
             int thisMaterial = this.clineds.socover[0].materialid;
 
+            //TODO: this should not be the condition. It should be the "FIRST" cover. 
             if (this.clineds.socover[0].cover == "A")
             {
                 if (this.ColorHasChanged)
@@ -2462,8 +2463,6 @@ namespace Estimating
                 if (SocoverOk == true)
                 {
                     // Check the price/sqft
-                    if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
-                        clineds.socover[0].prcsqft = 1;
                     if (clineds.socover[0].prcsqft <= 0 && clineds.socover[0].product.TrimEnd() != "Stock Cover")
                     {
                         if (!silent) LogCoverError("102", true);
