@@ -106,6 +106,8 @@ namespace Estimating
                 }
             }
         }
+        public string CurrentVersionBeforeEdit { get; private set; }
+        public string CurrentCoverBeforeEdit { get; private set; }
         public string CurrentState { get; set; }
         public string PassedSono { get; set; }
         public string CurrentSono { get; set; }
@@ -445,7 +447,11 @@ namespace Estimating
                 bindingResults.DataSource = soinf.resultsds.soline;
 
                 CurrentState = "View";
-                ProcessSo("", "");
+
+                ProcessSo(CurrentVersionBeforeEdit, CurrentCoverBeforeEdit);
+                CurrentVersionBeforeEdit = String.Empty;
+                CurrentCoverBeforeEdit = String.Empty;
+
                 RefreshControls();
             }
         }
@@ -982,6 +988,9 @@ namespace Estimating
 
         public void SaveSo(bool silent = false, bool loadVersionsList = true)
         {
+            CurrentCoverBeforeEdit = String.Empty;
+            CurrentVersionBeforeEdit = String.Empty;
+
             if (soinf.ValidateSO(CurrentFeature, true, silent: silent) == true)
             {
                 CurrentFeature = "";
@@ -1655,6 +1664,7 @@ namespace Estimating
 
         # region Combo Box SelectedIndexChanged Methods
 
+        //TODO: why does it exist?
         private void comboBoxCover_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LoadingLine != true)
@@ -1665,6 +1675,7 @@ namespace Estimating
             }
         }
 
+        //TODO: why does it exist?
         private void comboBoxMaterial_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LoadingLine != true)
@@ -1675,6 +1686,7 @@ namespace Estimating
             }
         }
 
+        //TODO: why does it exist?
         private void comboBoxSpacing_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LoadingLine != true)
@@ -1687,6 +1699,7 @@ namespace Estimating
             }
         }
 
+        //TODO: why does it exist?
         private void comboBoxOverlap_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LoadingLine != true)
@@ -2220,6 +2233,9 @@ namespace Estimating
                 string editstatus = soinf.LockSomast(soinf.somastds.somast[0].idcol);
                 if (editstatus == "OK")
                 {
+                    CurrentVersionBeforeEdit = CurrentVersion;
+                    CurrentCoverBeforeEdit = CurrentCover;
+
                     CurrentState = "Edit Line";
                     CurrentFeature = "";
                     RefreshControls();
@@ -2328,6 +2344,9 @@ namespace Estimating
 
         public string CreateNewVersion(string selectedVersion = null)
         {
+            CurrentVersionBeforeEdit = CurrentVersion;
+            CurrentCoverBeforeEdit = CurrentCover;
+
             if (soinf.somastds.somast[0].sotype == "B")
             {
                 string newversion = String.Empty;
@@ -2701,7 +2720,10 @@ namespace Estimating
 
         public void CreateNewCover()
         {
+            CurrentVersionBeforeEdit = CurrentVersion;
+            CurrentCoverBeforeEdit = CurrentCover;
             string newcover = "";
+
             soinf.LoadCoverViewData(soinf.somastds.somast[0].sono, CurrentVersion);
             if (soinf.somastds.view_coverdata.Rows.Count > 0)
             {

@@ -52,15 +52,18 @@ namespace Estimating
             {
                 var row = ((FrmSOHead)this._parentForm).Soinf.clineds.socover.FirstOrDefault(x => x.cover == cover);
 
-                this._versionPanels[index].UpdateUI(
-                    row.idcol,
-                    row.product.Trim(),
-                    row.descrip.Trim(),
-                    row.colorid,
-                    row.materialid,
-                    row.overlapid,
-                    row.spacingid
-                );
+                if (row != null)
+                {
+                    this._versionPanels[index].UpdateUI(
+                        row.idcol,
+                        row.product.Trim(),
+                        row.descrip.Trim(),
+                        row.colorid,
+                        row.materialid,
+                        row.overlapid,
+                        row.spacingid
+                    );
+                }
             }
         }
 
@@ -720,7 +723,7 @@ namespace Estimating
 
                 this.Panel.Click += ((object sender, EventArgs e) =>
                 {
-                    if (!this.IsSelected)
+                    if (!this.IsSelected && !this.ParentForm.IsEditing)
                     {
                         this.SelectThisVersionPanel();
                     }
@@ -771,7 +774,7 @@ namespace Estimating
                                 this.NewVersion = null;
                             else if (!String.IsNullOrEmpty(this.DeletingVersion))
                                 this.DeletingVersion = null;
-                            else
+                            else if (!this.ParentForm.IsEditing)
                                 this.SelectThisVersionPanel();
                         }
                     });
@@ -809,6 +812,7 @@ namespace Estimating
                 this.OverlapDropdown.Enabled = enabled && this.SelectedCover.IsEditable && !this.ParentForm.IsEditing;
                 this.InternalCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
                 this.CustomerCommentsButton.Enabled = enabled && !this.ParentForm.IsEditing;
+                this.CoverDropdown.Enabled = enabled && !this.ParentForm.IsEditing;
 
                 if (!enabled || this.ParentForm.IsEditing)
                 {
